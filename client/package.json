@@ -4,6 +4,8 @@
   "engines": {
     "node": "12.x"
   },
+  "private": true,
+  "proxy": "http://localhost:3001/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -14,8 +16,10 @@
     "serve": "^11.3.2"
   },
   "scripts": {
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {

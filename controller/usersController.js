@@ -1,4 +1,5 @@
 const users = [];
+const bcrypt = require("bcrypt");
 
 module.exports = {
   find: function(req, res) {
@@ -6,6 +7,6 @@ module.exports = {
   },
   create: function(req, res) {
     users.push(req.body);
-    res.json(users);
+    res.status(201).send(users);
   }
 }
