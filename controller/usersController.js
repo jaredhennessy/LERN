@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
 
-// REPLACE WITH DATABASE IN FUTURE
+// *** REPLACE WITH DATABASE IN FUTURE
 const users = [];
 const courses = [
   {
@@ -27,6 +27,7 @@ const courses = [
     description: "Learn the basics of jQuery"
   }
 ];
+// *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
 
 module.exports = {
@@ -34,15 +35,32 @@ module.exports = {
     res.json(users);
   },
   createUser: async function(req, res) {
+    const { username, password, passwordCheck, email } = req.body;
+    
+    // Validate required fields, password length, passwords match
+    if (!email || !password || !passwordCheck || !username) return res.status(400).json({msg: "Missing required fields."});
+    if (password !== passwordCheck) return res.status(400).json({msg: "Passwords do not match."});
+    if (password.length < 6) return res.status(400).json({msg: "Password needs to be at least 6 characters."});
+    
+    // *** REPLACE WITH CHECK TO DATABASE, Validate username/email doesn't already exist
+    if (!!users.find(user => user.username === username)) return res.status(400).json({msg: "Username is taken."});
+    if (!!users.find(user => user.email === email)) return res.status(400).json({msg: "Email has already been used."});
+    
     try {
       // User password will be salted and hashed by bcrypt
-      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const hashedPassword = await bcrypt.hash(password, 10);
 
+      // *** REPLACE WITH DATABASE MODEL; const newUser = new User({})
       // Create a new user with the username and HASHED password
-      const newUser = { name: req.body.name, password: hashedPassword }
+      const newUser = { 
+        username: username, 
+        password: hashedPassword,
+        email: email 
+      }
 
-      // Push to database (array for now), send success status
+      // *** REPLACE WITH DATABASE MODEL; Push to database (array for now), send success status
       users.push(newUser);
+
       res.status(201).send();
     } catch(err) {
       console.log(err);
@@ -50,8 +68,8 @@ module.exports = {
     }
   },
   userLogin: async function(req, res) {
-    // Find user in the database (REPLACE users WITH DATABASE)
-    const user = users.find(user => user.name === req.body.name); 
+    // Find user in the database (*** REPLACE users WITH DATABASE)
+    const user = users.find(user => user.username === req.body.username); 
 
     // If no user, return bad response
     if (user == null) {
@@ -74,19 +92,24 @@ module.exports = {
     }
   },
   findUserCourses: function(req, res) {
-    res.json(courses.filter(course => course.owner === req.user.name));
+    // Search through courses and return courses where course owner matches username
+    res.json(courses.filter(course => course.owner === req.user.username));
   },
   refreshToken: function(req, res) {
+    // Validate the user token is not missing and still valid
     const refreshToken = req.body.token;
     if (refreshToken == null) return res.sendStatus(401);
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
+
+    // Verify token with JWT, if passes a new acess token is generated for this user
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
       if (err) return res.sendStatus(403);
-      const accessToken = generateAccessToken({ name: user.name});
+      const accessToken = generateAccessToken({ username: user.username});
       res.json({ accessToken: accessToken });
     })
   },
   deleteToken: function(req, res) {
+    // Remove the refresh token from the database (array for now)
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
   }
