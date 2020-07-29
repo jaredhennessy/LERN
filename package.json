@@ -4,6 +4,7 @@
   "description": "LERN built with MERN",
   "main": "server.js",
   "dependencies": {
+    "axios": "^0.19.2",
     "@material-ui/core": "^4.11.0",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -28,14 +29,15 @@
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaredhennessy/LERN.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chris Bragg, Cristian Montenegro, Dan Weikart, Jared Hennessy",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jaredhennessy/LERN/issues"
