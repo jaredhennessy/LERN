@@ -5,10 +5,11 @@ const Schema = mongoose.Schema;
 const courseSchema = new Schema({
   title: {
     type: String,
+    unique: true,
     required: "Enter a title."
   },
   image: {
-    type: String
+    type: Buffer
   },
   category: {
     type: Schema.Types.ObjectId,
@@ -18,7 +19,20 @@ const courseSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  Users: [{ type: Schema.Types.ObjectId, ref: "User" }]
+  Users: [
+    {
+      user: { type: Schema.Types.ObjectId, ref: "User" },
+      instructor: { type: Boolean },
+      currentPage: { type: Number },
+      dateStarted: {
+        type: Date,
+        default: Date.now
+      },
+      dateCompleted: {
+        type: Date
+      }
+    }
+  ]
 });
 
 const Course = mongoose.model("User", courseSchema);
