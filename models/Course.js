@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
 
 const courseSchema = new Schema({
@@ -7,6 +6,9 @@ const courseSchema = new Schema({
     type: String,
     unique: true,
     required: "Enter a title."
+  },
+  description: {
+    type: String
   },
   image: {
     type: Buffer
@@ -19,22 +21,12 @@ const courseSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  Users: [
-    {
-      user: { type: Schema.Types.ObjectId, ref: "User" },
-      instructor: { type: Boolean },
-      currentPage: { type: Number },
-      dateStarted: {
-        type: Date,
-        default: Date.now
-      },
-      dateCompleted: {
-        type: Date
-      }
-    }
-  ]
+  instructor: {
+    type: Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
-const Course = mongoose.model("User", courseSchema);
+const Course = mongoose.model("Course", courseSchema);
 
 module.exports = Course;
