@@ -22,7 +22,7 @@ router.route("/login")
 router.route("/token")
   .post(usersController.refreshToken) 
 
-// Matches with "/api/users/login", deletes RefreshToken  
+// Matches with "/api/users/logout", deletes RefreshToken  
 router.route("/logout")
   .delete(usersController.deleteToken)
 

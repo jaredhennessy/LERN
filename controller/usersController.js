@@ -72,9 +72,7 @@ module.exports = {
     const user = users.find(user => user.username === req.body.username); 
 
     // If no user, return bad response
-    if (user == null) {
-      return res.status(400).send("Incorrect credentials");
-    }
+    if (user == null) return res.status(400).send("Incorrect credentials");
 
     // Else, compare user supplied password to the hashed password; use bcrypt compare to avoid timing attacks
     try {
@@ -82,7 +80,7 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken });
+        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username });
       } else {
         res.status(400).send("Incorrect credentials");
       }
