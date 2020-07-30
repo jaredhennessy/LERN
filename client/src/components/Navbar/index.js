@@ -21,6 +21,7 @@ import CategoryIcon from "@material-ui/icons/Category";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import InfoIcon from '@material-ui/icons/Info';
 import CreateIcon from '@material-ui/icons/Create';
+import Container from "@material-ui/core/Container";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -82,6 +83,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     [theme.breakpoints.up("md")]: {
       display: "none",
+      justify: "space-between",
     },
   },
 }));
@@ -113,6 +115,7 @@ export default function Navbar() {
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
+      
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -139,19 +142,12 @@ export default function Navbar() {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        {/* <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p> */}
         <IconButton aria-label="donate" color="inherit">
           <Badge color="secondary">
             <MonetizationOnIcon />
           </Badge>
         </IconButton>
         <p>Donate</p>
-        {/* <Button color="inherit">Donate</Button> */}
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="home" color="inherit">
@@ -193,57 +189,14 @@ export default function Navbar() {
         </IconButton>
         <p>Logout</p>
       </MenuItem>
-
-      <MenuItem>
-        {/* <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p> */}
-      </MenuItem>
-      {/* <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem> */}
     </Menu>
   );
 
   return (
     <div className={classes.grow}>
+        <Container>
       <AppBar position="static">
         <Toolbar>
-          {/* <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-          >
-            <MenuIcon />
-          </IconButton> */}
-          {/* <Typography className={classes.title} variant="h6" noWrap>
-            Material-UI
-          </Typography> */}
-          {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <Button color="inherit">Donate</Button>
@@ -252,27 +205,6 @@ export default function Navbar() {
             <Button color="inherit">Teach!</Button>
             <Button color="inherit">About LERN</Button>
             <Button color="inherit">Logout</Button>
-
-            {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -287,6 +219,7 @@ export default function Navbar() {
           </div>
         </Toolbar>
       </AppBar>
+      </Container>
       {renderMobileMenu}
       {renderMenu}
     </div>
