@@ -8,49 +8,38 @@ const generateAccessToken = require("../utils/generateAccessToken");
 let refreshTokens = [];
 
 module.exports = {
-  findAll: function (req, res) {
-    db.User.find(req.query)
-      .sort({ username: 1 })
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+  findUser: function(req, res) {
+    db.User.findOne({
+      username: req.user.username
+    }).then(data => {
+      res.json(data)
+    }).catch(err => {
+      console.log(err);
+    }) 
   },
-  createUser: async function (req, res) {
-    const { username, password, passwordCheck, email } = req.body;
-
-    // Validate required fields, password length, passwords match
-    if (!email || !password || !passwordCheck || !username)
-      return res.status(400).json({ msg: "Missing required fields." });
-    if (password !== passwordCheck)
-      return res.status(400).json({ msg: "Passwords do not match." });
-    if (password.length < 6)
-      return res
-        .status(400)
-        .json({ msg: "Password needs to be at least 6 characters." });
-
-    // *** REPLACE WITH CHECK TO DATABASE, Validate username/email doesn't already exist
-    if (!!users.find(user => user.username === username))
-      return res.status(400).json({ msg: "Username is taken." });
-    if (!!users.find(user => user.email === email))
-      return res.status(400).json({ msg: "Email has already been used." });
-
+  createUser: async function(req, res) {
+    const { username, password, email } = req.body;
+    
+    // Validate username/email doesn't already exist
+    const existingUser = await db.User.findOne({username: username});
+    if (existingUser) return res.status(400).send("Username is taken.");
+    const existingEmail = await db.User.findOne({email: email});
+    if (existingEmail) return res.status(400).send("Email has already been used.");
+  
     try {
       // User password will be salted and hashed by bcrypt
       const hashedPassword = await bcrypt.hash(password, 10);
 
       // Create a new user with the username and HASHED password
-      const newUser = new User({
+      const newUser = {
         username: username,
         password: hashedPassword,
         email: email
-      });
+      };
 
-      newUser.save(function (err, result) {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(result);
-        }
-      });
+      db.User.create(newUser)
+        .then(res.status(200).send())
+        .catch(err => console.log(err))
     } catch (err) {
       console.log(err);
       res.status(500).send();
@@ -58,21 +47,18 @@ module.exports = {
   },
   userLogin: async function (req, res) {
     // Find user in the database (*** REPLACE users WITH DATABASE)
-    const user = db.User.findOne({ username: req.body.username });
-    console.log(user);
+    const user = await db.User.findOne({ username: req.body.username });
 
     // If no user, return bad response
-    if (user == null) {
-      return res.status(400).send("Incorrect credentials");
-    }
+    if (user == null) return res.status(400).send("Incorrect credentials");
 
     // Else, compare user supplied password to the hashed password; use bcrypt compare to avoid timing attacks
     try {
       if (await bcrypt.compare(req.body.password, user.password)) {
         const accessToken = generateAccessToken(user);
-        const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET);
+        const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken });
+        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username });
       } else {
         res.status(400).send("Incorrect credentials");
       }
@@ -82,8 +68,14 @@ module.exports = {
     }
   },
   findUserCourses: function (req, res) {
-    // Search through courses and return courses where course owner matches username
-    res.json(courses.filter(course => course.owner === req.user.username));
+    // Return through courses and return courses where course owner matches username
+    db.User.findOne({
+      username: req.user.username
+    }).then(data => {
+      res.json(data.courses)
+    }).catch(err => {
+      console.log(err);
+    }) 
   },
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
@@ -91,7 +83,7 @@ module.exports = {
     if (refreshToken == null) return res.sendStatus(401);
     if (!refreshTokens.includes(refreshToken)) return res.sendStatus(403);
 
-    // Verify token with JWT, if passes a new acess token is generated for this user
+    // Verify token with JWT, if passes a new access token is generated for this user
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, user) => {
       if (err) return res.sendStatus(403);
       const accessToken = generateAccessToken({ username: user.username });
@@ -102,5 +94,26 @@ module.exports = {
     // Remove the refresh token from the database (array for now)
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
+  },
+  tokenIsValid: async function(req, res) {
+    try {
+      // Check if token was sent
+      const token = req.header("authorization");
+      if (!token) return res.json(false);
+
+      // Check the sent token is valid
+      const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      if (!verified) return res.json(false);
+
+      // Check the username is valid
+      const user = await db.User.findOne({ username: verified.username });
+      if (user == null) return res.json(false);
+
+      // Return true if all check passed
+      return res.json(true);
+    } catch(err) {
+      console.log(err);
+      res.status(500).send();
+    }
   }
 };
