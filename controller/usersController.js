@@ -31,20 +31,16 @@ const courses = [
 let refreshTokens = [];
 
 module.exports = {
-  findAll: function(req, res) {
-    res.json(users);
+  findUser: function(req, res) {
+    const user = users.find(user => user.username === req.user.username); 
+    res.json(user.username);
   },
   createUser: async function(req, res) {
-    const { username, password, passwordCheck, email } = req.body;
-    
-    // Validate required fields, password length, passwords match
-    if (!email || !password || !passwordCheck || !username) return res.status(400).json({msg: "Missing required fields."});
-    if (password !== passwordCheck) return res.status(400).json({msg: "Passwords do not match."});
-    if (password.length < 6) return res.status(400).json({msg: "Password needs to be at least 6 characters."});
+    const { username, password, email } = req.body;
     
     // *** REPLACE WITH CHECK TO DATABASE, Validate username/email doesn't already exist
-    if (!!users.find(user => user.username === username)) return res.status(400).json({msg: "Username is taken."});
-    if (!!users.find(user => user.email === email)) return res.status(400).json({msg: "Email has already been used."});
+    if (!!users.find(user => user.username === username)) return res.status(400).send("Username is taken.");
+    if (!!users.find(user => user.email === email)) return res.status(400).send("Email has already been used.");
     
     try {
       // User password will be salted and hashed by bcrypt
@@ -110,5 +106,22 @@ module.exports = {
     // Remove the refresh token from the database (array for now)
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
+  },
+  tokenIsValid: function(req, res) {
+    try {
+      const token = req.header("authorization");
+      if (!token) return res.json(false);
+
+      const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+      if (!verified) return res.json(false);
+
+      const user = users.find(user => user.username === verified.username); 
+      if (user == null) return res.json(false);
+
+      return res.json(true);
+    } catch(err) {
+      console.log(err);
+      res.status(500).send();
+    }
   }
 }
