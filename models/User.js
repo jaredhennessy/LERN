@@ -17,7 +17,7 @@ const userSchema = new Schema({
     required: "Enter a password."
   },
   image: {
-    type: Buffer
+    type: String
   },
   dateCreated: {
     type: Date,
