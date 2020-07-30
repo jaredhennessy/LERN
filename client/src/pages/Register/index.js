@@ -19,7 +19,7 @@ function Register() {
     if (password.length < 6) return alert("Password needs to be at least 6 characters.");
 
     const newUser = { username, email, password, passwordCheck };
-    const registerResponse = await Axios.post("/api/users/register", newUser).catch(err => console.log(err));
+    const registerResponse = await Axios.post("/api/users/register", newUser).catch(err => alert(err.response.data));
     if (registerResponse) {
       alert(`Successfully registered ${username}, please log in.`)
       history.push("/login");

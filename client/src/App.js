@@ -10,7 +10,8 @@ import UserContext from "./UserContext/UserContext";
 function App() {
   const [userData, setUserData] = useState({
     token: undefined,
-    user: undefined
+    user: undefined,
+    _id: undefined
   });
 
   // On launch, check for a logged in user (authenticated token in localstorage)
@@ -32,14 +33,15 @@ function App() {
         });
         setUserData({
           token: tokenLocal,
-          user: userResponse.data
+          user: userResponse.data.username,
+          _id: userResponse.data._id
         });
       }
     };
     checkLoggedIn();
   }, []);
 
-  // Remove refresh token from database and
+  // Remove refresh token from database and localstorage
   function logout() {
     Axios.delete("/api/logout")
       .then(
