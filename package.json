@@ -5,7 +5,11 @@
   "main": "server.js",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+<<<<<<< HEAD
     "@material-ui/icons": "^4.9.1",
+=======
+    "axios": "^0.19.2",
+>>>>>>> development
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -30,14 +34,15 @@
     "seed": "node scripts/seedDB.js",
     "install": "cd client && npm install",
     "build": "cd client && npm run build",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "watch": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaredhennessy/LERN.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Chris Bragg, Cristian Montenegro, Dan Weikart, Jared Hennessy",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jaredhennessy/LERN/issues"
