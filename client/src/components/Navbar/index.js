@@ -199,11 +199,11 @@ export default function Navbar() {
         <Toolbar>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit">Donate</Button>
-            <Button color="inherit">Home</Button>
-            <Button color="inherit">Categories</Button>
-            <Button color="inherit">Teach!</Button>
-            <Button color="inherit">About LERN</Button>
+            <Button color="inherit" href="/donate">Donate</Button>
+            <Button color="inherit" href="/">Home</Button>
+            <Button color="inherit" href="/categories">Categories</Button>
+            <Button color="inherit" href="/teach">Teach!</Button>
+            <Button color="inherit" href="/about">About LERN</Button>
             <Button color="inherit">Logout</Button>
           </div>
           <div className={classes.sectionMobile}>
