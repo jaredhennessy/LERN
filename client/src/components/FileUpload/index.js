@@ -11,15 +11,17 @@ function FileUpload() {
     userId = userData._id;
   }
   const submitFile = async e => {
-    e.preventDefault();
-    console.log(userId);
-    console.log(userImg);
-    axios
-      .put("/api/users/fileUpload", {
-        username: "",
-        image: userImg
-      })
-      .catch(err => console.log(err));
+    if (userId) {
+      e.preventDefault();
+      console.log(userId);
+      console.log(userImg);
+      axios
+        .put("/api/users/fileUpload", {
+          username: "",
+          image: userImg
+        })
+        .catch(err => console.log(err));
+    }
   };
 
   const pickFile = e => {
