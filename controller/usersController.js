@@ -12,7 +12,10 @@ module.exports = {
     db.User.findOne({
       username: req.user.username
     }).then(data => {
-      res.json(data)
+      res.json({
+        username: data.username,
+        _id: data._id
+      })
     }).catch(err => {
       console.log(err);
     }) 
@@ -58,7 +61,7 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username });
+        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username, userID: user._id });
       } else {
         res.status(400).send("Incorrect credentials");
       }

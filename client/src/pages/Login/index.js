@@ -19,7 +19,8 @@ function Login() {
         alert(`Welcome back ${res.data.username}`);
         setUserData({
           user: res.data.username,
-          token: res.data.accessToken
+          token: res.data.accessToken,
+          _id: res.data.userID
         })
         localStorage.setItem("auth-token", res.data.accessToken);
         localStorage.setItem("ref-token", res.data.refreshToken);
