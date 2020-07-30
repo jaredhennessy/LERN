@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Axios from "axios";
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import UserTest from "./pages/UserTest";
+import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
 
 function App() {
@@ -59,13 +59,19 @@ function App() {
         <div className="App">
           <h1>LERN Temp Navbar</h1>
           {userData.user ? (
-            <a href="/" onClick={logout}>
-              Log Out
-            </a>
+            <>
+              <a href="/fileUpload">File Upload</a>
+              <br />
+              <a href="/" onClick={logout}>
+                Log Out
+              </a>
+            </>
           ) : (
             <>
               <a href="/login">Login</a>
+              <br />
               <a href="/register">Register</a>
+              <br />
             </>
           )}
 
@@ -75,7 +81,7 @@ function App() {
             </Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/userTest" component={UserTest} />
+            <Route exact path="/fileUpload" component={FileUpload} />
           </Switch>
         </div>
       </UserContext.Provider>
