@@ -31,10 +31,17 @@ const storage = new GridFsStorage({
         if (err) {
           return reject(err);
         }
+<<<<<<< HEAD
         const filename = buf.toString("hex") + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
           bucketName: "uploads"
+=======
+        const filename = bug.toSTring("hex") + path.extname(file.originalname);
+        const fileInfo = {
+          filename: filename,
+          bucketname: "uploads"
+>>>>>>> 453df02d3d8b8399f834dd9c1d2fb32d4bff1909
         };
         resolve(fileInfo);
       });
@@ -48,6 +55,7 @@ router.get("/", (req, res) => {
 });
 
 router.post("/upload", upload.single("file"), (req, res) => {
+<<<<<<< HEAD
   console.log("POST");
   console.log(req.file);
   res.json({ file: req.file });
@@ -66,6 +74,9 @@ router.get("/files", (req, res) => {
     // Files exist
     return res.json(files);
   });
+=======
+  res.json({ file: req.file });
+>>>>>>> 453df02d3d8b8399f834dd9c1d2fb32d4bff1909
 });
 
 module.exports = router;
@@ -100,6 +111,7 @@ module.exports = router;
 
 // // Add avatar image to user
 // router.put("/fileUpload", upload.single("image"), (req, res, next) => {
+<<<<<<< HEAD
 //   console.log(req.image);
 //   const url = req.protocol + "://" + req.get("host");
 //   const user = {
@@ -152,3 +164,57 @@ module.exports = router;
 //         });
 //     });
 // });
+=======
+//     console.log(req.image);
+//     const url = req.protocol + "://" + req.get("host");
+//     const user = {
+//       _id: req.id,
+//       image: url + "/public/" + req.image.name
+//     };
+//     user
+//       .save()
+//       .then(result => {
+//         res.status(201).json({
+//           message: "user image updated successfully",
+//           userCreated: {
+//             _id: result._id,
+//             image: result.image
+//           }
+//         });
+//       })
+//       .catch(err => {
+//         console.log(err),
+//           res.status(500).json({
+//             error: err
+//           });
+//       });
+//   });
+
+//   // router.post("/userTest", upload.single("profileImg"), (req, res, next) => {
+//   //   const url = req.protocol + "://" + req.get("host");
+//   //   const user = new User({
+//   //     _id: new mongoose.Types.ObjectId(),
+//   //     username: req.body.username,
+//   //     password: req.body.password,
+//   //     email: req.body.email,
+//   //     profileImg: url + "/public/" + req.file.filename
+//   //   });
+//   //   user
+//   //     .save()
+//   //     .then(result => {
+//   //       res.status(201).json({
+//   //         message: "User registered successfully!",
+//   //         userCreated: {
+//   //           _id: result._id,
+//   //           profileImg: result.profileImg
+//   //         }
+//   //       });
+//   //     })
+//   //     .catch(err => {
+//   //       console.log(err),
+//   //         res.status(500).json({
+//   //           error: err
+//   //         });
+//   //     });
+//   // });
+>>>>>>> 453df02d3d8b8399f834dd9c1d2fb32d4bff1909
