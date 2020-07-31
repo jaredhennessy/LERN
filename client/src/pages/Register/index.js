@@ -35,9 +35,9 @@ function Register() {
         <label htmlFor="emailInput">Email</label><br />
         <input type="text" id="emailInput" name="emailInput" onChange={e => setEmail(e.target.value)}/> <br />
         <label htmlFor="passwordInput">Password</label><br />
-        <input type="text" id="passwordInput" name="passwordInput" type="password" onChange={e => setPassword(e.target.value)}/> <br />
+        <input id="passwordInput" name="passwordInput" type="password" onChange={e => setPassword(e.target.value)}/> <br />
         <label htmlFor="passwordCheckInput">Verify Password</label><br />
-        <input type="text" id="passwordCheckInput" name="passwordCheckInput" type="password" onChange={e => setPasswordCheck(e.target.value)}/> <br />
+        <input id="passwordCheckInput" name="passwordCheckInput" type="password" onChange={e => setPasswordCheck(e.target.value)}/> <br />
         <input type="submit" />
       </form>
     </div>
