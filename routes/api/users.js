@@ -7,7 +7,6 @@ const authenticateToken = require("../../utils/authenticateToken");
 
 // file upload
 const DIR = "./public/";
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, DIR);
@@ -18,7 +17,7 @@ const storage = multer.diskStorage({
   }
 });
 
-var upload = multer({
+const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
     if (

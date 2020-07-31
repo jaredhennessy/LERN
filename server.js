@@ -17,8 +17,13 @@ app.use(cors());
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true
+  })
+);
+app.use(cors());
 
 // Serve up static assets
 if (process.env.NODE_ENV === "production") {
@@ -29,6 +34,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(routes);
 
 // Connect to the Mongo DB
+mongoose.Promise = global.Promise;
 mongoose.connect(
   process.env.MONGODB_URI || "mongodb://localhost/lerndb",
   {
