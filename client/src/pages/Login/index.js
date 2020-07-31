@@ -24,7 +24,7 @@ function Login() {
         })
         localStorage.setItem("auth-token", res.data.accessToken);
         localStorage.setItem("ref-token", res.data.refreshToken);
-        history.push("/")
+        history.push("/users/" + res.data.username);
       })
       .catch(err => console.log(err))
   }

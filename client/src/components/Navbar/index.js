@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -98,6 +99,7 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { userData, setUserData } = useContext(UserContext);
+  let history = useHistory();
 
   // Remove refresh token from database and localstorage
   function logout() {
@@ -111,6 +113,7 @@ export default function Navbar() {
       .catch(err => console.log(err.response.data));
     localStorage.setItem("auth-token", "");
     localStorage.setItem("ref-token", "");
+    history.push("/");
   }
 
   const isMenuOpen = Boolean(anchorEl);
