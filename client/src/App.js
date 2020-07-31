@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -21,7 +21,7 @@ function App() {
   const [userData, setUserData] = useState({
     token: undefined,
     user: undefined,
-    _id: undefined,
+    _id: undefined
   });
 
   // On launch, check for a logged in user (authenticated token in localstorage)
@@ -33,18 +33,18 @@ function App() {
         tokenLocal = "";
       }
       const tokenResponse = await Axios.post("/api/users/checkToken", null, {
-        headers: { authorization: tokenLocal },
+        headers: { authorization: tokenLocal }
       });
 
       // If there is a logged in user, save the token and user in App state
       if (tokenResponse.data) {
         const userResponse = await Axios.get("/api/users", {
-          headers: { authorization: "Bearer " + tokenLocal },
+          headers: { authorization: "Bearer " + tokenLocal }
         });
         setUserData({
           token: tokenLocal,
           user: userResponse.data.username,
-          _id: userResponse.data._id,
+          _id: userResponse.data._id
         });
       }
     };
@@ -57,7 +57,7 @@ function App() {
       .then(
         setUserData({
           token: undefined,
-          user: undefined,
+          user: undefined
         })
       )
       .catch(err => console.log(err));
@@ -95,6 +95,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/fileUpload" component={FileUpload} />
 
+            <Route exact path="/home" component={Home} />
             <Route exact path="/about" component={About} />
             <Route exact path="/categories" component={Categories} />
             <Route exact path="/teach/:id" component={Teach} />
