@@ -69,7 +69,7 @@ function App() {
     <Router>
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
-          <h1>LERN Temp Navbar</h1>
+          {/* <h1>LERN Temp Navbar</h1> */}
           {userData.user ? (
             <>
               <a href="/fileUpload">File Upload</a>
