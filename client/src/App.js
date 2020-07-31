@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -51,56 +51,22 @@ function App() {
     checkLoggedIn();
   }, []);
 
-  // Remove refresh token from database and localstorage
-  function logout() {
-    Axios.delete("/api/logout")
-      .then(
-        setUserData({
-          token: undefined,
-          user: undefined,
-        })
-      )
-      .catch(err => console.log(err));
-    localStorage.setItem("auth-token", "");
-    localStorage.setItem("ref-token", "");
-  }
-
   return (
     <Router>
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
-          {/* <h1>LERN Temp Navbar</h1> */}
-          {userData.user ? (
-            <>
-              <a href="/fileUpload">File Upload</a>
-              <br />
-              <a href="/" onClick={logout}>
-                Log Out
-              </a>
-            </>
-          ) : (
-            <>
-              <a href="/login">Login</a>
-              <br />
-              <a href="/register">Register</a>
-              <br />
-            </>
-          )}
           <Navbar />
           <Switch>
-            <Route exact path="/">
-              <h1>Homepage</h1>
-            </Route>
+            <Route exact path="/" component={Home}></Route>
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/fileUpload" component={FileUpload} />
-
             <Route exact path="/about" component={About} />
             <Route exact path="/categories" component={Categories} />
             <Route exact path="/teach/:id" component={Teach} />
             <Route exact path="/donate" component={Donate} />
-            <Route exact path="/editprofile/:id" component={EditProfile} />
             <Route exact path="/dashboard/:id" component={Dashboard} />
+            <Route exact path="/users/:id" component={EditProfile} />
           </Switch>
         </div>
       </UserContext.Provider>
