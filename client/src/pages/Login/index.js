@@ -24,9 +24,9 @@ function Login() {
         })
         localStorage.setItem("auth-token", res.data.accessToken);
         localStorage.setItem("ref-token", res.data.refreshToken);
-        history.push("/")
+        history.push("/users/" + res.data.username);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.response.data))
   }
 
   return (
@@ -36,7 +36,7 @@ function Login() {
         <label htmlFor="usernameInput">Username:</label><br />
         <input type="text" id="usernameInput" name="usernameInput" onChange={e => setUsername(e.target.value)}/><br />
         <label htmlFor="passwordInput">Password</label><br />
-        <input type="text" id="passwordInput" name="passwordInput" type="password" onChange={e => setPassword(e.target.value)}/> <br />
+        <input id="passwordInput" name="passwordInput" type="password" onChange={e => setPassword(e.target.value)}/> <br />
         <input type="submit" />
       </form>
     </div>

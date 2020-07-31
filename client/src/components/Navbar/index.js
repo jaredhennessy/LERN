@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
+import Axios from "axios";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -19,9 +21,13 @@ import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import HomeIcon from "@material-ui/icons/Home";
 import CategoryIcon from "@material-ui/icons/Category";
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/Info';
 import CreateIcon from '@material-ui/icons/Create';
 import Container from "@material-ui/core/Container";
+import UserContext from "../../UserContext/UserContext";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -92,6 +98,23 @@ export default function Navbar() {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const { userData, setUserData } = useContext(UserContext);
+  let history = useHistory();
+
+  // Remove refresh token from database and localstorage
+  function logout() {
+    Axios.delete("/api/users/logout")
+      .then(
+        setUserData({
+          token: undefined,
+          user: undefined,
+        })
+      )
+      .catch(err => console.log(err.response.data));
+    localStorage.setItem("auth-token", "");
+    localStorage.setItem("ref-token", "");
+    history.push("/");
+  }
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -115,7 +138,7 @@ export default function Navbar() {
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
-      
+
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -131,96 +154,143 @@ export default function Navbar() {
   );
 
   const mobileMenuId = "primary-search-account-menu-mobile";
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: "top", horizontal: "right" }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="donate" color="inherit">
-          <Badge color="secondary">
-            <MonetizationOnIcon />
-          </Badge>
-        </IconButton>
-        <p>Donate</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="home" color="inherit">
-          <Badge color="secondary">
-            <HomeIcon />
-          </Badge>
-        </IconButton>
-        <p>Home</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="category" color="inherit">
-          <Badge color="secondary">
-            <CategoryIcon />
-          </Badge>
-        </IconButton>
-        <p>Categories</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="teach" color="inherit">
-          <Badge color="secondary">
-            <CreateIcon />
-          </Badge>
-        </IconButton>
-        <p>Teach!</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="about" color="inherit">
-          <Badge color="secondary">
-            <InfoIcon />
-          </Badge>
-        </IconButton>
-        <p>About LERN</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="Logout" color="inherit">
-          <Badge color="secondary">
-            <ExitToAppIcon />
-          </Badge>
-        </IconButton>
-        <p>Logout</p>
-      </MenuItem>
-    </Menu>
-  );
+
+  // Array to store mobile menu items, will be rendered by .map
+  const menuItems = [
+    {
+      ariaLabel: "donate",
+      icon: <MonetizationOnIcon />,
+      pLabel: "Donate"
+    },
+    {
+      ariaLabel: "home",
+      icon: <HomeIcon />,
+      pLabel: "Home"
+    },
+    {
+      ariaLabel: "categories",
+      icon: <CategoryIcon />,
+      pLabel: "Categories"
+    },
+    {
+      ariaLabel: "teach",
+      icon: <CreateIcon />,
+      pLabel: "Teach!"
+    },
+    {
+      ariaLabel: "about",
+      icon: <InfoIcon />,
+      pLabel: "About LERN"
+    }]
+
+  // Mobile menu additions if logged IN
+  const loggedInMenu = [
+    {
+      ariaLabel: "profile",
+      icon: <AccountCircleIcon />,
+      pLabel: "Profile"
+    },
+    {
+      ariaLabel: "logout",
+      icon: <ExitToAppIcon />,
+      pLabel: "Logout"
+    }
+  ]
+
+  // Mobile menu additions if logged OUT
+  const loggedOutMenu = [
+    {
+      ariaLabel: "register",
+      icon: <PersonAddIcon />,
+      pLabel: "Register"
+    },
+    {
+      ariaLabel: "login",
+      icon: <LockOpenIcon />,
+      pLabel: "Login"
+    }
+  ]
+
 
   return (
     <div className={classes.grow}>
-        <Container>
-      <AppBar position="static">
-        <Toolbar>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <Button color="inherit" href="/donate">Donate</Button>
-            <Button color="inherit" href="/">Home</Button>
-            <Button color="inherit" href="/categories">Categories</Button>
-            <Button color="inherit" href="/teach">Teach!</Button>
-            <Button color="inherit" href="/about">About LERN</Button>
-            <Button color="inherit">Logout</Button>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
+      <Container>
+        <AppBar position="static">
+          <Toolbar>
+            <div className={classes.grow} />
+            <div className={classes.sectionDesktop}>
+              <Button color="inherit" href="/donate">Donate</Button>
+              <Button color="inherit" href="/">Home</Button>
+              <Button color="inherit" href="/categories">Categories</Button>
+              <Button color="inherit" href="/teach">Teach!</Button>
+              <Button color="inherit" href="/about">About LERN</Button>
+              {userData.user ? (
+                <>
+                  <Button color="inherit" href={"/users/" + userData.user}>Profile</Button>
+                  <Button color="inherit" onClick={logout}>Logout</Button>
+                </>
+              ) : (
+                  <>
+                    <Button color="inherit" href="/register">Register</Button>
+                    <Button color="inherit" href="/login">Login</Button>
+                  </>
+                )}
+
+            </div>
+            <div className={classes.sectionMobile}>
+              <IconButton
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MoreIcon />
+              </IconButton>
+            </div>
+          </Toolbar>
+        </AppBar>
       </Container>
-      {renderMobileMenu}
+      {/* renderMobileMenu */}
+      <Menu
+        anchorEl={mobileMoreAnchorEl}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        id={mobileMenuId}
+        keepMounted
+        transformOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isMobileMenuOpen}
+        onClose={handleMobileMenuClose}
+      >
+        {menuItems.map(item => (
+          <MenuItem key={item.pLabel}>
+            <IconButton aria-label={item.ariaLabel} color="inherit">
+              <Badge color="secondary">
+                {item.icon}
+              </Badge>
+            </IconButton>
+            <p>{item.pLabel}</p>
+          </MenuItem>
+        ))}
+        {userData.user ? (loggedInMenu.map(item => (
+          <MenuItem key={item.pLabel}>
+            <IconButton aria-label={item.ariaLabel} color="inherit">
+              <Badge color="secondary">
+                {item.icon}
+              </Badge>
+            </IconButton>
+            <p>{item.pLabel}</p>
+          </MenuItem>
+        ))) : (loggedOutMenu.map(item => (
+          <MenuItem key={item.pLabel}>
+            <IconButton aria-label={item.ariaLabel} color="inherit">
+              <Badge color="secondary">
+                {item.icon}
+              </Badge>
+            </IconButton>
+            <p>{item.pLabel}</p>
+          </MenuItem>
+        )))}
+      </Menu>
       {renderMenu}
     </div>
   );
