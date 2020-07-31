@@ -1,12 +1,12 @@
 const express = require("express");
+const cors = require("cors");
+const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const methodOverride = require("method-override");
 const routes = require("./routes");
 const app = express();
-const mongoConfig = require("./utils/mongoConfig");
 
-const app = express();
-const mongoURI = process.env.MONGODB_URI || "mongodb://localhost/lerndb";
+const mongoConfig = require("./utils/mongoConfig");
 const PORT = process.env.PORT || 3001;
 
 // Define middleware here
@@ -39,11 +39,7 @@ app.use(routes);
 // Connect to the Mongo DB
 mongoose.Promise = global.Promise;
 mongoose.connect(
-<<<<<<< HEAD
   mongoConfig.mongoURI,
-=======
-  mongoURI,
->>>>>>> 453df02d3d8b8399f834dd9c1d2fb32d4bff1909
   {
     useNewUrlParser: true,
     useCreateIndex: true,
