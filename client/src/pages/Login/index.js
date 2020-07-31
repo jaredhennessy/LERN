@@ -26,7 +26,7 @@ function Login() {
         localStorage.setItem("ref-token", res.data.refreshToken);
         history.push("/users/" + res.data.username);
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log(err.response.data))
   }
 
   return (

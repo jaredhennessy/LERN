@@ -50,11 +50,16 @@ module.exports = {
   },
   userLogin: async function (req, res) {
     // Find user in the database (*** REPLACE users WITH DATABASE)
+    console.log("userLogin launched");
+    console.log(req.body);
     const user = await db.User.findOne({ username: req.body.username });
 
     // If no user, return bad response
-    if (user == null) return res.status(400).send("Incorrect credentials");
+    console.log(user);
+    if (user == null) return res.status(400).send("User does not exist.");
 
+    console.log("user === null passed")
+    console.log(user);
     // Else, compare user supplied password to the hashed password; use bcrypt compare to avoid timing attacks
     try {
       if (await bcrypt.compare(req.body.password, user.password)) {
