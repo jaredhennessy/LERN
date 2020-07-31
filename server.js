@@ -2,17 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const methodOverride = require("method-override");
 const routes = require("./routes");
 const app = express();
-
-// file upload config
-app.use(bodyParser.json());
-app.use(
-  bodyParser.urlencoded({
-    extended: false
-  })
-);
-app.use(cors());
+const mongoConfig = require("./utils/mongoConfig");
 
 const PORT = process.env.PORT || 3001;
 
@@ -23,6 +16,7 @@ app.use(
     extended: true
   })
 );
+app.use(methodOverride("_method"));
 app.use(cors());
 
 // Serve up static assets
@@ -36,7 +30,7 @@ app.use(routes);
 // Connect to the Mongo DB
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/lerndb",
+  mongoConfig.mongoURI,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
