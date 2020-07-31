@@ -168,9 +168,9 @@ export default function Navbar() {
       pLabel: "Home"
     },
     {
-      ariaLabel: "categories",
+      ariaLabel: "courses",
       icon: <CategoryIcon />,
-      pLabel: "Categories"
+      pLabel: "Courses"
     },
     {
       ariaLabel: "teach",
@@ -221,7 +221,7 @@ export default function Navbar() {
             <div className={classes.sectionDesktop}>
               <Button color="inherit" href="/donate">Donate</Button>
               <Button color="inherit" href="/">Home</Button>
-              <Button color="inherit" href="/categories">Categories</Button>
+              <Button color="inherit" href="/courses">Courses</Button>
               <Button color="inherit" href="/teach">Teach!</Button>
               <Button color="inherit" href="/about">About LERN</Button>
               {userData.user ? (

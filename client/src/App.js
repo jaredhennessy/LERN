@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Categories from "./pages/Categories";
+import Courses from "./pages/Courses";
 import Teach from "./pages/Teach";
 import Donate from "./pages/Donate";
 import EditProfile from "./pages/EditProfile";
@@ -62,7 +62,7 @@ function App() {
             <Route exact path="/register" component={Register} />
             <Route exact path="/fileUpload" component={FileUpload} />
             <Route exact path="/about" component={About} />
-            <Route exact path="/categories" component={Categories} />
+            <Route exact path="/courses" component={Courses} />
             <Route exact path="/teach/:id" component={Teach} />
             <Route exact path="/donate" component={Donate} />
             <Route exact path="/dashboard/:id" component={Dashboard} />
