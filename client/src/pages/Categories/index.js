@@ -19,7 +19,7 @@ export default function Categories() {
 
   return (
     <Container>
-      <h1>Categories</h1>
+      <h1>View Courses</h1>
 
       <div>
         {courses.length ? (
