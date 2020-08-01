@@ -1,110 +1,92 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Axios from "axios";
-import FileUpload from "../../components/FileUpload";
+import React, { useContext, useEffect, useState  } from "react";
+import UserContext from "../../UserContext/UserContext";
 import Button from "@material-ui/core/Button";
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
-import CourseCard from "../../components/CourseCard";
+import TextField from "@material-ui/core/TextField";
+import Grid from "@material-ui/core/Grid";
+import UserAvatar from "../../components/UserAvatar";
+import Container from "@material-ui/core/Container";
+import FileUpload from "../../components/FileUpload";
 
-function EditProfile() {
-  const user = useParams();
-  const [courses, setCourses] = useState({
-    userCourses: []
-  });
+export default function EditProfile() {
+  const { userData } = useContext(UserContext);
 
-  useEffect(() => {
-    const getUserCourses = async () => {
-      let courseResponse = await Axios.get("/api/users/" + user.id);
-      setCourses({ userCourses: courseResponse.data });
-    };
-    getUserCourses();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
-    <div>
+    <Container>
+      <h1>Edit Profile</h1>
+      <h2>{userData.user}</h2>
       <Grid container spacing={3}>
-        <Grid item xs={12}>
-          <h1>My Profile</h1>
+        <Grid item md={4}>
+          <form noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="first"
+              label="First"
+              type="first"
+              id="first"
+              // autoComplete=""
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="last"
+              label="Last"
+              type="last"
+              id="last"
+              // autoComplete=""
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              // autoFocus
+            />
+          </form>
         </Grid>
-        <Grid item xs={12} sm={4}>
-          <h2>Profile Details</h2>
-          <img src={process.env.PUBLIC_URL + '/logo192.png'} alt="profile-pic" style={{ backgroundColor: "black" }}></img>
-          <FileUpload />
+        <Grid item md={4}>
+          <form noValidate>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="new-password"
+              label="New Password"
+              type="password"
+              id="new-password"
+              autoComplete="new-password"
+            />
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="confirm-new-password"
+              label="Confirm New Password"
+              type="password"
+              id="confirm-new-password"
+              autoComplete="confirm-new-password"
+            />
+          </form>
         </Grid>
-        <Grid item xs={12} sm={8}>
-          <h2>Username: {user.id}</h2>
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item xs={12}>
-          <h2>My Courses</h2>
-          <span><Button variant="contained" color="primary" href="/teach">New Course</Button></span>
-        </Grid>
-        <Grid item xs={12} container >
-          {/* <h2>No results</h2> */}
-          <CourseCard
-            title={"LERN HTML"}
-            description={"Description"}
-            image={"http://www.fillmurray.com/200/200"}
-            category={"Web Development"}
-            instructor={user.id}
-            dateCreated={"Today"}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Divider />
-        </Grid>
-        <Grid item xs={12}>
-          <h2>Courses I'm Taking</h2>
-          <span><Button variant="contained" color="primary" href="/categories">Browse</Button></span>
-        </Grid>
-        <Grid item xs={12} container>
-          {/* UPDATE TO MAP COURSE CARDS WITH AXIOS RESPONSE */}
-          {courses.userCourses.length ? (
-            <Grid item xs={12} sm={12}>
-              <h2>No results</h2>
-            </Grid>
-          ) : (
-              <>
-                <Grid item xs={12} sm={3}>
-                  <CourseCard
-                    title={"LERN HTML"}
-                    description={"Description"}
-                    image={"http://www.fillmurray.com/200/250"}
-                    category={"Web Development"}
-                    instructor={user.id}
-                    dateCreated={"Today"}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <CourseCard
-                    title={"LERN CSS"}
-                    description={"Description"}
-                    image={"http://www.fillmurray.com/225/225"}
-                    category={"Web Development"}
-                    instructor={user.id}
-                    dateCreated={"Today"}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={3}>
-                  <CourseCard
-                    title={"LERN JS"}
-                    description={"Description"}
-                    image={"http://www.fillmurray.com/300/300"}
-                    category={"Web Development"}
-                    instructor={user.id}
-                    dateCreated={"Today"}
-                  />
-                </Grid>
-              </>
-            )}
+        <Grid item md={4} justify-content="center">
+          <UserAvatar />
+          {/* <FileUpload /> */}
+          <Button>Edit Profile Picture</Button>
         </Grid>
       </Grid>
-    </div>
+    </Container>
   )
 }
 
-export default EditProfile;
+

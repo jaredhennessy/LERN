@@ -5,16 +5,16 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
-import InputBase from "@material-ui/core/InputBase";
+// import Typography from "@material-ui/core/Typography";
+// import InputBase from "@material-ui/core/InputBase";
 import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import MenuIcon from "@material-ui/icons/Menu";
-import SearchIcon from "@material-ui/icons/Search";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
+// import MenuIcon from "@material-ui/icons/Menu";
+// import SearchIcon from "@material-ui/icons/Search";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
+// import MailIcon from "@material-ui/icons/Mail";
+// import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
@@ -159,27 +159,27 @@ export default function Navbar() {
   const menuItems = [
     {
       ariaLabel: "donate",
-      icon: <MonetizationOnIcon />,
+      icon: <MonetizationOnIcon href="/donate"/>,
       pLabel: "Donate"
     },
     {
       ariaLabel: "home",
-      icon: <HomeIcon />,
+      icon: <HomeIcon href="/"/>,
       pLabel: "Home"
     },
     {
-      ariaLabel: "categories",
-      icon: <CategoryIcon />,
-      pLabel: "Categories"
+      ariaLabel: "courses",
+      icon: <CategoryIcon href="/courses"/>,
+      pLabel: "Courses"
     },
     {
       ariaLabel: "teach",
-      icon: <CreateIcon />,
+      icon: <CreateIcon href="/teach"/>,
       pLabel: "Teach!"
     },
     {
       ariaLabel: "about",
-      icon: <InfoIcon />,
+      icon: <InfoIcon href="/about"/>,
       pLabel: "About LERN"
     }]
 
@@ -187,12 +187,12 @@ export default function Navbar() {
   const loggedInMenu = [
     {
       ariaLabel: "profile",
-      icon: <AccountCircleIcon />,
+      icon: <AccountCircleIcon href={"/users/" + userData.user}/>,
       pLabel: "Profile"
     },
     {
       ariaLabel: "logout",
-      icon: <ExitToAppIcon />,
+      icon: <ExitToAppIcon onClick={logout}/>,
       pLabel: "Logout"
     }
   ]
@@ -201,12 +201,12 @@ export default function Navbar() {
   const loggedOutMenu = [
     {
       ariaLabel: "register",
-      icon: <PersonAddIcon />,
+      icon: <PersonAddIcon href="/register"/>,
       pLabel: "Register"
     },
     {
       ariaLabel: "login",
-      icon: <LockOpenIcon />,
+      icon: <LockOpenIcon href="/login"/>,
       pLabel: "Login"
     }
   ]
@@ -221,7 +221,7 @@ export default function Navbar() {
             <div className={classes.sectionDesktop}>
               <Button color="inherit" href="/donate">Donate</Button>
               <Button color="inherit" href="/">Home</Button>
-              <Button color="inherit" href="/categories">Categories</Button>
+              <Button color="inherit" href="/courses">Courses</Button>
               <Button color="inherit" href="/teach">Teach!</Button>
               <Button color="inherit" href="/about">About LERN</Button>
               {userData.user ? (
