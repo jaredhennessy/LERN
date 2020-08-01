@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState  } from "react";
 import UserContext from "../../UserContext/UserContext";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -6,8 +6,10 @@ import Grid from "@material-ui/core/Grid";
 import UserAvatar from "../../components/UserAvatar";
 import Container from "@material-ui/core/Container";
 
+
 export default function EditProfile() {
   const { userData } = useContext(UserContext);
+
 
   return (
     <Container>
@@ -83,5 +85,5 @@ export default function EditProfile() {
         </Grid>
       </Grid>
     </Container>
-  );
+  )
 }

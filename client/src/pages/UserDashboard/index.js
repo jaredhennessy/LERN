@@ -31,7 +31,7 @@ export default function UserDashboard() {
             <UserInfoCard />
           </Grid>
           <Grid item md={4}>
-            <Button href={"/editProfile/" + userData.user}>Edit Profile</Button>
+            <Button color="primary" href={"/editProfile/" + userData.user}>Edit Profile</Button>
           </Grid>
         </Grid>
       </Container>
