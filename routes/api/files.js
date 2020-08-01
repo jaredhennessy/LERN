@@ -6,8 +6,7 @@ const Grid = require("gridfs-stream");
 const path = require("path");
 const crypto = require("crypto");
 const mongoConfig = require("../../utils/mongoConfig");
-// const usersController = require("../../controller/usersController");
-// const authenticateToken = require("../../utils/authenticateToken");
+// const filesController = require("../../controller/filesController");
 
 // Init gfs
 let gfs;
@@ -43,10 +42,6 @@ const storage = new GridFsStorage({
 });
 const upload = multer({ storage });
 
-router.get("/", (req, res) => {
-  res.render("index");
-});
-
 router.post("/upload", upload.single("file"), (req, res) => {
   console.log("POST");
   console.log(req.file);
@@ -54,7 +49,7 @@ router.post("/upload", upload.single("file"), (req, res) => {
   // res.redirect('/');
 });
 
-router.get("/files", (req, res) => {
+router.get("/", (req, res) => {
   gfs.files.find().toArray((err, files) => {
     // Check if files
     if (!files || files.length === 0) {
