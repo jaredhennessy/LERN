@@ -10,6 +10,7 @@ import Grid from "@material-ui/core/Grid";
 // import InputLabel from '@material-ui/core/InputLabel';
 import API from "../../utils/API";
 import CategorySelector from "../../components/CategorySelector";
+import PageFooter from "../../components/PageFooter";
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -63,6 +64,7 @@ export default function Courses() {
           <h3>No Results</h3>
         )}
       </div>
+      <PageFooter />
     </Container>
   );
 }

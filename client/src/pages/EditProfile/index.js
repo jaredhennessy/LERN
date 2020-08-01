@@ -5,7 +5,7 @@ import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
 import UserAvatar from "../../components/UserAvatar";
 import Container from "@material-ui/core/Container";
-
+import FileUpload from "../../components/FileUpload";
 
 export default function EditProfile() {
   const { userData } = useContext(UserContext);
@@ -49,7 +49,7 @@ export default function EditProfile() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              autoFocus
+              // autoFocus
             />
           </form>
         </Grid>
@@ -81,9 +81,12 @@ export default function EditProfile() {
         </Grid>
         <Grid item md={4} justify-content="center">
           <UserAvatar />
+          {/* <FileUpload /> */}
           <Button>Edit Profile Picture</Button>
         </Grid>
       </Grid>
     </Container>
   )
 }
+
+
