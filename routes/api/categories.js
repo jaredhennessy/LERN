@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const categoriesController = require("../../controller/categoriesController");
 
-// Matches with "/api/categories", returns all courses in database (currently an array)
+// Matches with "/api/categories", returns all categories in database
 router.route("/")
     .get(categoriesController.findAll)
 

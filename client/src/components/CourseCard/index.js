@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function CourseCard( {title, description, image, category, instructor, dateCreated }) {
+export default function CourseCard({ title, description, image, category, instructor, dateCreated }) {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);

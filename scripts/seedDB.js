@@ -54,6 +54,7 @@ const users = [
     "username": "jared",
     "password": "$2b$10$LwLKHgDZflWgrO9ujas0neOdRqIUZzxaQwAs6qBPmHUOs4IzGXtae",
     "email": "jared.hennessy@gmail.com",
+    "image": "8a8f3566fa7244dbe9c2c1533d51049b.jpg",
     "courses": [
       {
         "Course": "5f25ccebd3c0eb0be44eef57",
