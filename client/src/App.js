@@ -63,7 +63,7 @@ function App() {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/teach/:id" component={Teach} />
             <Route exact path="/donate" component={Donate} />
-            {/* <Route exact path="/dashboard/:id" component={Dashboard} /> */}
+            <Route exact path="/editProfile/:id" component={EditProfile} />
             <Route exact path="/users/:id" component={Dashboard} />
           </Switch>
         </div>

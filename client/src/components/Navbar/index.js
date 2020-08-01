@@ -159,27 +159,27 @@ export default function Navbar() {
   const menuItems = [
     {
       ariaLabel: "donate",
-      icon: <MonetizationOnIcon />,
+      icon: <MonetizationOnIcon href="/donate"/>,
       pLabel: "Donate"
     },
     {
       ariaLabel: "home",
-      icon: <HomeIcon />,
+      icon: <HomeIcon href="/"/>,
       pLabel: "Home"
     },
     {
       ariaLabel: "courses",
-      icon: <CategoryIcon />,
+      icon: <CategoryIcon href="/courses"/>,
       pLabel: "Courses"
     },
     {
       ariaLabel: "teach",
-      icon: <CreateIcon />,
+      icon: <CreateIcon href="/teach"/>,
       pLabel: "Teach!"
     },
     {
       ariaLabel: "about",
-      icon: <InfoIcon />,
+      icon: <InfoIcon href="/about"/>,
       pLabel: "About LERN"
     }]
 
@@ -187,12 +187,12 @@ export default function Navbar() {
   const loggedInMenu = [
     {
       ariaLabel: "profile",
-      icon: <AccountCircleIcon />,
+      icon: <AccountCircleIcon href={"/users/" + userData.user}/>,
       pLabel: "Profile"
     },
     {
       ariaLabel: "logout",
-      icon: <ExitToAppIcon />,
+      icon: <ExitToAppIcon onClick={logout}/>,
       pLabel: "Logout"
     }
   ]
@@ -201,12 +201,12 @@ export default function Navbar() {
   const loggedOutMenu = [
     {
       ariaLabel: "register",
-      icon: <PersonAddIcon />,
+      icon: <PersonAddIcon href="/register"/>,
       pLabel: "Register"
     },
     {
       ariaLabel: "login",
-      icon: <LockOpenIcon />,
+      icon: <LockOpenIcon href="/login"/>,
       pLabel: "Login"
     }
   ]
