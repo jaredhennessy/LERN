@@ -11,10 +11,8 @@ import YouTubeIcon from '@material-ui/icons/YouTube';
 export default function PageFooter() {
   return (
     <footer>
-      <Typography variant="caption" align={"center"}>
-        © Copyright 2020 LERN
-      </Typography>
-      <Divider style={{ margin: "24px auto", width: 60 }} />
+     
+     <Divider style={{ margin: "24px auto", width: "80%" }} />
       <Grid container justify={"center"} spacing={2}>
 
         <Grid item xs={12} sm={6} md={3}>
@@ -54,6 +52,11 @@ export default function PageFooter() {
             <YouTubeIcon />
         </Grid>
       </Grid>
+
+      <Divider style={{ margin: "24px auto", width: "80%" }} />
+      <Typography variant="caption" align={"center"}>
+        © Copyright 2020 LERN
+      </Typography>
     </footer>
   );
 }

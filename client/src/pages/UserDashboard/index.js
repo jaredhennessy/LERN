@@ -52,10 +52,10 @@ export default function UserDashboard() {
       <Container>
         <Grid container spacing={3}>
           <Grid item md={4}>
-            <UserAvatar user={user}/>
+            <UserAvatar />
           </Grid>
           <Grid item md={4}>
-            <UserInfoCard user={user}/>
+            <UserInfoCard />
           </Grid>
           <Grid item md={4}>
             <Box justify={"center"}>
