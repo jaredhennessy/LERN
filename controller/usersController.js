@@ -53,7 +53,7 @@ module.exports = {
     const user = await db.User.findOne({ username: req.body.username });
 
     // If no user, return bad response
-    if (user == null) return res.status(400).send("Incorrect credentials");
+    if (user == null) return res.status(400).send("Username not found.");
 
     // Else, compare user supplied password to the hashed password; use bcrypt compare to avoid timing attacks
     try {

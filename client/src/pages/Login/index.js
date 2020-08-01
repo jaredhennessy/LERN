@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import UserContext from "../../UserContext/UserContext";
+import TextField from '@material-ui/core/TextField';
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -26,17 +27,17 @@ function Login() {
         localStorage.setItem("ref-token", res.data.refreshToken);
         history.push("/users/" + res.data.username);
       })
-      .catch(err => console.log(err))
+      .catch(err => alert(err.response.data))
   }
 
   return (
     <div>
       <h1>Login Page</h1>
       <form onSubmit={submitForm}>
-        <label htmlFor="usernameInput">Username:</label><br />
-        <input type="text" id="usernameInput" name="usernameInput" onChange={e => setUsername(e.target.value)}/><br />
+        {/* <label htmlFor="usernameInput">Username:</label><br /> */}
+        <TextField required defaultValue="Username" variant="outlined" label="Required" id="outline-required" name="usernameInput" onChange={e => setUsername(e.target.value)}/><br />
         <label htmlFor="passwordInput">Password</label><br />
-        <input id="passwordInput" name="passwordInput" type="password" onChange={e => setPassword(e.target.value)}/> <br />
+        <TextField type="password" variant="outlined" id="outlined-password-input" label="Password" autoComplete="current-password" name="passwordInput" onChange={e => setPassword(e.target.value)}/> <br />
         <input type="submit" />
       </form>
     </div>
