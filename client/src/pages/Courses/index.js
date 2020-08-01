@@ -64,7 +64,7 @@ export default function Courses() {
           <h3>No Results</h3>
         )}
       </div>
-      <PageFooter />
+      {/* <PageFooter /> */}
     </Container>
   );
 }

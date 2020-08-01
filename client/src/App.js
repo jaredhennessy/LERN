@@ -14,6 +14,7 @@ import Axios from "axios";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
+import PageFooter from "./components/PageFooter";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -66,6 +67,7 @@ function App() {
             <Route exact path="/editProfile/:id" component={EditProfile} />
             <Route exact path="/users/:id" component={Dashboard} />
           </Switch>
+          <PageFooter />
         </div>
       </UserContext.Provider>
     </Router>
