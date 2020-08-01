@@ -10,9 +10,7 @@ import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Dashboard from "./pages/UserDashboard";
 import Navbar from "./components/Navbar";
-
 import Axios from "axios";
-// import Login from "./pages/Login";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
@@ -65,8 +63,8 @@ function App() {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/teach/:id" component={Teach} />
             <Route exact path="/donate" component={Donate} />
-            <Route exact path="/dashboard/:id" component={Dashboard} />
-            <Route exact path="/users/:id" component={EditProfile} />
+            {/* <Route exact path="/dashboard/:id" component={Dashboard} /> */}
+            <Route exact path="/users/:id" component={Dashboard} />
           </Switch>
         </div>
       </UserContext.Provider>

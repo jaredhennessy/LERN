@@ -2,7 +2,7 @@ import axios from "axios";
 
 export default {
     //Gets all courses
-  getCourses: function () {
+  getAllCourses: function () {
     return axios.get("/api/courses");
   },
   //Gets all courses of a particular category
