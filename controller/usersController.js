@@ -53,7 +53,7 @@ module.exports = {
     const user = await db.User.findOne({ username: req.body.username });
 
     // If no user, return bad response
-    if (user == null) return res.status(400).send("Username not found.");
+    if (user == null) return res.status(400).send("User does not exist.");
 
     // Else, compare user supplied password to the hashed password; use bcrypt compare to avoid timing attacks
     try {
@@ -73,9 +73,9 @@ module.exports = {
   findUserCourses: function (req, res) {
     // Return through courses and return courses where course owner matches username
     db.User.findOne({
-      username: req.user.username
+      username: req.params.id
     }).then(data => {
-      res.json(data.courses)
+      res.json(data.courses);
     }).catch(err => {
       console.log(err);
     }) 
