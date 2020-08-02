@@ -24,6 +24,7 @@ function App() {
 
   // On launch, check for a logged in user (authenticated token in localstorage)
   useEffect(() => {
+    console.log("App useEffect")
     const checkLoggedIn = async () => {
       let tokenLocal = localStorage.getItem("auth-token");
       if (tokenLocal === null) {
@@ -48,6 +49,8 @@ function App() {
     };
     checkLoggedIn();
   }, []);
+
+  console.log("App render")
 
   return (
     <Router>
