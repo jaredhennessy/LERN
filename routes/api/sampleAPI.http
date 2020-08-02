@@ -1,0 +1,41 @@
+// create a new course
+POST http://localhost:3001/api/courses HTTP/1.1
+content-type: application/json
+
+{
+"title": "Course D",
+"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tincidunt leo velit, maximus aliquam magna fringilla in. Maecenas dapibus massa sit amet suscipit aliquam. Maecenas dignissim vestibulum auctor. Phasellus at eros varius, dignissim augue ut, volutpat augue. Donec eu justo feugiat massa sagittis blandit. Ut et lectus odio. Donec vestibulum lorem vel rutrum hendrerit. Curabitur bibendum, enim finibus iaculis posuere, sem arcu egestas mi, at pellentesque erat tellus eget massa. Vestibulum congue feugiat felis. Aenean pulvinar elit vel mattis congue. Vivamus mi ex, aliquet quis urna sit amet, euismod elementum neque. Nam a lacinia mauris. Sed in neque sit amet mi imperdiet elementum. Mauris non enim eros.",
+"category": "5f21fa5e4fadb841d8cb98f3",
+"instructor": "5f2482697ed203002a38cf8d"
+}
+
+##########
+// update a specific course, setting the image value
+PUT http://localhost:3001/api/courses/5f2732222b193835ec4c39ea HTTP/1.1
+content-type: application/json
+
+{
+    "image": "test.png"
+}
+
+##########
+// all courses
+http://localhost:3001/api/courses
+
+
+##########
+// all categories
+http://localhost:3001/api/categories
+
+##########
+// all pages
+http://localhost:3001/api/pages
+
+##########
+// all pages within a course
+http://localhost:3001/api/pages/c/5f25ccebd3c0eb0be44eef56
+
+
+##########
+// single specific page within a course
+http://localhost:3001/api/pages/c/5f25ccebd3c0eb0be44eef56/p/2

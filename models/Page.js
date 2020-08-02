@@ -6,19 +6,26 @@ const pageSchema = new Schema({
     type: Number,
     required: "Enter a page number to sort this page."
   },
-  Title: {
+  title: {
     type: String,
     required: "Enter a title for this page."
   },
-  Image: {
-    type: Buffer
-  },
-  Text: {
+  image: {
     type: String
   },
-  Course: {
+  text: {
+    type: String
+  },
+  link: {
+    type: String
+  },
+  course: {
     type: Schema.Types.ObjectId,
     ref: "Course"
+  },
+  dateCreated: {
+    type: Date,
+    default: Date.now
   }
 });
 

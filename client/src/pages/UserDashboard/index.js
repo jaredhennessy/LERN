@@ -12,14 +12,14 @@ import UserContext from "../../UserContext/UserContext";
 import Axios from "axios";
 import FileUpload from "../../components/FileUpload";
 import Divider from "@material-ui/core/Divider";
-import API from "../../utils/API";
+// import API from "../../utils/API";
 
 export default function UserDashboard() {
   const { userData } = useContext(UserContext);
   const [courses, setCourses] = useState({
     userCourses: [],
   });
-  const history = useHistory();
+  // const history = useHistory();
 
   useEffect(() => {
     console.log("userDashboard useEffect");
