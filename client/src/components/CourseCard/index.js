@@ -7,11 +7,11 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-
+// import withStyles from "@material-ui/core/styles/withStyles"
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
+// import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
+// import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 
@@ -24,10 +24,18 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    // maxHeight: 345,
   },
   media: {
     height: 140,
   },
+  description: {
+    maxHeight: 75,
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "no-wrap",
+
+  }
 });
 
 export default function CourseCard({ title, description, image, category, instructor, dateCreated }) {
@@ -43,7 +51,6 @@ export default function CourseCard({ title, description, image, category, instru
     setOpen(false);
   };
 
-
   return (
     <div>
     <Card className={classes.root}>
@@ -57,7 +64,7 @@ export default function CourseCard({ title, description, image, category, instru
           <Typography gutterBottom variant="h5" component="h2">
             {title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p" className={classes.description}>
             {description}
           </Typography>
         </CardContent>
@@ -119,14 +126,6 @@ export default function CourseCard({ title, description, image, category, instru
       </CardActions>
     </Card>
   </DialogContent>
-  <DialogActions>
-    {/* <Button onClick={handleClose} color="primary">
-      Disagree
-    </Button>
-    <Button onClick={handleClose} color="primary">
-      Agree
-    </Button> */}
-  </DialogActions>
 </Dialog>
 </div>
 </div>
