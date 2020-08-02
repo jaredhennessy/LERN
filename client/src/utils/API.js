@@ -13,4 +13,9 @@ export default {
   getCourse: function (id) {
     return axios.get("/api/courses/" + id);
   },
+
+  getAllCategories: function() {
+    return axios.get("/api/categories");
+  }
+
 };

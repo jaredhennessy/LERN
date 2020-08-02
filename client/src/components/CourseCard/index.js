@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -13,6 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import CourseCardModal from "../CourseCardModal";
 import Zoom from "@material-ui/core/Zoom";
+
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="up" ref={ref} {...props} />;
@@ -49,6 +50,9 @@ export default function CourseCard({
   instructor,
   dateCreated,
 }) {
+
+
+
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);

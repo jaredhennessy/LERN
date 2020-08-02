@@ -20,8 +20,6 @@ export default function PageFooter() {
           <Typography align={"center"} gutterBottom color={"textSecondary"}>
             About
           </Typography>
-        {/* </Grid>
-        <Grid item xs={12} sm={6} md={3}> */}
           <Typography align={"center"} gutterBottom color={"textSecondary"}>
             Legal
           </Typography>
@@ -35,8 +33,6 @@ export default function PageFooter() {
           <Typography align={"center"} gutterBottom color={"textSecondary"}>
           Contact LERN
           </Typography>
-        {/* </Grid>
-        <Grid item xs={12} sm={6} md={3}> */}
           <Typography align={"center"} gutterBottom color={"textSecondary"}>
             Disclaimers
           </Typography>
