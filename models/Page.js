@@ -11,7 +11,7 @@ const pageSchema = new Schema({
     required: "Enter a title for this page."
   },
   image: {
-    type: Buffer
+    type: String
   },
   text: {
     type: String
