@@ -8,7 +8,7 @@ const generateAccessToken = require("../utils/generateAccessToken");
 let refreshTokens = [];
 
 module.exports = {
-  findUser: function(req, res) {
+  findUser: function (req, res) {
     db.User.findOne({
       username: req.user.username
     }).then(data => {
@@ -18,17 +18,17 @@ module.exports = {
       })
     }).catch(err => {
       console.log(err);
-    }) 
+    })
   },
-  createUser: async function(req, res) {
+  createUser: async function (req, res) {
     const { username, password, email } = req.body;
-    
+
     // Validate username/email doesn't already exist
-    const existingUser = await db.User.findOne({username: username});
+    const existingUser = await db.User.findOne({ username: username });
     if (existingUser) return res.status(400).send("Username is taken.");
-    const existingEmail = await db.User.findOne({email: email});
+    const existingEmail = await db.User.findOne({ email: email });
     if (existingEmail) return res.status(400).send("Email has already been used.");
-  
+
     try {
       // User password will be salted and hashed by bcrypt
       const hashedPassword = await bcrypt.hash(password, 10);
@@ -74,11 +74,11 @@ module.exports = {
     // Return through courses and return courses where course owner matches username
     db.User.findOne({
       _id: req.params.id
-    }).then(data => {
-      res.json(data.courses);
+    }).populate("courses.Course").then(data => {
+      res.json(data);
     }).catch(err => {
       console.log(err);
-    }) 
+    })
   },
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
@@ -98,7 +98,7 @@ module.exports = {
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
   },
-  tokenIsValid: async function(req, res) {
+  tokenIsValid: async function (req, res) {
     try {
       // Check if token was sent
       const token = req.header("authorization");
@@ -114,7 +114,7 @@ module.exports = {
 
       // Return true if all check passed
       return res.json(true);
-    } catch(err) {
+    } catch (err) {
       console.log(err);
       res.status(500).send();
     }

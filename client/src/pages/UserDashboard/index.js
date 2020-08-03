@@ -14,16 +14,21 @@ import API from "../../utils/API";
 
 export default function UserDashboard() {
   const { userData } = useContext(UserContext);
-  const [teachingCourses, setTeachingCourses] = useState([]);
-  const [learningCourses, setLearningCourses] = useState([]);
+  const [userCourses, setTeachingCourses] = useState({
+    teaching: [],
+    learning: []
+  });
 
   useEffect(() => {
-    API.getUserTeachingCourses(userData._id)
-      .then(res => setTeachingCourses(res.data))
-      .catch(err => console.log(err));
-    API.getUserLearningCourses(userData._id)
-      .then(res => setLearningCourses(res.data))
-      .catch(err => console.log(err));
+    const getCourses = async () => {
+      let teachingCourses = await API.getUserTeachingCourses(userData._id);
+      let learningCourses = await API.getUserLearningCourses(userData._id);
+      setTeachingCourses({
+        teaching: teachingCourses.data,
+        learning: learningCourses.data.courses
+      })
+    }
+      getCourses();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -57,22 +62,20 @@ export default function UserDashboard() {
       <Container>
         <h2>LERNING</h2>
         <span>
-          <Button variant="contained" color="primary" href="/courses">
-            Browse
-            </Button>
+          <Button variant="contained" color="primary" href="/courses">Browse</Button>
         </span>
-        {learningCourses.length ? (
+        {userCourses.learning.length ? (
           <Grid container spacing={3}>
-            {learningCourses.map(course => (
+            {userCourses.learning.map(course => (
               <Grid item md={3} key={course.id}>
                 <Paper>
                   <CourseCard
-                    title={course.title}
-                    description={course.description}
+                    title={course.Course.title}
+                    description={course.Course.description}
                     image={course.image}
-                    category={course.category}
-                    instructor={course.instructor}
-                    dateCreated={course.dateCreated}
+                    category={course.Course.category}
+                    instructor={course.Course.instructor}
+                    dateCreated={course.Course.dateCreated}
                   />
                 </Paper>
               </Grid>
@@ -92,17 +95,17 @@ export default function UserDashboard() {
         <Button variant="contained" color="primary" href={"/teach/" + userData.user}>
           New Course
             </Button>
-        {teachingCourses.length ? (
+        {userCourses.teaching.length ? (
           <Grid container spacing={3}>
-            {teachingCourses.map(course => (
+            {userCourses.teaching.map(course => (
               <Grid item md={3} key={course.id}>
                 <Paper>
                   <CourseCard
                     title={course.title}
                     description={course.description}
                     image={course.image}
-                    category={course.category}
-                    instructor={course.instructor}
+                    category={course.category.category}
+                    // instructor={course.instructor}
                     dateCreated={course.dateCreated}
                   />
                 </Paper>
