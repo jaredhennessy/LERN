@@ -6,14 +6,14 @@ export default {
     return axios.get("/api/courses");
   },
   //Gets all courses of a particular category
-  getCourses: function (category) {
-    return axios.get("/api/courses/" + category);
+  getCoursesByCategory: function (categoryId) {
+    return axios.get("/api/courses/c/" + categoryId);
   },
   //Gets a single course by id
   getCourse: function (id) {
     return axios.get("/api/courses/" + id);
   },
-
+  //Gets all categories
   getAllCategories: function() {
     return axios.get("/api/categories");
   }

@@ -18,12 +18,9 @@ export default function Courses() {
   // const [categories, setCategories] = useState([]);
   // useEffect(() => loadCategories(), []);
 
-
-  // const classes = useStyles();
-  // const [age, setAge] = React.useState('');
-
   const handleChange = (e) => {
-    // loadCoursesByCategory(e.target.value);
+    loadCoursesByCategory(e.target.value);
+    console.log(e.target.value);
   };
 
   //loads all courses
@@ -41,15 +38,15 @@ export default function Courses() {
   // }
 
   //loads courses of selected category
-  // function loadCoursesByCategory(category) {
-  //   API.getCoursesByCategory(category)
-  //   .then(res => setCourses(res.data))
-  //     .catch(err => console.log(err));
-  //     console.log(category);
-  // }
+  function loadCoursesByCategory(categoryId) {
+    API.getCoursesByCategory(categoryId)
+    .then(res => setCourses(res.data))
+      .catch(err => console.log(err));
+      console.log(categoryId);
+  }
 
   //Need to populate category selector with category.category
-  //Then set value equal to category.id.$oid?
+  //Then set value equal to category.id?
   //Then getCourses by category using the category id
 
 
@@ -71,7 +68,7 @@ export default function Courses() {
                  
                   <CourseCard 
 
-
+                  
                   title={course.title} 
                   description={course.description}
                   image={course.image}
