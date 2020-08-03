@@ -16,6 +16,12 @@ export default {
   //Gets all categories
   getAllCategories: function() {
     return axios.get("/api/categories");
-  }
+  },
 
+  getUserTeachingCourses: function(id) {
+    return axios.get("/api/courses/i/" + id);
+  },
+  getUserLearningCourses: function(id) {
+    return axios.get("/api/users/courses/" + id);
+  }
 };
