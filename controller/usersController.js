@@ -74,7 +74,12 @@ module.exports = {
     // Return through courses and return courses where course owner matches username
     db.User.findOne({
       _id: req.params.id
-    }).populate("courses.Course").then(data => {
+    }).populate({
+      path: "courses.Course",
+      populate: {
+        path: "category"
+      }
+    }).then(data => {
       res.json(data);
     }).catch(err => {
       console.log(err);
