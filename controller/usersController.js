@@ -71,13 +71,17 @@ module.exports = {
     }
   },
   findUserCourses: function (req, res) {
-    console.log("findUserCourses");
-    console.log(req.params.id);
     // Return through courses and return courses where course owner matches username
     db.User.findOne({
+<<<<<<< HEAD
       username: req.params.id
     }).populate("courses.Course").then(data => {
       res.json(data);
+=======
+      _id: req.params.id
+    }).then(data => {
+      res.json(data.courses);
+>>>>>>> development
     }).catch(err => {
       console.log(err);
     })

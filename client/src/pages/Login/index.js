@@ -30,7 +30,6 @@ function Login() {
       password: password
     })
       .then(res => {
-        alert(`Welcome back ${res.data.username}`);
         setUserData({
           user: res.data.username,
           token: res.data.accessToken,

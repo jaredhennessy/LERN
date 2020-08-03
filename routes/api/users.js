@@ -5,8 +5,8 @@ const authenticateToken = require("../../utils/authenticateToken");
 // Matches with "/api/users", returns current logged in user
 router.route("/").get(authenticateToken, usersController.findUser);
 
-// Matches with "/api/users/:id", authenticates for valid token, then returns courses with token user
-router.route("/:id").get(usersController.findUserCourses);
+// Matches with "/api/users/courses/:id", authenticates for valid token, then returns courses with token user
+router.route("/courses/:id").get(usersController.findUserCourses);
 
 // Matches with "/api/users/register", creates a username with hashed password in database (currently array)
 router.route("/register").post(usersController.createUser);

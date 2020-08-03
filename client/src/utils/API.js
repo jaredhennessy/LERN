@@ -17,6 +17,6 @@ export default {
     return axios.get("/api/courses/i/" + id);
   },
   getUserLearningCourses: function(id) {
-    return axios.get("/api/users/" + id);
+    return axios.get("/api/users/courses/" + id);
   }
 };
