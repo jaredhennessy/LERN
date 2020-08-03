@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -18,14 +18,13 @@ import PageFooter from "./components/PageFooter";
 
 function App() {
   const [userData, setUserData] = useState({
-    token: undefined,
-    user: undefined,
-    _id: undefined
+    token: localStorage.getItem("auth-token") || undefined,
+    user: localStorage.getItem("user") || undefined,
+    _id: localStorage.getItem("userID") || undefined
   });
 
   // On launch, check for a logged in user (authenticated token in localstorage)
   useEffect(() => {
-    console.log("App useEffect")
     const checkLoggedIn = async () => {
       let tokenLocal = localStorage.getItem("auth-token");
       if (tokenLocal === null) {
@@ -41,6 +40,8 @@ function App() {
         const userResponse = await Axios.get("/api/users", {
           headers: { authorization: "Bearer " + tokenLocal }
         });
+        localStorage.setItem("user", userResponse.data.username);
+        localStorage.setItem("userID", userResponse.data._id);
         setUserData({
           token: tokenLocal,
           user: userResponse.data.username,
@@ -50,8 +51,6 @@ function App() {
     };
     checkLoggedIn();
   }, []);
-
-  console.log("App render")
 
   return (
     <Router>
@@ -65,10 +64,14 @@ function App() {
             <Route exact path="/fileUpload" component={FileUpload} />
             <Route exact path="/about" component={About} />
             <Route exact path="/courses" component={Courses} />
-            <Route exact path="/teach/:id" component={Teach} />
             <Route exact path="/donate" component={Donate} />
             <Route exact path="/editProfile/:id" component={EditProfile} />
-            <Route exact path="/users/:id" component={Dashboard} />
+
+            {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
+            <Route exact path="/users/:id" render={() => 
+              userData.user ? <Dashboard /> : <Redirect to={{pathname: "/login"}}/>} />
+            <Route exact path="/teach/:id" render={() => 
+              userData.user ? <Teach /> : <Redirect to={{pathname: "/login"}}/>}/>
           </Switch>
           <PageFooter />
         </div>

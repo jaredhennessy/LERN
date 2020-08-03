@@ -13,4 +13,10 @@ export default {
   getCourse: function (id) {
     return axios.get("/api/courses/" + id);
   },
+  getUserTeachingCourses: function(id) {
+    return axios.get("/api/courses/i/" + id);
+  },
+  getUserLearningCourses: function(id) {
+    return axios.get("/api/users/" + id);
+  }
 };

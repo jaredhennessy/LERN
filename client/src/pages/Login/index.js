@@ -38,6 +38,8 @@ function Login() {
         })
         localStorage.setItem("auth-token", res.data.accessToken);
         localStorage.setItem("ref-token", res.data.refreshToken);
+        localStorage.setItem("user", res.data.username);
+        localStorage.setItem("userID", res.data.userID);
         history.push("/users/" + res.data.username);
       })
       .catch(err => alert(err.response.data))

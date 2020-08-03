@@ -113,6 +113,8 @@ export default function Navbar() {
       .catch(err => console.log(err.response.data));
     localStorage.setItem("auth-token", "");
     localStorage.setItem("ref-token", "");
+    localStorage.setItem("user", "");
+    localStorage.setItem("userID", "");
     history.push("/");
   }
 
