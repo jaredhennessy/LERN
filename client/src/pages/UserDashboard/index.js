@@ -21,7 +21,7 @@ export default function UserDashboard() {
     API.getUserTeachingCourses(userData._id)
       .then(res => setTeachingCourses(res.data))
       .catch(err => console.log(err));
-    API.getUserLearningCourses(userData.user)
+    API.getUserLearningCourses(userData._id)
       .then(res => setLearningCourses(res.data))
       .catch(err => console.log(err));
   // eslint-disable-next-line react-hooks/exhaustive-deps
