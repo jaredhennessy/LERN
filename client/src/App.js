@@ -70,15 +70,17 @@ function App() {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/donate" component={Donate} />
             <Route exact path="/editProfile/:id" component={EditProfile} />
-            <Route exact path="/teach" component={Teach} />
             <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
             <Route exact path="/newCourse" component={NewCourse} />
+            {/* <Route exact path="/teach" component={Teach} /> */}
 
             {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
             <Route exact path="/users/:id" render={() =>
               userData.user ? <Dashboard /> : <Redirect to={{ pathname: "/login" }} />} />
             <Route exact path="/teach/:id" render={() =>
-              userData.user ? <Teach /> : <Redirect to={{ pathname: "/login" }} />} />
+              userData.user ? <Teach /> : <Login />} />
+            <Route exact path="/teach" render={() =>
+              userData.user ? <Teach /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>
