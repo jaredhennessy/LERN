@@ -17,7 +17,7 @@ import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
-import CourseForm from "./pages/CourseForm";
+import NewCourse from "./pages/NewCourse";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -72,7 +72,7 @@ function App() {
             <Route exact path="/editProfile/:id" component={EditProfile} />
             <Route exact path="/teach" component={Teach} />
             <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
-            <Route exact path="/courseForm" component={CourseForm} />
+            <Route exact path="/newCourse" component={NewCourse} />
 
             {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
             <Route exact path="/users/:id" render={() =>
