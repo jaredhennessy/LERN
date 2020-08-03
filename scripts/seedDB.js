@@ -44,7 +44,8 @@ const categories = [
   new db.Category(
     {
       "_id": "5f21fa5e4fadb841d8cb98f8",
-      "category": "Full-Stack Development"
+      "category": "Full-Stack Development",
+      "image": "a871942be3dc488a675b75c51b23586e.PNG"
     })
 ]
 
@@ -54,7 +55,7 @@ const users = [
     "username": "jared",
     "password": "$2b$10$LwLKHgDZflWgrO9ujas0neOdRqIUZzxaQwAs6qBPmHUOs4IzGXtae",
     "email": "jared.hennessy@gmail.com",
-    "image": "8a8f3566fa7244dbe9c2c1533d51049b.jpg",
+    "image": "186114a74af64e7555cb77fc7e02db21.jpg",
     "courses": [
       {
         "Course": "5f25ccebd3c0eb0be44eef57",
@@ -136,6 +137,7 @@ const courses = [
     "_id": "5f25ccebd3c0eb0be44eef56",
     "title": "Course A",
     "description": "Suspendisse enim tortor, feugiat at lectus at, aliquam rhoncus nisl. Fusce ut ante in tortor pulvinar finibus. Duis ut libero diam. Nullam lobortis eros fringilla pellentesque elementum. Proin ut finibus erat, id efficitur libero. Vestibulum nec mollis orci. Suspendisse eu feugiat est. Quisque congue erat eget erat maximus consectetur. Vivamus bibendum interdum blandit. In varius sodales eros, vitae ultrices nisi dapibus sed. Maecenas mollis odio id felis auctor, id sodales augue feugiat. Sed eget justo elementum, lobortis urna quis, malesuada nunc. Cras gravida dignissim scelerisque. Nam cursus tincidunt dolor a pretium. Sed elementum, lacus sit amet porta efficitur, tellus enim consectetur massa, ac condimentum sapien velit nec turpis. Curabitur faucibus cursus dictum.",
+    "image": "d2326e66f354241367c345a25789728b.jpg",
     "category": "5f21fa5e4fadb841d8cb98f3",
     "instructor": "5f23a9a351dd13002a69a3d0"
   }),

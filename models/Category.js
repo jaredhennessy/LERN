@@ -8,7 +8,7 @@ const catSchema = new Schema({
     required: "Enter a category name."
   },
   image: {
-    type: Buffer
+    type: String
   },
   dateCreated: {
     type: Date,
