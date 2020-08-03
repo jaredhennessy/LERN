@@ -1,0 +1,50 @@
+[
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f1"
+        },
+        "category": "Finance"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f2"
+        },
+        "category": "Business"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f3"
+        },
+        "category": "Math"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f4"
+        },
+        "category": "Painting"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f5"
+        },
+        "category": "Pottery"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f6"
+        },
+        "category": "Fishing"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f7"
+        },
+        "category": "DIY"
+    },
+    {
+        "_id": {
+            "$oid": "5f21fa5e4fadb841d8cb98f8"
+        },
+        "category": "Full-Stack Development"
+    }
+]

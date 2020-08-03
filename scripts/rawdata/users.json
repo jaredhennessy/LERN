@@ -1,0 +1,142 @@
+[
+    {
+        "_id": {
+            "$oid": "5f23a9a351dd13002a69a3d0"
+        },
+        "username": "jared",
+        "password": "$2b$10$LwLKHgDZflWgrO9ujas0neOdRqIUZzxaQwAs6qBPmHUOs4IzGXtae",
+        "email": "jared.hennessy@gmail.com",
+        "dateCreated": {
+            "$date": "2020-07-29T05:18:27.258Z"
+        },
+        "courses": [
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef57"
+                },
+                "currentPage": 1,
+                "dateStarted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                },
+                "dateCompleted": null
+            },
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef58"
+                },
+                "currentPage": 1,
+                "dateStarted": {
+                    "$date": "2020-07-31T05:18:27.258Z"
+                },
+                "dateCompleted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                }
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f23bcad9c9c5d002a6ef390"
+        },
+        "username": "newuser",
+        "password": "$2b$10$fO8K1PNb.zt4xfJxQHs84uxBpU6.ga6bLMOwHcOfneuICLPcaLL.K",
+        "email": "newuser@example.com",
+        "dateCreated": {
+            "$date": "2020-07-29T06:39:41.652Z"
+        },
+        "courses": [
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef57"
+                },
+                "currentPage": 1,
+                "dateStarted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                },
+                "dateCompleted": null
+            },
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef58"
+                },
+                "currentPage": 5,
+                "dateStarted": {
+                    "$date": "2020-07-31T05:18:27.258Z"
+                },
+                "dateCompleted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                }
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f23bfaac3bfc2002aaee6c9"
+        },
+        "username": "testuser",
+        "password": "$2b$10$6WIKG6NJ5OlsfDCSCg37ledciJbWwBeVmeDBjef2BXh8i8I3q9Hc6",
+        "email": "testuser@example.com",
+        "dateCreated": {
+            "$date": "2020-07-29T06:52:26.640Z"
+        },
+        "courses": [
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef57"
+                },
+                "currentPage": 1,
+                "dateStarted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                },
+                "dateCompleted": null
+            },
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef58"
+                },
+                "currentPage": 5,
+                "dateStarted": {
+                    "$date": "2020-07-31T05:18:27.258Z"
+                },
+                "dateCompleted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                }
+            }
+        ]
+    },
+    {
+        "_id": {
+            "$oid": "5f2482697ed203002a38cf8d"
+        },
+        "username": "danw",
+        "password": "$2b$10$5NYtYepOeWJ/o/r3FksFwOSmoS7OekArfK/EsvWjri7RNG4Wrmk.2",
+        "email": "danmweikart@gmail.com",
+        "dateCreated": {
+            "$date": "2020-07-29T20:43:21.380Z"
+        },
+        "courses": [
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef56"
+                },
+                "currentPage": 1,
+                "dateStarted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                },
+                "dateCompleted": null
+            },
+            {
+                "Course": {
+                    "$oid": "5f25ccebd3c0eb0be44eef58"
+                },
+                "currentPage": 5,
+                "dateStarted": {
+                    "$date": "2020-07-31T05:18:27.258Z"
+                },
+                "dateCompleted": {
+                    "$date": "2020-08-01T05:18:27.258Z"
+                }
+            }
+        ]
+    }
+]
