@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import { Link as RouterLink } from 'react-router-dom'
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,14 +25,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function CreateCourseDisclaimer() {
+function Teach() {
 
   const classes = useStyles();
 
   return (
     <div>
       <br />
-      <h1>Terms and Conditions</h1>
+      <h1>Course Form</h1>
 
       <p className={classes.text}>
         In LERN, we believe in powerful education for all, no compromises, no fees…
@@ -44,10 +42,9 @@ function CreateCourseDisclaimer() {
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
       </p>
       <br />
-      <Button variant="contained" color="primary" type="submit" component={RouterLink} to="/CourseForm">I agree to the terms</Button>
+      {/* <Button variant="contained" color="primary" type="submit" onClick={<}>I agree to the terms</Button> */}
       <br />
-      <br />
-      <Button variant="contained" color="primary" type="submit" component={RouterLink} to="/">I decline</Button>
+      {/* <Button variant="contained" color="primary" type="submit" onClick={<Home />}>I decline, take me back</Button> */}
       <br />
 
     </div>
@@ -55,4 +52,4 @@ function CreateCourseDisclaimer() {
   )
 }
 
-export default CreateCourseDisclaimer;
+export default Teach;

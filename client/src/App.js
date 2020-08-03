@@ -9,12 +9,15 @@ import Donate from "./pages/Donate";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Dashboard from "./pages/UserDashboard";
+import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Axios from "axios";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
+import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
+import CourseForm from "./pages/CourseForm";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -56,6 +59,7 @@ function App() {
     <Router>
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
+          <Header />
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home}></Route>
@@ -66,6 +70,9 @@ function App() {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/donate" component={Donate} />
             <Route exact path="/editProfile/:id" component={EditProfile} />
+            <Route exact path="/teach" component={Teach} />
+            <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
+            <Route exact path="/courseForm" component={CourseForm} />
 
             {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
             <Route exact path="/users/:id" render={() =>
