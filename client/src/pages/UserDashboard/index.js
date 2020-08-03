@@ -40,7 +40,11 @@ export default function UserDashboard() {
           </Grid>
           <Grid item md={4}>
             <Box justify={"center"}>
+<<<<<<< HEAD
+            {/* <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button> */}
+=======
               <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button>
+>>>>>>> development
             </Box>
           </Grid>
         </Grid>
