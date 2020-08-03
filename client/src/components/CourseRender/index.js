@@ -1,6 +1,6 @@
 import React from "react";
 
-function CourseForm() {
+function CourseRender() {
     return (
         <div>
 
@@ -8,4 +8,4 @@ function CourseForm() {
     )
 }
 
-export default CourseForm;
+export default CourseRender;

@@ -48,8 +48,8 @@ function Login() {
     <div>
       <h1>Login Page</h1>
       <form className={classes.root} noValidate autoComplete="off" onSubmit={submitForm}>
-        <TextField required variant="outlined" label="Username" id="outline-required" name="usernameInput" onChange={e => setUsername(e.target.value)}/><br />
-        <TextField required type="password" variant="outlined" id="outlined-password-input" label="Password" autoComplete="current-password" name="passwordInput" onChange={e => setPassword(e.target.value)}/> <br />
+        <TextField required variant="outlined" label="Username" id="outline-required" name="usernameInput" onChange={e => setUsername(e.target.value)} /><br />
+        <TextField required type="password" variant="outlined" id="outlined-password-input" label="Password" autoComplete="current-password" name="passwordInput" onChange={e => setPassword(e.target.value)} /> <br />
         <Button variant="contained" color="primary" type="submit">Submit</Button>
       </form>
     </div>

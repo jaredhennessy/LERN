@@ -9,12 +9,16 @@ import Donate from "./pages/Donate";
 import EditProfile from "./pages/EditProfile";
 import Login from "./pages/Login";
 import Dashboard from "./pages/UserDashboard";
+import Header from "./components/Header";
 import Navbar from "./components/Navbar";
 import Axios from "axios";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
+import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
+import NewCourse from "./pages/NewCourse";
+
 
 function App() {
   const [userData, setUserData] = useState({
@@ -56,6 +60,7 @@ function App() {
     <Router>
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
+          <Header />
           <Navbar />
           <Switch>
             <Route exact path="/" component={Home}></Route>
@@ -66,12 +71,17 @@ function App() {
             <Route exact path="/courses" component={Courses} />
             <Route exact path="/donate" component={Donate} />
             <Route exact path="/editProfile/:id" component={EditProfile} />
+            <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
+            <Route exact path="/newCourse" component={NewCourse} />
+            <Route exact path="/about" component={About} />
 
             {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
-            <Route exact path="/users/:id" render={() => 
-              userData.user ? <Dashboard /> : <Redirect to={{pathname: "/login"}}/>} />
-            <Route exact path="/teach/:id" render={() => 
-              userData.user ? <Teach /> : <Redirect to={{pathname: "/login"}}/>}/>
+            <Route exact path="/users/:id" render={() =>
+              userData.user ? <Dashboard /> : <Redirect to={{ pathname: "/login" }} />} />
+            <Route exact path="/teach/:id" render={() =>
+              userData.user ? <Teach /> : <Login />} />
+            <Route exact path="/teach" render={() =>
+              userData.user ? <Teach /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>
