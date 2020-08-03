@@ -19,6 +19,7 @@ import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
 
+
 function App() {
   const [userData, setUserData] = useState({
     token: localStorage.getItem("auth-token") || undefined,
@@ -72,7 +73,7 @@ function App() {
             <Route exact path="/editProfile/:id" component={EditProfile} />
             <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
             <Route exact path="/newCourse" component={NewCourse} />
-            {/* <Route exact path="/teach" component={Teach} /> */}
+            <Route exact path="/about" component={About} />
 
             {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
             <Route exact path="/users/:id" render={() =>
