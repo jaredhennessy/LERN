@@ -3,7 +3,7 @@ const { Course } = require("../models");
 
 module.exports = {
   findAll: function (req, res) {
-    Course.find(req.query).populate("category").populate("instructor")
+    Course.find(req.query).populate("category").populate("instructor").populate("pages")
       .sort({ title: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -24,7 +24,7 @@ module.exports = {
   },
 
   findById: function (req, res) {
-    Course.findById(req.params.id).populate("category").populate("instructor")
+    Course.findById(req.params.id).populate("category").populate("instructor").populate("pages")
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
