@@ -7,7 +7,7 @@ export default {
   },
   //Gets all courses of a particular category
   getCoursesByCategory: function (categoryId) {
-    return axios.get("/api/courses/c/" + categoryId);
+    return axios.get("/api/courses/cat/" + categoryId);
   },
   //Gets a single course by id
   getCourse: function (id) {

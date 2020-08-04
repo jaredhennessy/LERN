@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function CategorySelector(handleChange) {
+export default function CategorySelector({handleChange}) {
   const classes = useStyles();
 
   const [categories, setCategories] = useState([]);

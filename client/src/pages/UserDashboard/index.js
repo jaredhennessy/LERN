@@ -45,7 +45,7 @@ export default function UserDashboard() {
           </Grid>
           <Grid item md={4}>
             <Box justify={"center"}>
-              <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button>
+              {/* <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button> */}
             </Box>
           </Grid>
         </Grid>
@@ -69,8 +69,8 @@ export default function UserDashboard() {
                     title={course.Course.title}
                     description={course.Course.description}
                     image={course.image}
-                    category={course.Course.category}
-                    instructor={course.Course.instructor}
+                    category={course.Course.category.category}
+                    instructor={course.Course.instructor.username}
                     dateCreated={course.Course.dateCreated}
                   />
                 </Paper>
@@ -101,7 +101,7 @@ export default function UserDashboard() {
                     description={course.description}
                     image={course.image}
                     category={course.category.category}
-                    // instructor={course.instructor}
+                    instructor={course.instructor.username}
                     dateCreated={course.dateCreated}
                   />
                 </Paper>
