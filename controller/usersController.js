@@ -77,8 +77,8 @@ module.exports = {
     }).populate({
       path: "courses.Course",
       populate: {
-        path: "category"
-      }
+        path: "category instructor"
+      },
     }).then(data => {
       res.json(data);
     }).catch(err => {
