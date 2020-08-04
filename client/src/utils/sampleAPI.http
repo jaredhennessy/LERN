@@ -1,3 +1,5 @@
+// Here are examples of some of the API calls that you'll need.
+
 // create a new course
 POST http://localhost:3001/api/courses HTTP/1.1
 content-type: application/json
@@ -22,6 +24,9 @@ content-type: application/json
 // all courses
 http://localhost:3001/api/courses
 
+##########
+// single course matching id
+http://localhost:3001/api/courses/5f25ccebd3c0eb0be44eef56
 
 ##########
 // all categories
@@ -39,3 +44,7 @@ http://localhost:3001/api/pages/c/5f25ccebd3c0eb0be44eef56
 ##########
 // single specific page within a course
 http://localhost:3001/api/pages/c/5f25ccebd3c0eb0be44eef56/p/2
+
+##########
+// full single-user document
+http://localhost:3001/api/users/courses/5f23a9a351dd13002a69a3d0

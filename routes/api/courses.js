@@ -17,11 +17,11 @@ router.route("/:id")
 router.route("/:id")
   .put(coursesController.update)
 
-// Matches with "/api/courses/c/<Category._id>", returns the courses in the given category
+// Matches with "/api/courses/cat/<Category._id>", returns the courses in the given category
 router.route("/cat/:id")
   .get(coursesController.findByCategory)
 
-// Matches with "/api/courses/c/<User._id>", returns the courses with the given intructor/creator
+// Matches with "/api/courses/i/<User._id>", returns the courses with the given intructor/creator
 router.route("/i/:id")
   .get(coursesController.findByInstructor)
 
