@@ -21,6 +21,7 @@ export default function Courses() {
   const handleChange = (e) => {
     loadCoursesByCategory(e.target.value);
     console.log(e.target.value);
+    console.log("handlechange");
   };
 
   //loads all courses
@@ -51,7 +52,6 @@ export default function Courses() {
 
 
 
-
   return (
     <Container>
       <h1>Courses</h1>
@@ -68,12 +68,11 @@ export default function Courses() {
                  
                   <CourseCard 
 
-                  
                   title={course.title} 
                   description={course.description}
                   image={course.image}
-                  category={course.category}
-                  instructor={course.instructor}
+                  category={course.category.category}
+                  instructor={course.instructor.username}
                   dateCreated={course.dateCreated}
                   />
                
