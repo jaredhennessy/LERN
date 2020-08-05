@@ -32,6 +32,8 @@ export default function UserDashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  console.log(userCourses);
+
   return (
     <Container>
       <Container>
@@ -63,7 +65,7 @@ export default function UserDashboard() {
         {userCourses.learning.length ? (
           <Grid container spacing={3}>
             {userCourses.learning.map(course => (
-              <Grid item md={3} key={course._id}>
+              <Grid item md={3} key={course.Course._id}>
                 <Paper>
                   <CourseCard
                     title={course.Course.title}
@@ -72,6 +74,7 @@ export default function UserDashboard() {
                     category={course.Course.category.category}
                     instructor={course.Course.instructor.username}
                     dateCreated={course.Course.dateCreated}
+                    courseID={course.Course._id}
                   />
                 </Paper>
               </Grid>
@@ -103,6 +106,7 @@ export default function UserDashboard() {
                     category={course.category.category}
                     instructor={course.instructor.username}
                     dateCreated={course.dateCreated}
+                    courseID={course._id}
                   />
                 </Paper>
               </Grid>
