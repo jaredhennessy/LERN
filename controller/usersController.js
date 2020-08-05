@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
+const mongoose = require("mongoose");
 
 // *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
@@ -14,7 +15,8 @@ module.exports = {
     }).then(data => {
       res.json({
         username: data.username,
-        _id: data._id
+        _id: data._id,
+        image: data.image
       })
     }).catch(err => {
       console.log(err);
@@ -63,7 +65,7 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username, userID: user._id });
+        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username, userID: user._id, image: user.image });
       } else {
         res.status(400).send("Incorrect credentials");
       }
@@ -126,6 +128,22 @@ module.exports = {
 
       // Return true if all check passed
       return res.json(true);
+    } catch (err) {
+      console.log(err);
+      res.status(500).send();
+    }
+  },
+
+  uploadPicture: async function (req, res) {
+    console.log(req.body._id)
+    try {
+      User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, {image: req.body.imageURL} )
+        .then(data => {
+          res.json(data);
+        }).catch(err => {
+          console.log(err);
+          res.status(400).send();
+        })
     } catch (err) {
       console.log(err);
       res.status(500).send();

@@ -33,12 +33,14 @@ function Login() {
         setUserData({
           user: res.data.username,
           token: res.data.accessToken,
-          _id: res.data.userID
+          _id: res.data.userID,
+          userIMG: res.data.image
         })
         localStorage.setItem("auth-token", res.data.accessToken);
         localStorage.setItem("ref-token", res.data.refreshToken);
         localStorage.setItem("user", res.data.username);
         localStorage.setItem("userID", res.data.userID);
+        localStorage.setItem("userIMG", res.data.userID);
         history.push("/users/" + res.data.username);
       })
       .catch(err => alert(err.response.data))

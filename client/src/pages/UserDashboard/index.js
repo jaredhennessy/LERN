@@ -8,7 +8,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import UserContext from "../../UserContext/UserContext";
-import FileUpload from "../../components/FileUpload";
+import PictureUpload from "../../components/PictureUpload";
 import Divider from "@material-ui/core/Divider";
 import API from "../../utils/API";
 
@@ -38,7 +38,7 @@ export default function UserDashboard() {
         <Grid container spacing={3}>
           <Grid item md={4}>
             <UserAvatar user={userData.user} />
-            <FileUpload />
+            <PictureUpload />
           </Grid>
           <Grid item md={4}>
             <UserInfoCard user={userData.user} />
