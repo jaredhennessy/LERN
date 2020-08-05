@@ -3,7 +3,7 @@ const { Page } = require("../models");
 
 module.exports = {
     findAll: function (req, res) {
-        Page.find(req.query)
+        Page.find(req.query).populate("course")
             .sort({ title: 1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
@@ -24,20 +24,20 @@ module.exports = {
     },
 
     findById: function (req, res) {
-        Page.findById(req.params.id)
+        Page.findById(req.params.id).populate("course")
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
 
     findByCourse: function (req, res) {
-        Page.find({ course: req.params.id }, req.body)
+        Page.find({ course: req.params.id }, req.body).populate("course")
             .sort({ pageNumber: 1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
 
     findByCoursePage: function (req, res) {
-        Page.find({ course: req.params.id, pageNumber: req.params.page })
+        Page.find({ course: req.params.id, pageNumber: req.params.page }).populate("course")
             .sort({ title: 1 })
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
