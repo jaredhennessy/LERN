@@ -82,6 +82,7 @@ export default function Courses() {
                     category={course.category.category}
                     instructor={course.instructor.username}
                     dateCreated={course.dateCreated}
+                    courseID={course.id}
                   />
                 </Paper>
               </Grid>

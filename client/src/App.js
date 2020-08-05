@@ -18,6 +18,7 @@ import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
+import LERN from "./pages/LERN";
 
 
 function App() {
@@ -85,6 +86,8 @@ function App() {
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/teach" render={() =>
               userData.user ? <Teach /> : <Login />} />
+            <Route exact path="/pages/c/:course/p/:page" render={() =>
+              userData.user ? <LERN /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>
