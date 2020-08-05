@@ -22,8 +22,8 @@ export default function Courses() {
     if (e.target.value === "all") {
       loadCourses();
     } else {
-    loadCoursesByCategory(e.target.value);
-  }
+      loadCoursesByCategory(e.target.value);
+    }
   };
 
   const handleInputChange = e => {
@@ -33,9 +33,9 @@ export default function Courses() {
   //loads courses containing search
   useEffect(() => {
     setFilteredCourses(
-      courses.filter( course => {
-      return course.title.toLowerCase().includes(search.toLowerCase())
-    })
+      courses.filter(course => {
+        return course.title.toLowerCase().includes(search.toLowerCase())
+      })
     )
   }, [search, courses])
 
@@ -64,7 +64,7 @@ export default function Courses() {
           />
         </Grid>
         <Grid item md={6}>
-          <CategorySelector handleChange={handleChange} loadCourses={loadCourses}/>
+          <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
         </Grid>
       </Grid>
       <div>
@@ -72,7 +72,7 @@ export default function Courses() {
           <Grid container spacing={3}>
             {filteredCourses.map(course => (
               <Grid item md={3} key={course.id}>
-                <Paper 
+                <Paper
                 // TransitionComponent={Transition}
                 >
                   <CourseCard
@@ -89,8 +89,8 @@ export default function Courses() {
             ))}
           </Grid>
         ) : (
-          <h3>No Results</h3>
-        )}
+            <h3>No Results</h3>
+          )}
       </div>
     </Container>
   );
