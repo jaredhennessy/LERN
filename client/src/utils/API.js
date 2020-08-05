@@ -18,10 +18,17 @@ export default {
     return axios.get("/api/categories");
   },
 
+  // Gets courses taught by a specific user
   getUserTeachingCourses: function(id) {
     return axios.get("/api/courses/i/" + id);
   },
+
+  // Gets courses taken by a specific user
   getUserLearningCourses: function(id) {
     return axios.get("/api/users/courses/" + id);
+  },
+
+  getCoursePage: function(courseID, pageNumber) {
+    return axios.get(`/api/pages/c/${courseID}/p/${pageNumber}`)
   }
 };

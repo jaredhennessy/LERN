@@ -63,7 +63,7 @@ export default function UserDashboard() {
         {userCourses.learning.length ? (
           <Grid container spacing={3}>
             {userCourses.learning.map(course => (
-              <Grid item md={3} key={course.id}>
+              <Grid item md={3} key={course._id}>
                 <Paper>
                   <CourseCard
                     title={course.Course.title}
@@ -94,7 +94,7 @@ export default function UserDashboard() {
         {userCourses.teaching.length ? (
           <Grid container spacing={3}>
             {userCourses.teaching.map(course => (
-              <Grid item md={3} key={course.id}>
+              <Grid item md={3} key={course._id}>
                 <Paper>
                   <CourseCard
                     title={course.title}
