@@ -1,10 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
-const mongoose = require("mongoose");
-
 // *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
 
@@ -91,6 +90,55 @@ module.exports = {
         console.log(err);
       })
   },
+
+  startCourse: function (req, res) {
+    const userId = mongoose.Types.ObjectId(req.body.userId);
+    const courseId = mongoose.Types.ObjectId(req.body.courseId);
+
+    const query = [
+      {
+        "$match": { _id: userId }
+      },
+      { $unwind: "$courses" },
+      { "$match": { "courses.Course": courseId } }
+    ]
+    User.aggregate(query).exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        if (data.length === 0) {
+          const userCourse = {
+            "Course": courseId,
+            "currentPage": 1,
+            "dateCompleted": null
+          }
+
+          User.findOneAndUpdate({ _id: userId }, { $push: { courses: userCourse } }, { new: true })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err))
+        } else {
+          res.json(data);
+        }
+      }
+    })
+
+  },
+
+  completeCourse: function (req, res) {
+    return req.params.id;
+  },
+
+  nextPage: function (req, res) {
+    return req.params.id;
+
+  },
+
+  prevPage: function (req, res) {
+    return req.params.id;
+
+  },
+
 
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
