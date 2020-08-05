@@ -7,6 +7,7 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import API from "../../utils/API";
 
+
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
@@ -40,22 +41,12 @@ export default function CategorySelector({handleChange}) {
         value="id"
         onChange={handleChange}
       >
-        <MenuItem value="">
+        <MenuItem value="all">
           <em>All</em>
         </MenuItem>
         {categories.map(category => (
         <MenuItem value={category._id}>{category.category}</MenuItem>
         ))}
-        {/* <MenuItem value="Finance">Finance</MenuItem>
-        <MenuItem value="Business">Business</MenuItem>
-        <MenuItem value="Math">Math</MenuItem>
-        <MenuItem value="Painting">Painting</MenuItem>
-        <MenuItem value="Pottery">Pottery</MenuItem>
-        <MenuItem value="Fishing">Fishing</MenuItem>
-        <MenuItem value="DIY">DIY</MenuItem>
-        <MenuItem value="Full-Stack Development">
-          Full-Stack Development
-        </MenuItem> */}
       </Select>
       
     </FormControl>
