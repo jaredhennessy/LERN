@@ -1,9 +1,9 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
-
 // *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
 
@@ -89,6 +89,79 @@ module.exports = {
         console.log(err);
       })
   },
+
+  startCourse: function (req, res) {
+    const userId = mongoose.Types.ObjectId(req.body.userId);
+    const courseId = mongoose.Types.ObjectId(req.body.courseId);
+
+    const query = [
+      {
+        "$match": { _id: userId }
+      },
+      { $unwind: "$courses" },
+      { "$match": { "courses.Course": courseId } }
+    ]
+
+    User.aggregate(query).exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        res.json(data);
+      }
+    })
+
+    // User.aggregate([
+    //   // Get just the docs that contain a shapes element where color is 'red'
+    //   { $match: { _id: req.body.userId } },
+    //   // { $match: { 'courses.Course': req.body.courseId } },
+    //   {
+    //     $project: {
+    //       courses: {
+    //         $filter: {
+    //           input: '$courses',
+    //           as: 'course',
+    //           cond: {
+    //             $eq: ['$$course.Course', req.body.courseId]
+    //           }
+    //         }
+    //       },
+    //       _id: 0
+    //     }
+    //   }
+    // ]).exec((err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //   }
+    //   else {
+    //     res.json(data);
+    //   }
+    // })
+
+    // User.findOne({
+    //   _id: req.body.userId,
+    //   "courses.Course": req.body.courseId
+    // }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete").then(data => {
+    //   res.json(data);
+    // }).catch(err => {
+    //   console.log(err);
+    // })
+  },
+
+  completeCourse: function (req, res) {
+    return req.params.id;
+  },
+
+  nextPage: function (req, res) {
+    return req.params.id;
+
+  },
+
+  prevPage: function (req, res) {
+    return req.params.id;
+
+  },
+
 
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
