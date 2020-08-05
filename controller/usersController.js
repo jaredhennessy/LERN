@@ -101,51 +101,27 @@ module.exports = {
       { $unwind: "$courses" },
       { "$match": { "courses.Course": courseId } }
     ]
-
     User.aggregate(query).exec((err, data) => {
       if (err) {
         console.log(err);
       }
       else {
-        res.json(data);
+        if (data.length === 0) {
+          const userCourse = {
+            "Course": courseId,
+            "currentPage": 1,
+            "dateCompleted": null
+          }
+
+          User.findOneAndUpdate({ _id: userId }, { $push: { courses: userCourse } }, { new: true })
+            .then(dbModel => res.json(dbModel))
+            .catch(err => res.status(422).json(err))
+        } else {
+          res.json(data);
+        }
       }
     })
 
-    // User.aggregate([
-    //   // Get just the docs that contain a shapes element where color is 'red'
-    //   { $match: { _id: req.body.userId } },
-    //   // { $match: { 'courses.Course': req.body.courseId } },
-    //   {
-    //     $project: {
-    //       courses: {
-    //         $filter: {
-    //           input: '$courses',
-    //           as: 'course',
-    //           cond: {
-    //             $eq: ['$$course.Course', req.body.courseId]
-    //           }
-    //         }
-    //       },
-    //       _id: 0
-    //     }
-    //   }
-    // ]).exec((err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //   }
-    //   else {
-    //     res.json(data);
-    //   }
-    // })
-
-    // User.findOne({
-    //   _id: req.body.userId,
-    //   "courses.Course": req.body.courseId
-    // }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete").then(data => {
-    //   res.json(data);
-    // }).catch(err => {
-    //   console.log(err);
-    // })
   },
 
   completeCourse: function (req, res) {
