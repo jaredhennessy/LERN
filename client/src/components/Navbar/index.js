@@ -115,6 +115,7 @@ export default function Navbar() {
     localStorage.setItem("ref-token", "");
     localStorage.setItem("user", "");
     localStorage.setItem("userID", "");
+    localStorage.setItem("userIMG", "");
     history.push("/");
   }
 
