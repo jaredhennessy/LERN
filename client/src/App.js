@@ -24,7 +24,8 @@ function App() {
   const [userData, setUserData] = useState({
     token: localStorage.getItem("auth-token") || undefined,
     user: localStorage.getItem("user") || undefined,
-    _id: localStorage.getItem("userID") || undefined
+    _id: localStorage.getItem("userID") || undefined,
+    userIMG: localStorage.getItem("userIMG") || undefined,
   });
 
   // On launch, check for a logged in user (authenticated token in localstorage)
@@ -46,10 +47,12 @@ function App() {
         });
         localStorage.setItem("user", userResponse.data.username);
         localStorage.setItem("userID", userResponse.data._id);
+        localStorage.setItem("userIMG", userResponse.data.image);
         setUserData({
           token: tokenLocal,
           user: userResponse.data.username,
-          _id: userResponse.data._id
+          _id: userResponse.data._id,
+          userIMG: userResponse.data.image
         });
       }
     };
