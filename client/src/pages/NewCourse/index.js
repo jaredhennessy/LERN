@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +7,8 @@ import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import CategorySelector from "../../components/CategorySelector";
+import API from "../../utils/API";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,13 +48,27 @@ function NewCourse() {
 
   const classes = useStyles();
 
+  const [courses, setCourses] = useState([]);
   // const [username, setUsername] = useState("");
   // const [email, setEmail] = useState("");
   // const [password, setPassword] = useState("");
   // const [passwordCheck, setPasswordCheck] = useState("");
   // const history = useHistory();
 
+  const handleChange = e => {
+    if (e.target.value === "all") {
+      loadCourses();
+    } else {
+      // loadCoursesByCategory(e.target.value);
+    }
+  };
 
+  //loads all courses
+  function loadCourses() {
+    API.getAllCourses()
+      .then(res => setCourses(res.data))
+      .catch(err => console.log(err));
+  }
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -73,7 +89,7 @@ function NewCourse() {
     <div>
       <h1>New Course</h1>
       <form noValidate className={classes.root} autoComplete="off" onSubmit={submitForm}>
-        <Grid container spacing={1}>
+        <Grid container spacing={2}>
           <Grid item xs={6}>
             <Grid container spacing={0}>
               <Grid item xs={4} >
@@ -88,10 +104,10 @@ function NewCourse() {
           <Grid item xs={6}>
             <Grid container spacing={0}>
               <Grid item xs={6}>
-                <h5>Category:</h5>
+                <h5>Select the Category for this course:</h5>
               </Grid>
-              <Grid item xs={6}>
-                <TextField required type="password" variant="outlined" id="outlined-password-input" label="browse through categories" name="selectedCategory" />
+              <Grid item md={6}>
+                <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
               </Grid>
             </Grid>
           </Grid>
@@ -101,16 +117,33 @@ function NewCourse() {
           </Grid>
 
           <Grid item xs={6}>
-            <h5>Course description</h5>
-            <TextareaAutosize required aria-label="minimum height" rowsMin={14} variant="outlined" placeholder="max 50 characters" name="newCourseDescription" />
+            <h5>Course content</h5>
+            <Grid container spacing={1}>
+              <Grid item xs={12}>
+                <h5>Page 1</h5>
+                <TextareaAutosize required aria-label="minimum height" rowsMin={14} variant="outlined" placeholder="write your course here" name="newCourseContent" />
+              </Grid>
+
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <Button variant="contained" color="primary" type="submit" >Remove Page</Button>
+                </Grid>
+                <Grid item xs={6}>
+                  <Button variant="contained" color="primary" type="submit" >Add Page</Button>
+                </Grid>
+              </Grid>
+            </Grid>
           </Grid>
 
           <Grid item xs={6}>
             <h5>Brief course description</h5>
-            <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 200 characters" name="Course Description" />
+            <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 50 characters" name="Course Description" />
           </Grid>
 
+
           <Grid item xs={6}>
+            <br />
+            <br />
             <Button variant="contained" color="primary" type="submit" >Submit</Button>
           </Grid>
         </Grid>
@@ -122,13 +155,6 @@ function NewCourse() {
           <h5>show list of uploaded files</h5>
         </Grid>
 
-
-        {/* 2nd Row!!! */}
-
-
-
-        <br />
-
       </form>
 
 
@@ -137,7 +163,7 @@ function NewCourse() {
 
       <br />
 
-    </div>
+    </div >
 
   )
 }
