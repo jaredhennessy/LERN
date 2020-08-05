@@ -86,7 +86,7 @@ function App() {
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/teach" render={() =>
               userData.user ? <Teach /> : <Login />} />
-            <Route exact path="/pages/c/:id" render={() =>
+            <Route exact path="/pages/c/:course/p/:page" render={() =>
               userData.user ? <LERN /> : <Login />} />
           </Switch>
           <PageFooter />

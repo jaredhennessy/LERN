@@ -135,11 +135,11 @@ module.exports = {
   },
 
   uploadPicture: async function (req, res) {
-    console.log(req.body._id)
+    // Update user in database with profile picture form data
     try {
       User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, {image: req.body.imageURL} )
-        .then(data => {
-          res.json(data);
+        .then(() => {
+          res.status(200).send();
         }).catch(err => {
           console.log(err);
           res.status(400).send();

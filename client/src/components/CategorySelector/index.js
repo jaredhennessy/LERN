@@ -45,7 +45,7 @@ export default function CategorySelector({handleChange}) {
           <em>All</em>
         </MenuItem>
         {categories.map(category => (
-        <MenuItem value={category._id}>{category.category}</MenuItem>
+        <MenuItem key={category._id} value={category._id}>{category.category}</MenuItem>
         ))}
       </Select>
       

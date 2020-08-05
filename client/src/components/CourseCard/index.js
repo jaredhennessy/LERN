@@ -13,6 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import CourseCardModal from "../CourseCardModal";
 import Zoom from "@material-ui/core/Zoom";
+import { useHistory } from "react-router-dom";
 
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
@@ -49,9 +50,10 @@ export default function CourseCard({
   category,
   instructor,
   dateCreated,
+  courseID
 }) {
 
-
+  let history = useHistory();
 
   const classes = useStyles();
 
@@ -64,6 +66,10 @@ export default function CourseCard({
   const handleClose = () => {
     setOpen(false);
   };
+
+  const beginCourse = () => {
+    history.push(`/pages/c/${courseID}/p/1`)
+  }
 
   return (
     <div>
@@ -88,7 +94,7 @@ export default function CourseCard({
           <Button size="small" color="primary" onClick={handleClickOpen}>
             View Details
           </Button>
-          <Button size="small" color="primary">
+          <Button size="small" color="primary" onClick={beginCourse}>
             Begin Course
           </Button>
         </CardActions>
