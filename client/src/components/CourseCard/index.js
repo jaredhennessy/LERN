@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -14,6 +14,8 @@ import Slide from "@material-ui/core/Slide";
 import CourseCardModal from "../CourseCardModal";
 import Zoom from "@material-ui/core/Zoom";
 import { useHistory } from "react-router-dom";
+import API from "../../utils/API";
+import UserContext from "../../UserContext/UserContext";
 
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
@@ -54,6 +56,7 @@ export default function CourseCard({
 }) {
 
   let history = useHistory();
+  const { userData } = useContext(UserContext);
 
   const classes = useStyles();
 
@@ -67,8 +70,10 @@ export default function CourseCard({
     setOpen(false);
   };
 
-  const beginCourse = () => {
-    history.push(`/pages/c/${courseID}/p/1`)
+  // API returns the User's progress (current page) which will redirect the user to the correct course page
+  const startCourse = async () => {
+    const response = await API.startCourse(courseID, userData._id);
+    history.push(`/pages/c/${courseID}/p/${response.data.currentPage}`);
   }
 
   return (
@@ -94,7 +99,7 @@ export default function CourseCard({
           <Button size="small" color="primary" onClick={handleClickOpen}>
             View Details
           </Button>
-          <Button size="small" color="primary" onClick={beginCourse}>
+          <Button size="small" color="primary" onClick={startCourse}>
             Begin Course
           </Button>
         </CardActions>

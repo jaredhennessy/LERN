@@ -115,10 +115,15 @@ module.exports = {
           }
 
           User.findOneAndUpdate({ _id: userId }, { $push: { courses: userCourse } }, { new: true })
-            .then(dbModel => res.json(dbModel))
+            .then(res.json({
+              msg: "New",
+              currentPage: 1}))
             .catch(err => res.status(422).json(err))
         } else {
-          res.json(data);
+          res.json({
+            msg: "Enrolled",
+            currentPage: data[0].courses.currentPage
+          });
         }
       }
     })

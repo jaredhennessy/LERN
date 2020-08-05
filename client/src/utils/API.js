@@ -28,7 +28,16 @@ export default {
     return axios.get("/api/users/courses/" + id);
   },
 
+  // Returns the page with the specified pageNumber in the given course
   getCoursePage: function(courseID, pageNumber) {
-    return axios.get(`/api/pages/c/${courseID}/p/${pageNumber}`)
+    return axios.get(`/api/pages/c/${courseID}/p/${pageNumber}`);
+  },
+
+  // Reads & updates the courses field in the User model
+  startCourse: function(courseID, userID) {
+    return axios.put("/api/users/start", {
+      userId: userID,
+      courseId: courseID
+    });
   }
 };
