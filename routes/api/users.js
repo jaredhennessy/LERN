@@ -23,4 +23,7 @@ router.route("/logout").delete(usersController.deleteToken);
 // Matches with "/api/users/checkToken", returns boolean if user token is valid
 router.route("/checkToken").post(usersController.tokenIsValid);
 
+// Matches with "/api/users/uploadPicture", returns boolean if user token is valid
+router.route("/uploadPicture").put(usersController.uploadPicture);
+
 module.exports = router;
