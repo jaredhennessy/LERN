@@ -8,9 +8,9 @@ import CategorySelector from "../../components/CategorySelector";
 import Grow from "@material-ui/core/Grow";
 import SearchBar from "../../components/SearchBar";
 
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Grow ref={ref} {...props} />;
-});
+// const Transition = React.forwardRef(function Transition(props, ref) {
+//   return <Grow ref={ref} {...props} />;
+// });
 
 export default function Courses() {
   const [courses, setCourses] = useState([]);
@@ -19,15 +19,18 @@ export default function Courses() {
   useEffect(() => loadCourses(), []);
 
   const handleChange = e => {
+    if (e.target.value === "all") {
+      loadCourses();
+    } else {
     loadCoursesByCategory(e.target.value);
-    console.log(e.target.value);
-    console.log("handlechange");
+  }
   };
 
   const handleInputChange = e => {
     setSearch(e.target.value);
   };
 
+  //loads courses containing search
   useEffect(() => {
     setFilteredCourses(
       courses.filter( course => {
@@ -35,19 +38,6 @@ export default function Courses() {
     })
     )
   }, [search, courses])
-
-  //loads courses containing search
-  // function searchTitle () {
-  //   let titleSearch = courses.filter(course => {
-  //     let title = `${course.title.toLowerCase()}`;
-  //     return title.includes(search);
-  //   });
-  //   setSearch({search: titleSearch})
-  // }
-
-// const filteredCourses = courses.filter( course => {
-//   return course.title.toLowerCase().includes(search.toLowerCase())
-// })
 
   //loads all courses
   function loadCourses() {
@@ -70,10 +60,11 @@ export default function Courses() {
 
       <Grid container spacing={3}>
         <Grid item md={6}>
-          <SearchBar handleInputeChange={handleInputChange}/>
+          <SearchBar handleInputChange={handleInputChange}
+          />
         </Grid>
         <Grid item md={6}>
-          <CategorySelector handleChange={handleChange} />
+          <CategorySelector handleChange={handleChange} loadCourses={loadCourses}/>
         </Grid>
       </Grid>
       <div>
@@ -81,7 +72,9 @@ export default function Courses() {
           <Grid container spacing={3}>
             {filteredCourses.map(course => (
               <Grid item md={3} key={course.id}>
-                <Paper TransitionComponent={Transition}>
+                <Paper 
+                // TransitionComponent={Transition}
+                >
                   <CourseCard
                     title={course.title}
                     description={course.description}
