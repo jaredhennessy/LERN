@@ -5,8 +5,9 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import API from "../../utils/API";
 import CategorySelector from "../../components/CategorySelector";
-import Grow from "@material-ui/core/Grow";
+// import Grow from "@material-ui/core/Grow";
 import SearchBar from "../../components/SearchBar";
+import Paginate from "../../components/Paginate";
 
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Grow ref={ref} {...props} />;
@@ -15,7 +16,11 @@ import SearchBar from "../../components/SearchBar";
 export default function Courses() {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
-  const [filteredCourses, setFilteredCourses] = useState([])
+  const [filteredCourses, setFilteredCourses] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [coursesPerPage] = useState(1);
+  // const [loading, setLoading] = useState(false);
+
   useEffect(() => loadCourses(), []);
 
   const handleChange = e => {
@@ -54,6 +59,15 @@ export default function Courses() {
     console.log(categoryId);
   }
 
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = filteredCourses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+  //Change page
+  const paginator = (pageNumber) => setCurrentPage(pageNumber);
+  console.log(currentPage);
+  // var pageNumber = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
+
   return (
     <Container>
       <h1>Courses</h1>
@@ -68,9 +82,9 @@ export default function Courses() {
         </Grid>
       </Grid>
       <div>
-        {filteredCourses.length ? (
+        {currentCourses.length ? (
           <Grid container spacing={3}>
-            {filteredCourses.map(course => (
+            {currentCourses.map(course => (
               <Grid item md={3} key={course.id}>
                 <Paper 
                 // TransitionComponent={Transition}
@@ -82,6 +96,7 @@ export default function Courses() {
                     category={course.category.category}
                     instructor={course.instructor.username}
                     dateCreated={course.dateCreated}
+                    courseID={course._id}
                   />
                 </Paper>
               </Grid>
@@ -91,6 +106,7 @@ export default function Courses() {
           <h3>No Results</h3>
         )}
       </div>
+      <Paginate coursesPerPage={coursesPerPage} totalCourses={courses.length} paginator={paginator}/>
     </Container>
   );
 }
