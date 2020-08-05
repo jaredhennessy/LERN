@@ -1,6 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const db = require("../models");
+const { User } = require("../models");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
 
@@ -9,7 +9,7 @@ let refreshTokens = [];
 
 module.exports = {
   findUser: function (req, res) {
-    db.User.findOne({
+    User.findOne({
       username: req.user.username
     }).then(data => {
       res.json({
@@ -20,13 +20,14 @@ module.exports = {
       console.log(err);
     })
   },
+
   createUser: async function (req, res) {
     const { username, password, email } = req.body;
 
     // Validate username/email doesn't already exist
-    const existingUser = await db.User.findOne({ username: username });
+    const existingUser = await User.findOne({ username: username });
     if (existingUser) return res.status(400).send("Username is taken.");
-    const existingEmail = await db.User.findOne({ email: email });
+    const existingEmail = await User.findOne({ email: email });
     if (existingEmail) return res.status(400).send("Email has already been used.");
 
     try {
@@ -40,7 +41,7 @@ module.exports = {
         email: email
       };
 
-      db.User.create(newUser)
+      User.create(newUser)
         .then(res.status(200).send())
         .catch(err => console.log(err))
     } catch (err) {
@@ -48,9 +49,10 @@ module.exports = {
       res.status(500).send();
     }
   },
+
   userLogin: async function (req, res) {
     // Find user in the database (*** REPLACE users WITH DATABASE)
-    const user = await db.User.findOne({ username: req.body.username });
+    const user = await User.findOne({ username: req.body.username });
 
     // If no user, return bad response
     if (user == null) return res.status(400).send("User does not exist.");
@@ -70,21 +72,24 @@ module.exports = {
       res.status(500).send();
     }
   },
+
   findUserCourses: function (req, res) {
     // Return through courses and return courses where course owner matches username
-    db.User.findOne({
+    User.findOne({
       _id: req.params.id
-    }).populate({
-      path: "courses.Course",
-      populate: {
-        path: "category"
-      }
-    }).then(data => {
-      res.json(data);
-    }).catch(err => {
-      console.log(err);
-    })
+    }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete")
+      .populate({
+        path: "courses.Course",
+        populate: {
+          path: "category instructor pages"
+        },
+      }).then(data => {
+        res.json(data);
+      }).catch(err => {
+        console.log(err);
+      })
   },
+
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
     const refreshToken = req.body.token;
@@ -98,11 +103,13 @@ module.exports = {
       res.json({ accessToken: accessToken });
     });
   },
+
   deleteToken: function (req, res) {
     // Remove the refresh token from the database (array for now)
     refreshTokens = refreshTokens.filter(token => token !== req.body.token);
     res.sendStatus(204);
   },
+
   tokenIsValid: async function (req, res) {
     try {
       // Check if token was sent
@@ -114,7 +121,7 @@ module.exports = {
       if (!verified) return res.json(false);
 
       // Check the username is valid
-      const user = await db.User.findOne({ username: verified.username });
+      const user = await User.findOne({ username: verified.username });
       if (user == null) return res.json(false);
 
       // Return true if all check passed
