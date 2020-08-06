@@ -12,11 +12,9 @@ import Pagination from "@material-ui/lab/Pagination";
 
 export default function Paginate({ coursesPerPage, totalCourses, paginator }) {
   const pageNumbers = [];
-  // const currentPage = 2
 
   for (let i = 1; i <= Math.ceil(totalCourses / coursesPerPage); i++) {
     pageNumbers.push(i);
-    // console.log(pageNumbers.indexOf());
   }
   // const classes = useStyles();
   return (
@@ -25,9 +23,7 @@ export default function Paginate({ coursesPerPage, totalCourses, paginator }) {
       <ul>
         {pageNumbers.map(number => (
           <li key={number}>
-            <a onClick={() => paginator(number)} 
-            // href="courses/!#"
-            >
+            <a onClick={() => paginator(number)} >
               {number}
             </a>
           </li>

@@ -18,7 +18,7 @@ export default function Courses() {
   const [search, setSearch] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage] = useState(1);
+  const [coursesPerPage] = useState(16);
   // const [loading, setLoading] = useState(false);
 
   useEffect(() => loadCourses(), []);
@@ -66,7 +66,6 @@ export default function Courses() {
   //Change page
   const paginator = (pageNumber) => setCurrentPage(pageNumber);
   console.log(currentPage);
-  // var pageNumber = [...Array((endPage + 1) - startPage).keys()].map(i => startPage + i);
 
   return (
     <Container>
