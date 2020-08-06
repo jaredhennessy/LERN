@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import Axios from "axios";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
@@ -99,25 +99,6 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const { userData, setUserData } = useContext(UserContext);
-  let history = useHistory();
-
-  // Remove refresh token from database and localstorage
-  function logout() {
-    Axios.delete("/api/users/logout")
-      .then(
-        setUserData({
-          token: undefined,
-          user: undefined,
-        })
-      )
-      .catch(err => console.log(err.response.data));
-    localStorage.setItem("auth-token", "");
-    localStorage.setItem("ref-token", "");
-    localStorage.setItem("user", "");
-    localStorage.setItem("userID", "");
-    localStorage.setItem("userIMG", "");
-    history.push("/");
-  }
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -162,41 +143,48 @@ export default function Navbar() {
   const menuItems = [
     {
       ariaLabel: "donate",
-      icon: <MonetizationOnIcon href="/donate"/>,
-      pLabel: "Donate"
+      icon: <MonetizationOnIcon/>,
+      pLabel: "Donate",
+      link: "/donate"
     },
     {
       ariaLabel: "home",
-      icon: <HomeIcon href="/"/>,
-      pLabel: "Home"
+      icon: <HomeIcon/>,
+      pLabel: "Home",
+      link: "/"
     },
     {
       ariaLabel: "courses",
       icon: <CategoryIcon href="/courses"/>,
-      pLabel: "Courses"
+      pLabel: "Courses",
+      link: "/courses"
     },
     {
       ariaLabel: "teach",
       icon: <CreateIcon href="/teach"/>,
-      pLabel: "Teach!"
+      pLabel: "Teach!",
+      link: "/teach"
     },
     {
       ariaLabel: "about",
       icon: <InfoIcon href="/about"/>,
-      pLabel: "About LERN"
+      pLabel: "About LERN",
+      link: "/about"
     }]
 
   // Mobile menu additions if logged IN
   const loggedInMenu = [
     {
       ariaLabel: "profile",
-      icon: <AccountCircleIcon href={"/users/" + userData.user}/>,
-      pLabel: "Profile"
+      icon: <AccountCircleIcon/>,
+      pLabel: "Profile",
+      link: "/users/" + userData.user
     },
     {
       ariaLabel: "logout",
-      icon: <ExitToAppIcon onClick={logout}/>,
-      pLabel: "Logout"
+      icon: <ExitToAppIcon/>,
+      pLabel: "Logout",
+      link: "/logout"
     }
   ]
 
@@ -204,13 +192,15 @@ export default function Navbar() {
   const loggedOutMenu = [
     {
       ariaLabel: "register",
-      icon: <PersonAddIcon href="/register"/>,
-      pLabel: "Register"
+      icon: <PersonAddIcon/>,
+      pLabel: "Register",
+      link: "/register"
     },
     {
       ariaLabel: "login",
-      icon: <LockOpenIcon href="/login"/>,
-      pLabel: "Login"
+      icon: <LockOpenIcon/>,
+      pLabel: "Login",
+      link: "/login"
     }
   ]
 
@@ -230,7 +220,7 @@ export default function Navbar() {
               {userData.user ? (
                 <>
                   <Button color="inherit" href={"/users/" + userData.user}>Profile</Button>
-                  <Button color="inherit" onClick={logout}>Logout</Button>
+                  <Button color="inherit" href="/logout">Logout</Button>
                 </>
               ) : (
                   <>
@@ -265,7 +255,7 @@ export default function Navbar() {
         onClose={handleMobileMenuClose}
       >
         {menuItems.map(item => (
-          <MenuItem key={item.pLabel}>
+          <MenuItem key={item.pLabel} component={Link} to={item.link} >
             <IconButton aria-label={item.ariaLabel} color="inherit">
               <Badge color="secondary">
                 {item.icon}
@@ -275,7 +265,7 @@ export default function Navbar() {
           </MenuItem>
         ))}
         {userData.user ? (loggedInMenu.map(item => (
-          <MenuItem key={item.pLabel}>
+          <MenuItem key={item.pLabel} component={Link} to={item.link}>
             <IconButton aria-label={item.ariaLabel} color="inherit">
               <Badge color="secondary">
                 {item.icon}
@@ -284,7 +274,7 @@ export default function Navbar() {
             <p>{item.pLabel}</p>
           </MenuItem>
         ))) : (loggedOutMenu.map(item => (
-          <MenuItem key={item.pLabel}>
+          <MenuItem key={item.pLabel} component={Link} to={item.link} >
             <IconButton aria-label={item.ariaLabel} color="inherit">
               <Badge color="secondary">
                 {item.icon}
