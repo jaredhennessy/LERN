@@ -19,6 +19,7 @@ import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
 import LERN from "./pages/LERN";
+import Logout from "./pages/Logout";
 
 
 function App() {
@@ -71,6 +72,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={Logout} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/fileUpload" component={FileUpload} />
             <Route exact path="/about" component={About} />
