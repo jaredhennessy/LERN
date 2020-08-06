@@ -53,7 +53,9 @@ function App() {
           token: tokenLocal,
           user: userResponse.data.username,
           _id: userResponse.data._id,
-          userIMG: userResponse.data.image
+          userIMG: userResponse.data.image,
+          email: userResponse.data.email,
+          dateCreated: userResponse.data.dateCreated,
         });
       }
     };
