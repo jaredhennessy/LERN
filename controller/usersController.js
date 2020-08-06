@@ -15,7 +15,9 @@ module.exports = {
       res.json({
         username: data.username,
         _id: data._id,
-        image: data.image
+        image: data.image,
+        email: data.email,
+        dateCreated: data.dateCreated
       })
     }).catch(err => {
       console.log(err);
@@ -64,7 +66,14 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username, userID: user._id, image: user.image });
+        res.send({ 
+          accessToken: accessToken, 
+          refreshToken: refreshToken, 
+          username: user.username, 
+          userID: user._id, 
+          image: user.image,
+          email: user.email,
+          dateCreated: user.dateCreated });
       } else {
         res.status(400).send("Incorrect credentials");
       }
@@ -188,11 +197,11 @@ module.exports = {
   },
 
   uploadPicture: async function (req, res) {
-    // Update user in database with profile picture form data
+    console.log(req.body._id)
     try {
       User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, {image: req.body.imageURL} )
-        .then(() => {
-          res.status(200).send();
+        .then(data => {
+          res.json(data);
         }).catch(err => {
           console.log(err);
           res.status(400).send();

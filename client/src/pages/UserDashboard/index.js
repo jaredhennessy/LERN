@@ -32,8 +32,6 @@ export default function UserDashboard() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(userCourses);
-
   return (
     <Container>
       <Container>
