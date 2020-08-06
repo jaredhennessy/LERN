@@ -18,13 +18,15 @@ import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
+import LERN from "./pages/LERN";
 
 
 function App() {
   const [userData, setUserData] = useState({
     token: localStorage.getItem("auth-token") || undefined,
     user: localStorage.getItem("user") || undefined,
-    _id: localStorage.getItem("userID") || undefined
+    _id: localStorage.getItem("userID") || undefined,
+    userIMG: localStorage.getItem("userIMG") || undefined,
   });
 
   // On launch, check for a logged in user (authenticated token in localstorage)
@@ -46,10 +48,14 @@ function App() {
         });
         localStorage.setItem("user", userResponse.data.username);
         localStorage.setItem("userID", userResponse.data._id);
+        localStorage.setItem("userIMG", userResponse.data.image);
         setUserData({
           token: tokenLocal,
           user: userResponse.data.username,
-          _id: userResponse.data._id
+          _id: userResponse.data._id,
+          userIMG: userResponse.data.image,
+          email: userResponse.data.email,
+          dateCreated: userResponse.data.dateCreated,
         });
       }
     };
@@ -82,6 +88,8 @@ function App() {
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/teach" render={() =>
               userData.user ? <Teach /> : <Login />} />
+            <Route exact path="/pages/c/:course/p/:page" render={() =>
+              userData.user ? <LERN /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>
