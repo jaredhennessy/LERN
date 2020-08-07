@@ -12,13 +12,10 @@ router.route("/courses/:id").get(usersController.findUserCourses);
 router.route("/start").put(usersController.startCourse);
 
 // Matches with "/api/users/courses/complete/:id", then reads & updates the courses field in the User model
-router.route("/courses/:id/complete/").put(usersController.completeCourse);
+// router.route("/complete").put(usersController.completeCourse);
 
-// Matches with "/api/users/courses/next/:id", then reads & updates the courses field in the User model
-router.route("/courses/:id/next/").put(usersController.nextPage);
-
-// Matches with "/api/users/courses/prev/:id", then reads & updates the courses field in the User model
-router.route("/courses/:id/prev/").put(usersController.prevPage);
+// Matches with "/api/users/move/:direction", then updates the pageNumber field in the courses array of the User model in the specified direction
+router.route("/move/:direction").put(usersController.movePage);
 
 // Matches with "/api/users/register", creates a username with hashed password in database (currently array)
 router.route("/register").post(usersController.createUser);

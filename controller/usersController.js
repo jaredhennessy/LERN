@@ -7,6 +7,21 @@ const generateAccessToken = require("../utils/generateAccessToken");
 // *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
 
+function completeCourse(userCourseId) {
+  const newDate = Date.now();
+  User.findOneAndUpdate({ "courses._id": userCourseId },
+    { $set: { "courses.$.dateCompleted": newDate } },
+    { upsert: true })
+    .exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        return newDate;
+      }
+    })
+}
+
 module.exports = {
   findUser: function (req, res) {
     User.findOne({
@@ -66,14 +81,15 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ 
-          accessToken: accessToken, 
-          refreshToken: refreshToken, 
-          username: user.username, 
-          userID: user._id, 
+        res.send({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          username: user.username,
+          userID: user._id,
           image: user.image,
           email: user.email,
-          dateCreated: user.dateCreated });
+          dateCreated: user.dateCreated
+        });
       } else {
         res.status(400).send("Incorrect credentials");
       }
@@ -126,7 +142,8 @@ module.exports = {
           User.findOneAndUpdate({ _id: userId }, { $push: { courses: userCourse } }, { new: true })
             .then(res.json({
               msg: "New",
-              currentPage: 1}))
+              currentPage: 1
+            }))
             .catch(err => res.status(422).json(err))
         } else {
           res.json({
@@ -139,13 +156,76 @@ module.exports = {
 
   },
 
-  completeCourse: function (req, res) {
-    return req.params.id;
-  },
+  // completeCourse(userCourseId) {
+  //   User.findOneAndUpdate({ "courses._id": userCourseId },
+  //     { $set: { "courses.$.dateCompleted": Date.now() } },
+  //     { upsert: true })
+  //     .exec((err, data) => {
+  //       if (err) {
+  //         console.log(err);
+  //       }
+  //       else {
+  //         res.json({
+  //           msg: dir,
+  //           currentPage: newPage
+  //         })
+  //       }
+  //     })
+  // },
 
-  nextPage: function (req, res) {
-    return req.params.id;
+  movePage: function (req, res) {
+    const userId = mongoose.Types.ObjectId(req.body.userId);
+    const courseId = mongoose.Types.ObjectId(req.body.courseId);
 
+    const query = [
+      {
+        "$match": { _id: userId }
+      },
+      { $unwind: "$courses" },
+      { "$match": { "courses.Course": courseId } }
+    ]
+    User.aggregate(query).exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        const userCourseId = data[0].courses._id
+        let newPage
+        let dir = req.params.direction
+
+        if (dir === "next" && data[0].courses.currentPage === req.body.endPage) {
+          dir = "complete"
+          newPage = data[0].courses.currentPage
+          completeCourse(userCourseId)
+        } else if (dir === "next") {
+          newPage = data[0].courses.currentPage + 1
+        } else if (dir === "prev" && data[0].courses.currentPage > 1) {
+          newPage = data[0].courses.currentPage - 1
+        } else {
+          newPage = data[0].courses.currentPage
+        }
+
+
+        User.findOneAndUpdate({ "courses._id": userCourseId },
+          { $set: { "courses.$.currentPage": newPage } },
+          {
+            upsert: true
+            // ,
+            // arrayFilters: [{ "courses._id": userCourseId }]
+          })
+          .exec((err, data) => {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              res.json({
+                msg: dir,
+                currentPage: newPage
+              })
+            }
+          })
+      }
+    })
   },
 
   prevPage: function (req, res) {
@@ -199,7 +279,7 @@ module.exports = {
   uploadPicture: async function (req, res) {
     console.log(req.body._id)
     try {
-      User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, {image: req.body.imageURL} )
+      User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, { image: req.body.imageURL })
         .then(data => {
           res.json(data);
         }).catch(err => {
