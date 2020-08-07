@@ -13,9 +13,9 @@ function Home() {
             Browse Courses
           </Button>
         </Grid>
-        <Grid  item md={6}>
+        <Grid item md={6}>
           <Button color="primary" href="/register">
-            Create an Acoount
+            Create an Account
           </Button>
         </Grid>
       </Grid>
