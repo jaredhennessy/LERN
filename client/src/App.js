@@ -20,6 +20,7 @@ import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
 import LERN from "./pages/LERN";
 import Logout from "./pages/Logout";
+import CompleteCourse from "./pages/CompleteCourse";
 
 
 function App() {
@@ -92,6 +93,8 @@ function App() {
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/pages/c/:course/p/:page" render={() =>
               userData.user ? <LERN /> : <Login />} />
+            <Route exact path="/pages/c/:course/complete" render={() =>
+              userData.user ? <CompleteCourse /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>

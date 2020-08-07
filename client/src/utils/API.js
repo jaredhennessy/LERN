@@ -39,5 +39,14 @@ export default {
       userId: userID,
       courseId: courseID
     });
+  },
+
+  // Updates the pageNumber field in the courses array of the User model in the specified direction, or returns complete
+  updateCoursePage: function(courseID, userID, direction, endPage) {
+    return axios.put("/api/users/move/" + direction, {
+      userId: userID,
+      courseId: courseID,
+      endPage: endPage
+    });
   }
 };

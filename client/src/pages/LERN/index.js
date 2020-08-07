@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import API from "../../utils/API";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import UserContext from "../../UserContext/UserContext";
 
 function LERN() {
   const [courseData, setCourseData] = useState();
+  const { userData } = useContext(UserContext);
+  let history = useHistory();
 
   // On mount, use the URL parameters to pull and render the course page the user is at
   let currentPage = useParams();
@@ -19,6 +22,14 @@ function LERN() {
   const nextPage = `/pages/c/${currentPage.course}/p/${parseInt(currentPage.page) + 1}`;
   const prevPage = `/pages/c/${currentPage.course}/p/${parseInt(currentPage.page) - 1}`;
 
+  // Updates the pageNumber field in the courses array of the User model in the specified direction, or redirects to completed page
+  async function updatePage(direction) {
+    let courseDetails = await API.getCourse(courseData.course.id);
+    let totalPages = courseDetails.data.totalPages;
+    let updateResponse = await API.updateCoursePage(courseData.course.id, userData._id, direction, totalPages);
+    if (updateResponse.data.msg === "complete") history.push(`/pages/c/${currentPage.course}/complete`);
+  }
+
   return (
     (courseData !== undefined) ? (
       <div>
@@ -29,22 +40,19 @@ function LERN() {
         <span>Additional Resources: <a href={courseData.link}>{courseData.link}</a></span>
         <div>
           {(currentPage.page === "1") ? (
-            <Link to={nextPage}><Button variant="contained" color="primary">Next Page</Button></Link>            
+            <Link to={nextPage}><Button variant="contained" color="primary" onClick={() => updatePage("next")}>Next Page</Button></Link>            
           ) : (
             <>
-            <Link to={prevPage}><Button variant="contained" color="primary">Previous Page</Button></Link>
-            <Link to={nextPage}><Button variant="contained" color="primary">Next Page</Button></Link>
+            <Link to={prevPage}><Button variant="contained" color="primary" onClick={() => updatePage("prev")}>Previous Page</Button></Link>
+            <Link to={nextPage}><Button variant="contained" color="primary" onClick={() => updatePage("next")}>Next Page</Button></Link>
             </>
           )}
         </div>
       </div>
     ) : (
         <div>
-          Page Not Found
         </div>
       )
-
-
   )
 }
 
