@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -11,7 +11,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/UserDashboard";
 import Header from "./components/Header";
 import Navbar from "./components/Navbar";
-import Axios from "axios";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
@@ -21,7 +20,7 @@ import NewCourse from "./pages/NewCourse";
 import LERN from "./pages/LERN";
 import Logout from "./pages/Logout";
 import CompleteCourse from "./pages/CompleteCourse";
-
+import API from "./utils/API";
 
 function App() {
   const [userData, setUserData] = useState({
@@ -39,15 +38,11 @@ function App() {
         localStorage.setItem("auth-token", "");
         tokenLocal = "";
       }
-      const tokenResponse = await Axios.post("/api/users/checkToken", null, {
-        headers: { authorization: tokenLocal }
-      });
+      const tokenResponse = await API.confirmToken(tokenLocal);
 
       // If there is a logged in user, save the token and user in App state
       if (tokenResponse.data) {
-        const userResponse = await Axios.get("/api/users", {
-          headers: { authorization: "Bearer " + tokenLocal }
-        });
+        const userResponse = await API.getUserWithToken(tokenLocal);
         localStorage.setItem("user", userResponse.data.username);
         localStorage.setItem("userID", userResponse.data._id);
         localStorage.setItem("userIMG", userResponse.data.image);
@@ -71,7 +66,7 @@ function App() {
           <Header />
           <Navbar />
           <Switch>
-            <Route exact path="/" component={Home}></Route>
+            <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={Logout} />
             <Route exact path="/register" component={Register} />
@@ -84,9 +79,9 @@ function App() {
             <Route exact path="/newCourse" component={NewCourse} />
             <Route exact path="/about" component={About} />
 
-            {/* User dashboard and teach require user to be logged in, else redirects to Login page */}
+            {/* Routes requiring user to be logged in, else redirects to Login page */}
             <Route exact path="/users/:id" render={() =>
-              userData.user ? <Dashboard /> : <Redirect to={{ pathname: "/login" }} />} />
+              userData.user ? <Dashboard /> : <Login />} />
             <Route exact path="/teach/:id" render={() =>
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/teach" render={() =>

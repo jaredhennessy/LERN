@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
-import Axios from "axios";
+import API from "../../utils/API";
 import UserContext from "../../UserContext/UserContext";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
@@ -25,27 +25,22 @@ function Login() {
   const submitForm = async (e) => {
     e.preventDefault();
     if (!password || !username) return alert("Missing required fields.");
-    Axios.post("/api/users/login", {
-      username: username,
-      password: password
+    const userResponse = await API.userLogin(username, password).catch(err => alert(err.response.data));
+    if (userResponse === undefined) return;
+    setUserData({
+      user: userResponse.data.username,
+      token: userResponse.data.accessToken,
+      _id: userResponse.data.userID,
+      userIMG: userResponse.data.image,
+      email: userResponse.data.email,
+      dateCreated: userResponse.data.dateCreated,
     })
-      .then(res => {
-        setUserData({
-          user: res.data.username,
-          token: res.data.accessToken,
-          _id: res.data.userID,
-          userIMG: res.data.image,
-          email: res.data.email,
-          dateCreated: res.data.dateCreated,
-        })
-        localStorage.setItem("auth-token", res.data.accessToken);
-        localStorage.setItem("ref-token", res.data.refreshToken);
-        localStorage.setItem("user", res.data.username);
-        localStorage.setItem("userID", res.data.userID);
-        localStorage.setItem("userIMG", res.data.userID);
-        history.push("/users/" + res.data.username);
-      })
-      .catch(err => alert(err.response.data))
+    localStorage.setItem("auth-token", userResponse.data.accessToken);
+    localStorage.setItem("ref-token", userResponse.data.refreshToken);
+    localStorage.setItem("user", userResponse.data.username);
+    localStorage.setItem("userID", userResponse.data.userID);
+    localStorage.setItem("userIMG", userResponse.data.userID);
+    history.push("/users/" + userResponse.data.username);
   }
 
   return (

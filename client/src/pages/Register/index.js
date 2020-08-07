@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import Axios from "axios";
+import API from "../../utils/API";
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -31,7 +31,7 @@ function Register() {
     if (password.length < 6) return alert("Password needs to be at least 6 characters.");
 
     const newUser = { username, email, password, passwordCheck };
-    const registerResponse = await Axios.post("/api/users/register", newUser).catch(err => alert(err.response.data));
+    const registerResponse = await API.registerUser(newUser).catch(err => alert(err.response.data));
     if (registerResponse) {
       alert(`Successfully registered ${username}, please log in.`)
       history.push("/login");

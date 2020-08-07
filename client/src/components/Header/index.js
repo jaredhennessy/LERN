@@ -51,7 +51,7 @@ function Header() {
       />
       <a href={"/users/" + userData.user}>
         <Avatar
-          alt={userData.user.toUpperCase()}
+          alt={userData.user}
           className={[classes.large, classes.avatar]}
           src={"/api/files/" + userData.userIMG}
           href={"/users/" + userData.user}
