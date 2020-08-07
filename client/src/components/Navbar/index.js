@@ -12,18 +12,25 @@ import Button from "@material-ui/core/Button";
 import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import HomeIcon from "@material-ui/icons/Home";
 import CategoryIcon from "@material-ui/icons/Category";
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import InfoIcon from '@material-ui/icons/Info';
-import CreateIcon from '@material-ui/icons/Create';
-import Container from "@material-ui/core/Container";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import LockOpenIcon from "@material-ui/icons/LockOpen";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import InfoIcon from "@material-ui/icons/Info";
+import CreateIcon from "@material-ui/icons/Create";
 import UserContext from "../../UserContext/UserContext";
+import { useTheme } from '@material-ui/core/styles';
+
+
 
 const useStyles = makeStyles(theme => ({
+  // AppBar: {
+  //   marginTop: 0,
+  // },
   grow: {
     flexGrow: 1,
+    marginTop: 0,
+    paddingTop: 0,
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -34,30 +41,30 @@ const useStyles = makeStyles(theme => ({
       display: "block",
     },
   },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25),
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto",
-    },
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-  },
+  // search: {
+  //   position: "relative",
+  //   borderRadius: theme.shape.borderRadius,
+  //   backgroundColor: fade(theme.palette.common.white, 0.15),
+  //   "&:hover": {
+  //     backgroundColor: fade(theme.palette.common.white, 0.25),
+  //   },
+  //   marginRight: theme.spacing(2),
+  //   marginLeft: 0,
+  //   width: "100%",
+  //   [theme.breakpoints.up("sm")]: {
+  //     marginLeft: theme.spacing(3),
+  //     width: "auto",
+  //   },
+  // },
+  // searchIcon: {
+  //   padding: theme.spacing(0, 2),
+  //   height: "100%",
+  //   position: "absolute",
+  //   pointerEvents: "none",
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  // },
   inputRoot: {
     color: "inherit",
   },
@@ -72,7 +79,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   sectionDesktop: {
-    display: "none",
+    display: "flex",
+    justifyContent: "center",
     [theme.breakpoints.up("md")]: {
       display: "flex",
     },
@@ -87,6 +95,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Navbar() {
+
+  const theme = useTheme();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -114,7 +124,6 @@ export default function Navbar() {
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
-
     <Menu
       anchorEl={anchorEl}
       anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -135,107 +144,120 @@ export default function Navbar() {
   const menuItems = [
     {
       ariaLabel: "donate",
-      icon: <MonetizationOnIcon/>,
+      icon: <MonetizationOnIcon />,
       pLabel: "Donate",
-      link: "/donate"
+      link: "/donate",
     },
     {
       ariaLabel: "home",
-      icon: <HomeIcon/>,
+      icon: <HomeIcon />,
       pLabel: "Home",
-      link: "/"
+      link: "/",
     },
     {
       ariaLabel: "courses",
-      icon: <CategoryIcon href="/courses"/>,
+      icon: <CategoryIcon href="/courses" />,
       pLabel: "Courses",
-      link: "/courses"
+      link: "/courses",
     },
     {
       ariaLabel: "teach",
-      icon: <CreateIcon href="/teach"/>,
+      icon: <CreateIcon href="/teach" />,
       pLabel: "Teach!",
-      link: "/teach"
+      link: "/teach",
     },
     {
       ariaLabel: "about",
-      icon: <InfoIcon href="/about"/>,
+      icon: <InfoIcon href="/about" />,
       pLabel: "About LERN",
-      link: "/about"
-    }]
+      link: "/about",
+    },
+  ];
 
   // Mobile menu additions if logged IN
   const loggedInMenu = [
     {
       ariaLabel: "profile",
-      icon: <AccountCircleIcon/>,
+      icon: <AccountCircleIcon />,
       pLabel: "Profile",
-      link: "/users/" + userData.user
+      link: "/users/" + userData.user,
     },
     {
       ariaLabel: "logout",
-      icon: <ExitToAppIcon/>,
+      icon: <ExitToAppIcon />,
       pLabel: "Logout",
-      link: "/logout"
-    }
-  ]
+      link: "/logout",
+    },
+  ];
 
   // Mobile menu additions if logged OUT
   const loggedOutMenu = [
     {
       ariaLabel: "register",
-      icon: <PersonAddIcon/>,
+      icon: <PersonAddIcon />,
       pLabel: "Register",
-      link: "/register"
+      link: "/register",
     },
     {
       ariaLabel: "login",
-      icon: <LockOpenIcon/>,
+      icon: <LockOpenIcon />,
       pLabel: "Login",
-      link: "/login"
-    }
-  ]
-
+      link: "/login",
+    },
+  ];
 
   return (
     <div className={classes.grow}>
-      <Container>
-        <AppBar position="static">
-          <Toolbar>
-            <div className={classes.grow} />
-            <div className={classes.sectionDesktop}>
-              <Button color="inherit" href="/donate">Donate</Button>
-              <Button color="inherit" href="/">Home</Button>
-              <Button color="inherit" href="/courses">Courses</Button>
-              <Button color="inherit" href="/teach">Teach!</Button>
-              <Button color="inherit" href="/about">About LERN</Button>
-              {userData.user ? (
-                <>
-                  <Button color="inherit" href={"/users/" + userData.user}>Profile</Button>
-                  <Button color="inherit" href="/logout">Logout</Button>
-                </>
-              ) : (
-                  <>
-                    <Button color="inherit" href="/register">Register</Button>
-                    <Button color="inherit" href="/login">Login</Button>
-                  </>
-                )}
-
-            </div>
-            <div className={classes.sectionMobile}>
-              <IconButton
-                aria-label="show more"
-                aria-controls={mobileMenuId}
-                aria-haspopup="true"
-                onClick={handleMobileMenuOpen}
-                color="inherit"
-              >
-                <MoreIcon />
-              </IconButton>
-            </div>
-          </Toolbar>
-        </AppBar>
-      </Container>
+      <AppBar position="static" backgroundColor="primary">
+        <Toolbar>
+          <div className={classes.grow} />
+          <div className={classes.sectionDesktop}>
+            <Button color="inherit" href="/donate">
+              Donate
+            </Button>
+            <Button color="inherit" href="/">
+              Home
+            </Button>
+            <Button color="inherit" href="/courses">
+              Courses
+            </Button>
+            <Button color="inherit" href="/teach">
+              Teach!
+            </Button>
+            <Button color="inherit" href="/about">
+              About LERN
+            </Button>
+            {userData.user ? (
+              <>
+                {/* <Button color="inherit" href={"/users/" + userData.user}>Profile</Button> */}
+                <Button color="inherit" href="/logout">
+                  Logout
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button color="inherit" href="/register">
+                  Register
+                </Button>
+                <Button color="inherit" href="/login">
+                  Login
+                </Button>
+              </>
+            )}
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
       {/* renderMobileMenu */}
       <Menu
         anchorEl={mobileMoreAnchorEl}
@@ -247,34 +269,30 @@ export default function Navbar() {
         onClose={handleMobileMenuClose}
       >
         {menuItems.map(item => (
-          <MenuItem key={item.pLabel} component={Link} to={item.link} >
+          <MenuItem key={item.pLabel} component={Link} to={item.link}>
             <IconButton aria-label={item.ariaLabel} color="inherit">
-              <Badge color="secondary">
-                {item.icon}
-              </Badge>
+              <Badge color="secondary">{item.icon}</Badge>
             </IconButton>
             <p>{item.pLabel}</p>
           </MenuItem>
         ))}
-        {userData.user ? (loggedInMenu.map(item => (
-          <MenuItem key={item.pLabel} component={Link} to={item.link}>
-            <IconButton aria-label={item.ariaLabel} color="inherit">
-              <Badge color="secondary">
-                {item.icon}
-              </Badge>
-            </IconButton>
-            <p>{item.pLabel}</p>
-          </MenuItem>
-        ))) : (loggedOutMenu.map(item => (
-          <MenuItem key={item.pLabel} component={Link} to={item.link} >
-            <IconButton aria-label={item.ariaLabel} color="inherit">
-              <Badge color="secondary">
-                {item.icon}
-              </Badge>
-            </IconButton>
-            <p>{item.pLabel}</p>
-          </MenuItem>
-        )))}
+        {userData.user
+          ? loggedInMenu.map(item => (
+              <MenuItem key={item.pLabel} component={Link} to={item.link}>
+                <IconButton aria-label={item.ariaLabel} color="inherit">
+                  <Badge color="secondary">{item.icon}</Badge>
+                </IconButton>
+                <p>{item.pLabel}</p>
+              </MenuItem>
+            ))
+          : loggedOutMenu.map(item => (
+              <MenuItem key={item.pLabel} component={Link} to={item.link}>
+                <IconButton aria-label={item.ariaLabel} color="inherit">
+                  <Badge color="secondary">{item.icon}</Badge>
+                </IconButton>
+                <p>{item.pLabel}</p>
+              </MenuItem>
+            ))}
       </Menu>
       {renderMenu}
     </div>

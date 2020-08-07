@@ -20,6 +20,8 @@ import NewCourse from "./pages/NewCourse";
 import LERN from "./pages/LERN";
 import Logout from "./pages/Logout";
 import CompleteCourse from "./pages/CompleteCourse";
+import { ThemeProvider } from '@material-ui/core/styles'
+import createMuiTheme from "./theme";
 import API from "./utils/API";
 
 function App() {
@@ -63,6 +65,7 @@ function App() {
     <Router>
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
+          <ThemeProvider theme={createMuiTheme}>
           <Header />
           <Navbar />
           <Switch>
@@ -92,6 +95,7 @@ function App() {
               userData.user ? <CompleteCourse /> : <Login />} />
           </Switch>
           <PageFooter />
+          </ThemeProvider>
         </div>
       </UserContext.Provider>
     </Router>

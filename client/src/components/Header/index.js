@@ -6,19 +6,19 @@ import Avatar from "@material-ui/core/Avatar";
 import UserContext from "../../UserContext/UserContext";
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex",
-    "& > *": {
-      margin: theme.spacing(1),
-    },
-  },
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
+  // root: {
+  //   display: "flex",
+  //   "& > *": {
+  //     margin: theme.spacing(1),
+  //   },
+  // },
+  // small: {
+  //   width: theme.spacing(3),
+  //   height: theme.spacing(3),
+  // },
   large: {
-    width: theme.spacing(7),
-    height: theme.spacing(7),
+    width: theme.spacing(12),
+    height: theme.spacing(12),
   },
   banner: {
     width: "inherit",
@@ -34,6 +34,8 @@ const useStyles = makeStyles(theme => ({
   parent: {
     width: "100%",
     height: "100%",
+    marginBottom: 0,
+    paddingBottom: 0,
   },
 }));
 
