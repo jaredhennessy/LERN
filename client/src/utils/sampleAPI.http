@@ -58,6 +58,7 @@ content-type: application/json
 "userId": "5f23a9a351dd13002a69a3d0",
 "courseId": "5f25ccebd3c0eb0be44eef56"
 }
+
 ##########
 // resume a specifc course for the logged in user
 PUT http://localhost:3001/api/users/start/ HTTP/1.1
@@ -66,4 +67,25 @@ content-type: application/json
 {
 "userId": "5f23a9a351dd13002a69a3d0",
 "courseId": "5f25ccebd3c0eb0be44eef57"
+}
+
+##########
+// move the user to the next page in a specified course
+PUT http://localhost:3001/api/users/move/next/ HTTP/1.1
+content-type: application/json
+
+{
+"userId": "5f23a9a351dd13002a69a3d0",
+"courseId": "5f25ccebd3c0eb0be44eef56",
+"endPage": 5
+}
+
+##########
+// move the user to the previous page in a specified course
+PUT http://localhost:3001/api/users/move/prev/ HTTP/1.1
+content-type: application/json
+
+{
+"userId": "5f23a9a351dd13002a69a3d0",
+"courseId": "5f25ccebd3c0eb0be44eef56"
 }
