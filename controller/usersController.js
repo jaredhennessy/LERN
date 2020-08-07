@@ -17,7 +17,7 @@ function completeCourse(userCourseId) {
         console.log(err);
       }
       else {
-        return newDate;
+        return data;
       }
     })
 }
