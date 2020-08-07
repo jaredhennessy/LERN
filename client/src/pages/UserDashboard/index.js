@@ -63,7 +63,7 @@ export default function UserDashboard() {
         {userCourses.learning.length ? (
           <Grid container spacing={3}>
             {userCourses.learning.map(course => (
-              <Grid item md={3} key={course.id}>
+              <Grid item md={3} key={course.Course._id}>
                 <Paper>
                   <CourseCard
                     title={course.Course.title}
@@ -72,6 +72,7 @@ export default function UserDashboard() {
                     category={course.Course.category.category}
                     instructor={course.Course.instructor.username}
                     dateCreated={course.Course.dateCreated}
+                    courseID={course.Course._id}
                   />
                 </Paper>
               </Grid>
@@ -94,7 +95,7 @@ export default function UserDashboard() {
         {userCourses.teaching.length ? (
           <Grid container spacing={3}>
             {userCourses.teaching.map(course => (
-              <Grid item md={3} key={course.id}>
+              <Grid item md={3} key={course._id}>
                 <Paper>
                   <CourseCard
                     title={course.title}
@@ -103,6 +104,7 @@ export default function UserDashboard() {
                     category={course.category.category}
                     instructor={course.instructor.username}
                     dateCreated={course.dateCreated}
+                    courseID={course._id}
                   />
                 </Paper>
               </Grid>

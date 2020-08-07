@@ -2,11 +2,20 @@ const router = require("express").Router();
 const usersController = require("../../controller/usersController");
 const authenticateToken = require("../../utils/authenticateToken");
 
-// Matches with "/api/users", returns current logged in user
+// Matches with "/api/users", authenticates for valid token, returns current logged in user
 router.route("/").get(authenticateToken, usersController.findUser);
 
-// Matches with "/api/users/courses/:id", authenticates for valid token, then returns courses with token user
+// Matches with "/api/users/courses/:id", then returns courses with token user
 router.route("/courses/:id").get(usersController.findUserCourses);
+
+// Matches with "/api/users/courses/start/:id", then reads & updates the courses field in the User model
+router.route("/start").put(usersController.startCourse);
+
+// Matches with "/api/users/courses/complete/:id", then reads & updates the courses field in the User model
+// router.route("/complete").put(usersController.completeCourse);
+
+// Matches with "/api/users/move/:direction", then updates the pageNumber field in the courses array of the User model in the specified direction
+router.route("/move/:direction").put(usersController.movePage);
 
 // Matches with "/api/users/register", creates a username with hashed password in database (currently array)
 router.route("/register").post(usersController.createUser);

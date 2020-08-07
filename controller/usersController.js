@@ -1,12 +1,26 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
+const mongoose = require("mongoose");
 require("dotenv").config();
 const generateAccessToken = require("../utils/generateAccessToken");
-const mongoose = require("mongoose");
-
 // *** REPLACE ALL INSTANCES OF CALLING refreshTokens
 let refreshTokens = [];
+
+function completeCourse(userCourseId) {
+  const newDate = Date.now();
+  User.findOneAndUpdate({ "courses._id": userCourseId },
+    { $set: { "courses.$.dateCompleted": newDate } },
+    { upsert: true })
+    .exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        return data;
+      }
+    })
+}
 
 module.exports = {
   findUser: function (req, res) {
@@ -16,7 +30,9 @@ module.exports = {
       res.json({
         username: data.username,
         _id: data._id,
-        image: data.image
+        image: data.image,
+        email: data.email,
+        dateCreated: data.dateCreated
       })
     }).catch(err => {
       console.log(err);
@@ -65,7 +81,15 @@ module.exports = {
         const accessToken = generateAccessToken(user);
         const refreshToken = jwt.sign(user.toJSON(), process.env.REFRESH_TOKEN_SECRET);
         refreshTokens.push(refreshToken);
-        res.send({ accessToken: accessToken, refreshToken: refreshToken, username: user.username, userID: user._id, image: user.image });
+        res.send({
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+          username: user.username,
+          userID: user._id,
+          image: user.image,
+          email: user.email,
+          dateCreated: user.dateCreated
+        });
       } else {
         res.status(400).send("Incorrect credentials");
       }
@@ -91,6 +115,124 @@ module.exports = {
         console.log(err);
       })
   },
+
+  startCourse: function (req, res) {
+    const userId = mongoose.Types.ObjectId(req.body.userId);
+    const courseId = mongoose.Types.ObjectId(req.body.courseId);
+
+    const query = [
+      {
+        "$match": { _id: userId }
+      },
+      { $unwind: "$courses" },
+      { "$match": { "courses.Course": courseId } }
+    ]
+    User.aggregate(query).exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        if (data.length === 0) {
+          const userCourse = {
+            "Course": courseId,
+            "currentPage": 1,
+            "dateCompleted": null
+          }
+
+          User.findOneAndUpdate({ _id: userId }, { $push: { courses: userCourse } }, { new: true })
+            .then(res.json({
+              msg: "New",
+              currentPage: 1
+            }))
+            .catch(err => res.status(422).json(err))
+        } else {
+          res.json({
+            msg: "Enrolled",
+            currentPage: data[0].courses.currentPage
+          });
+        }
+      }
+    })
+
+  },
+
+  // completeCourse(userCourseId) {
+  //   User.findOneAndUpdate({ "courses._id": userCourseId },
+  //     { $set: { "courses.$.dateCompleted": Date.now() } },
+  //     { upsert: true })
+  //     .exec((err, data) => {
+  //       if (err) {
+  //         console.log(err);
+  //       }
+  //       else {
+  //         res.json({
+  //           msg: dir,
+  //           currentPage: newPage
+  //         })
+  //       }
+  //     })
+  // },
+
+  movePage: function (req, res) {
+    const userId = mongoose.Types.ObjectId(req.body.userId);
+    const courseId = mongoose.Types.ObjectId(req.body.courseId);
+
+    const query = [
+      {
+        "$match": { _id: userId }
+      },
+      { $unwind: "$courses" },
+      { "$match": { "courses.Course": courseId } }
+    ]
+    User.aggregate(query).exec((err, data) => {
+      if (err) {
+        console.log(err);
+      }
+      else {
+        const userCourseId = data[0].courses._id
+        let newPage
+        let dir = req.params.direction
+
+        if (dir === "next" && data[0].courses.currentPage === req.body.endPage) {
+          dir = "complete"
+          newPage = data[0].courses.currentPage
+          completeCourse(userCourseId)
+        } else if (dir === "next") {
+          newPage = data[0].courses.currentPage + 1
+        } else if (dir === "prev" && data[0].courses.currentPage > 1) {
+          newPage = data[0].courses.currentPage - 1
+        } else {
+          newPage = data[0].courses.currentPage
+        }
+
+
+        User.findOneAndUpdate({ "courses._id": userCourseId },
+          { $set: { "courses.$.currentPage": newPage } },
+          {
+            upsert: true
+            // ,
+            // arrayFilters: [{ "courses._id": userCourseId }]
+          })
+          .exec((err, data) => {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              res.json({
+                msg: dir,
+                currentPage: newPage
+              })
+            }
+          })
+      }
+    })
+  },
+
+  prevPage: function (req, res) {
+    return req.params.id;
+
+  },
+
 
   refreshToken: function (req, res) {
     // Validate the user token is not missing and still valid
@@ -137,7 +279,7 @@ module.exports = {
   uploadPicture: async function (req, res) {
     console.log(req.body._id)
     try {
-      User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, {image: req.body.imageURL} )
+      User.updateOne({ _id: mongoose.Types.ObjectId(req.body._id) }, { image: req.body.imageURL })
         .then(data => {
           res.json(data);
         }).catch(err => {

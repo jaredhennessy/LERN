@@ -4,6 +4,7 @@
   "description": "LERN built with MERN",
   "main": "server.js",
   "dependencies": {
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -24,8 +25,8 @@
     "serve": "^11.3.2"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
-    "nodemon": "^1.18.7"
+    "concurrently": "^5.2.0",
+    "nodemon": "^2.0.4"
   },
   "proxy": {
     "/api": {

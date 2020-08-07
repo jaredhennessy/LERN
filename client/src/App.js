@@ -18,6 +18,8 @@ import UserContext from "./UserContext/UserContext";
 import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
+import LERN from "./pages/LERN";
+import Logout from "./pages/Logout";
 
 
 function App() {
@@ -52,7 +54,9 @@ function App() {
           token: tokenLocal,
           user: userResponse.data.username,
           _id: userResponse.data._id,
-          userIMG: userResponse.data.image
+          userIMG: userResponse.data.image,
+          email: userResponse.data.email,
+          dateCreated: userResponse.data.dateCreated,
         });
       }
     };
@@ -68,6 +72,7 @@ function App() {
           <Switch>
             <Route exact path="/" component={Home}></Route>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={Logout} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/fileUpload" component={FileUpload} />
             <Route exact path="/about" component={About} />
@@ -85,6 +90,8 @@ function App() {
               userData.user ? <Teach /> : <Login />} />
             <Route exact path="/teach" render={() =>
               userData.user ? <Teach /> : <Login />} />
+            <Route exact path="/pages/c/:course/p/:page" render={() =>
+              userData.user ? <LERN /> : <Login />} />
           </Switch>
           <PageFooter />
         </div>

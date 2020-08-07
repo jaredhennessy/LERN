@@ -18,10 +18,26 @@ export default {
     return axios.get("/api/categories");
   },
 
+  // Gets courses taught by a specific user
   getUserTeachingCourses: function(id) {
     return axios.get("/api/courses/i/" + id);
   },
+
+  // Gets courses taken by a specific user
   getUserLearningCourses: function(id) {
     return axios.get("/api/users/courses/" + id);
+  },
+
+  // Returns the page with the specified pageNumber in the given course
+  getCoursePage: function(courseID, pageNumber) {
+    return axios.get(`/api/pages/c/${courseID}/p/${pageNumber}`);
+  },
+
+  // Reads & updates the courses field in the User model
+  startCourse: function(courseID, userID) {
+    return axios.put("/api/users/start", {
+      userId: userID,
+      courseId: courseID
+    });
   }
 };
