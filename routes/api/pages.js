@@ -5,9 +5,13 @@ const pagesController = require("../../controller/pagesController");
 router.route("/")
     .get(pagesController.findAll)
 
-// Matches with "/api/pages", inserts a single document into the Course collection
+// Matches with "/api/pages", inserts a single document into the Page collection
 router.route("/")
     .post(pagesController.new)
+
+// Matches with "/api/pages/multi", inserts an array of documents into the Page collection
+router.route("/multi")
+    .post(pagesController.newArray)
 
 // Matches with "/api/pages/<Page._id>", returns the page with the given _id
 router.route("/:id")
