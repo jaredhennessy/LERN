@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import Moment from 'react-moment';
 
 const useStyles = makeStyles({
   root: {
@@ -54,7 +55,7 @@ export default function CourseCardModal({
             Instructor: {instructor}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Created: {dateCreated}
+            Created: <Moment format="DD/MMM/YYYY">{dateCreated}</Moment>
           </Typography>
         </CardContent>
       </CardActionArea>
