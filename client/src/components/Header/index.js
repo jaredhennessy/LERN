@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   parent: {
     width: "100%",
     height: "100%",
-    marginBottom: 0,
+    marginBottom: -5,
     paddingBottom: 0,
   },
 }));
