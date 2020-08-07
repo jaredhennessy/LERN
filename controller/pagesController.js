@@ -13,6 +13,14 @@ module.exports = {
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
     },
+    newArray: function (req, res) {
+        for (i = 0; i < req.body.length; i++) {
+            const newPage = new Page(req.body[i]);
+            Page.collection.insertOne(newPage)
+                .then(dbModel => res.json(dbModel))
+                .catch(err => res.status(422).json(err));
+        }
+    },
     update: function (req, res) {
         const id = mongoose.Types.ObjectId(req.params.id);
         Page.findOneAndUpdate({ _id: id }, req.body, { new: true })
