@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -9,6 +9,9 @@ import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import NewCourseCategorySelector from "../../components/NewCourseCategorySelector";
 import API from "../../utils/API";
+import PictureUpload from "../../components/NewCoursePictureUpload";
+import UserContext from "../../UserContext/UserContext";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,39 +52,37 @@ function NewCourse() {
   const classes = useStyles();
 
   const [courses, setCourses] = useState([]);
+  const { userData } = useContext(UserContext);
   const [newCourseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
+  const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
   const [pageCount, setPageCount] = useState("");
-  const [courseContent, setCourseContent] = useState([{ page: "1", content: "" }])
+  const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "title", image: "", text: "", link: "", course: "" }])
   // const history = useHistory();
-
   const handleCoursePages = (e) => {
 
     console.log(e);
     switch (e) {
       case "add":
-        const newPage = { page: `${courseContent.length + 1}`, content: "" }
+        const newPage = { pageNumber: courseContent.length + 1, title: "pageTitle", image: "", text: "text", link: "link.com", course: "" }
         setCourseContent([...courseContent, newPage]);
         break;
       case "remove":
-        console.log(courseContent);
         const newCourseContent = courseContent.pop();
-        console.log(courseContent)
         setCourseContent([...courseContent]);
-
         break;
       default:
     };
   };
-  console.log(courseContent);
-  const handleCourseContentChange = (e) => {
+
+  const handleCourseContentChange = (e, page) => {
     const { name, value } = e.target;
+    console.log(name, page, value)
     const oldCourseContent = [...courseContent]
-    const contentToAdd = [{ page: name, content: value }];
-    const newCourseContent = oldCourseContent.map(obj => contentToAdd.find(o => o.page === obj.page) || obj);
-    console.log(newCourseContent);
-    setCourseContent(newCourseContent);
+    console.log(oldCourseContent)
+    oldCourseContent[page - 1][name] = value
+    setCourseContent(oldCourseContent);
   };
 
   // const handleChange = e => {
@@ -104,16 +105,32 @@ function NewCourse() {
   const submitForm = async (e) => {
     e.preventDefault();
     console.log(e.target)
-    // Validate required fields, password length, passwords match
-    // if (!email || !password || !passwordCheck || !username) return alert("Missing required fields.");
-    // if (password.length < 6) return alert("Password needs to be at least 6 characters.");
+    const user = userData._id;
 
-    // const newCourse = { username, email, password, passwordCheck };
-    // const registerResponse = await Axios.post("/api/users/register", newUser).catch(err => alert(err.response.data));
-    // if (registerResponse) {
-    //   alert(`Successfully registered ${username}, please log in.`)
-    //   history.push("/login");
-    // }
+    // Validate required fields
+    if (!newCourseName || !courseDescription || !courseImage || !courseCategory) return alert("Missing required fields.");
+
+
+
+    const newCourse = { title: newCourseName, description: courseDescription, image: courseImage, category: courseCategory, instructor: user };
+
+    console.log(newCourse);
+    const allPages = courseContent;
+
+    const registerCourseResponse = await Axios.post("/api/courses/", newCourse).catch(err => alert(err.response.data));
+    if (registerCourseResponse) {
+      const courseId = registerCourseResponse.data.insertedId
+      console.log(courseId);
+      // const allPages = { pageNumber: , title: , image: , text: , link: , course: courseId }
+      const registerPagesResponse = await Axios.post("api/multi", allPages).catch(err => alert(err.response.data));
+      console.log("Response from posts:", registerCourseResponse, registerPagesResponse);
+    }
+
+    if (registerCourseResponse) {
+      alert(`Successfully created course ${newCourseName}.`)
+      // history.push("/login");
+    }
+
   }
 
   return (
@@ -151,21 +168,30 @@ function NewCourse() {
             <h5>Course content</h5>
             <Grid container spacing={1}>
 
+
+
+
               {courseContent.map(pageContent => (
                 <div>
                   <Grid item xs={12}>
-                    <h5>Page {pageContent.page}</h5>
-                    <TextareaAutosize required aria-label="minimum height" rowsMin={14} variant="outlined" placeholder="write your course here" name={pageContent.page}
-                      onChange={handleCourseContentChange} />
+                    <h5>Page {pageContent.pageNumber}</h5>
+                    <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
+                    <TextareaAutosize required aria-label="minimum height" rowsMin={14} variant="outlined" placeholder="write your course here" name="text"
+                      onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
                   </Grid>
                   <Grid item xs={12}>
-                    <h5>Add additional material</h5>
-                    <Button variant="contained" name="addMaterial" color="primary" >Browse</Button>
+                    <h5>Add an Image to this page</h5>
+                    <PictureUpload />
                     <br />
-                    <h5>show list of uploaded files</h5>
+                    <h5>show list of uploaded files </h5>
                   </Grid>
                 </div>
               ))}
+
+
+
+
+
               <Grid container spacing={1}>
                 <Grid item xs={6}>
                   <Button variant="contained" color="primary" onClick={e => { handleCoursePages("remove") }}  >Remove Page</Button>
@@ -174,9 +200,6 @@ function NewCourse() {
                   <Button variant="contained" color="primary" onClick={e => { handleCoursePages("add") }}  >Add Page</Button>
                 </Grid>
               </Grid>
-
-
-
             </Grid>
           </Grid>
 
