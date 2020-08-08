@@ -2,20 +2,15 @@ import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 // import { positions } from '@material-ui/system';
 import Avatar from "@material-ui/core/Avatar";
-// import { urlencoded } from "body-parser";
 import UserContext from "../../UserContext/UserContext";
 
 const useStyles = makeStyles(theme => ({
-  // root: {
-  //   display: "flex",
-  //   "& > *": {
-  //     margin: theme.spacing(1),
-  //   },
-  // },
-  // small: {
-  //   width: theme.spacing(3),
-  //   height: theme.spacing(3),
-  // },
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
   large: {
     width: theme.spacing(12),
     height: theme.spacing(12),
@@ -24,15 +19,16 @@ const useStyles = makeStyles(theme => ({
     width: "inherit",
     height: "inherit",
     zIndex: 0,
+    position: "relative",
   },
   avatar: {
-    position: "fixed",
-    right: "0.8rem",
-    top: "0.8rem",
+    position: "absolute",
+    right: "1em",
+    top: "1rem",
     zIndex: 1,
   },
   logo: {
-    position: "fixed",
+    position: "absolute",
     left: "5rem",
     top: "4rem",
     zIndex: 1,
