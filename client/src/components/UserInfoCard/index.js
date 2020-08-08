@@ -5,13 +5,18 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../../UserContext/UserContext";
 import Moment from 'react-moment';
+import theme from "../../theme"
 
 const useStyles = makeStyles({
   card: {
     borderRadius: 0,
     boxShadow: "none",
     alignItems: "left",
+    // backgroundColor: theme.palette.primary.main,
   },
+  leftText: {
+    textAlign: "left"
+  }
 });
 
 export default function UserInfoCard() {
@@ -21,14 +26,14 @@ export default function UserInfoCard() {
   return (
     <Card classes={{ root: classes.card }}>
       <CardContent>
-        <Typography variant="h5" component="h2">
-          Username: {userData.user}
+        <Typography className={classes.leftText} variant="h2">
+          {userData.user}
         </Typography>
-        <Typography variant="h5" component="h2">
-          Email: {userData.email}
+        <Typography className={classes.leftText} variant="h5">
+          {userData.email}
         </Typography>
-        <Typography variant="h5" component="h2">
-          LERNer since: <Moment format="DD/MMM/YYYY- h:mm"
+        <Typography className={classes.leftText} variant="h5">
+          LERNer since <Moment format="DD/MMM/YYYY"
            local
           >{userData.dateCreated}</Moment>
         </Typography>

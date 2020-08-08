@@ -6,9 +6,9 @@ import UserContext from "../../UserContext/UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
+    display: "flex",
     '& > *': {
-      margin: theme.spacing(1),
+      margin: "auto",
     },
   },
   large: {

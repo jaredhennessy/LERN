@@ -11,6 +11,18 @@ import UserContext from "../../UserContext/UserContext";
 import PictureUpload from "../../components/PictureUpload";
 import Divider from "@material-ui/core/Divider";
 import API from "../../utils/API";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+
+  topMarg: {
+    marginTop: "1rem",
+  },
+
+}));
+
+
+
 
 export default function UserDashboard() {
   const { userData } = useContext(UserContext);
@@ -18,6 +30,7 @@ export default function UserDashboard() {
     teaching: [],
     learning: []
   });
+  const classes = useStyles();
 
   useEffect(() => {
     const getCourses = async () => {
@@ -35,15 +48,15 @@ export default function UserDashboard() {
   return (
     <Container>
       {/* <Container> */}
-        <Grid container spacing={3}>
+        <Grid className={classes.topMarg} container spacing={3}>
           <Grid item md={4}>
             <UserAvatar user={userData.user} />
             <PictureUpload />
           </Grid>
-          <Grid item md={4}>
+          <Grid item md={6}>
             <UserInfoCard user={userData.user} />
           </Grid>
-          <Grid item md={4}>
+          <Grid item md={2}>
             <Box justify={"center"}>
               {/* <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button> */}
             </Box>
@@ -52,7 +65,7 @@ export default function UserDashboard() {
       {/* </Container> */}
 
       <Grid item xs={12}>
-        <Divider />
+        <Divider className={classes.topMarg} />
       </Grid>
 
       <Container>
@@ -61,7 +74,7 @@ export default function UserDashboard() {
           <Button variant="contained" color="primary" href="/courses">Browse</Button>
         </span>
         {userCourses.learning.length ? (
-          <Grid container spacing={3}>
+          <Grid  className={classes.topMarg} container spacing={3}>
             {userCourses.learning.map(course => (
               <Grid item md={3} key={course.Course._id}>
                 <Paper>
@@ -84,7 +97,7 @@ export default function UserDashboard() {
       </Container>
 
       <Grid item xs={12}>
-        <Divider />
+        <Divider className={classes.topMarg}/>
       </Grid>
 
       <Container>
@@ -93,7 +106,7 @@ export default function UserDashboard() {
           New Course
             </Button>
         {userCourses.teaching.length ? (
-          <Grid container spacing={3}>
+          <Grid  className={classes.topMarg} container spacing={3}>
             {userCourses.teaching.map(course => (
               <Grid item md={3} key={course._id}>
                 <Paper>
