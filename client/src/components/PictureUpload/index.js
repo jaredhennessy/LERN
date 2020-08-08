@@ -68,6 +68,7 @@ function PictureUpload() {
               id="file"
               onChange={e => setFile(e.target.files[0])}
             />
+            <span></span>
             <Button
               className={classes.autoMargin}
               color="primary"

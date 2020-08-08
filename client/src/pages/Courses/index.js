@@ -23,11 +23,12 @@ export default function Courses() {
 
   useEffect(() => loadCourses(), []);
 
-  const handleChange = e => {
-    if (e.target.value === "all") {
+  const handleChange = (catId) => {
+    if (catId === "all") {
       loadCourses();
     } else {
-      loadCoursesByCategory(e.target.value);
+      loadCoursesByCategory(catId);
+      console.log(catId);
     }
   };
 
@@ -65,21 +66,29 @@ export default function Courses() {
 
   //Change page
   const paginator = (pageNumber) => setCurrentPage(pageNumber);
-  console.log(currentPage);
+  // console.log(currentPage);
 
   return (
     <Container>
-      <h1>Courses</h1>
-
       <Grid container spacing={3}>
         <Grid item md={6}>
+      <h1>Browse our Courses</h1>
+      </Grid>
+      <Grid item md={6}>
           <SearchBar handleInputChange={handleInputChange}
           />
         </Grid>
-        <Grid item md={6}>
-          <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
-        </Grid>
       </Grid>
+
+      {/* <Grid container spacing={3}> */}
+        {/* <Grid item md={6}>
+          <SearchBar handleInputChange={handleInputChange}
+          />
+        </Grid> */}
+        {/* <Grid item md={6}> */}
+          <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
+        {/* </Grid> */}
+      {/* </Grid> */}
       <div>
         {currentCourses.length ? (
           <Grid container spacing={3}>
