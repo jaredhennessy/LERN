@@ -12,6 +12,7 @@ import PictureUpload from "../../components/PictureUpload";
 import Divider from "@material-ui/core/Divider";
 import API from "../../utils/API";
 import { makeStyles } from "@material-ui/core/styles";
+import Slide from "@material-ui/core/Slide";
 
 const useStyles = makeStyles(theme => ({
 
@@ -31,6 +32,11 @@ export default function UserDashboard() {
     learning: []
   });
   const classes = useStyles();
+  const [checked, setChecked] = useState(false);
+
+  const unCheck = () => {
+    setChecked((prev) => !prev);
+  };
 
   useEffect(() => {
     const getCourses = async () => {
@@ -42,6 +48,7 @@ export default function UserDashboard() {
       })
     }
       getCourses();
+      unCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -77,6 +84,11 @@ export default function UserDashboard() {
           <Grid  className={classes.topMarg} container spacing={3}>
             {userCourses.learning.map(course => (
               <Grid item md={3} key={course.Course._id}>
+                <Slide
+                  direction="left"
+                  in={checked}
+                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                >
                 <Paper>
                   <CourseCard
                     title={course.Course.title}
@@ -88,6 +100,7 @@ export default function UserDashboard() {
                     courseID={course.Course._id}
                   />
                 </Paper>
+                </Slide>
               </Grid>
             ))}
           </Grid>
@@ -109,6 +122,11 @@ export default function UserDashboard() {
           <Grid  className={classes.topMarg} container spacing={3}>
             {userCourses.teaching.map(course => (
               <Grid item md={3} key={course._id}>
+                <Slide
+                  direction="left"
+                  in={checked}
+                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                >
                 <Paper>
                   <CourseCard
                     title={course.title}
@@ -120,6 +138,7 @@ export default function UserDashboard() {
                     courseID={course._id}
                   />
                 </Paper>
+                </Slide>
               </Grid>
             ))}
           </Grid>
