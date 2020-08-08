@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import MenuItem from "@material-ui/core/MenuItem";
+// import MenuItem from "@material-ui/core/MenuItem";
 // import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import InputLabel from "@material-ui/core/InputLabel";
+// import FormControl from "@material-ui/core/FormControl";
+// import Select from "@material-ui/core/Select";
+// import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
@@ -23,6 +23,7 @@ export default function CategorySelector({ handleChange }) {
   const classes = useStyles();
 
   const [categories, setCategories] = useState([]);
+  const [color, setColor] = useState("primary")
   useEffect(() => loadCategories(), []);
 
   //loads all categories
@@ -30,6 +31,10 @@ export default function CategorySelector({ handleChange }) {
     API.getAllCategories()
       .then(res => setCategories(res.data))
       .catch(err => console.log(err));
+  }
+
+  function changeColor() {
+    setColor("black");
   }
 
   return (
@@ -54,15 +59,17 @@ export default function CategorySelector({ handleChange }) {
 
     <Grid container spacing={3}>
       <Grid item>
-        <Button
-         onClick={e => handleChange("all")} 
-         value="all">
+        <Button color="primary" onClick={e => handleChange("all")} value="all">
           All
         </Button>
       </Grid>
       {categories.map(category => (
         <Grid item key={category._id}>
-          <Button onClick={() => handleChange(category._id)} value={category._id}>
+          <Button
+            onClick={() => handleChange(category._id)}
+            value={category._id}
+            color="primary"
+          >
             {category.category}
           </Button>
         </Grid>

@@ -64,7 +64,7 @@ function Header() {
       </a>
       <img
         alt="LERN logo"
-        src={require("../../images/LERN.png")}
+        src={require("../../images/LERN_Blue.png")}
         className={classes.logo}
       ></img>
     </div>
