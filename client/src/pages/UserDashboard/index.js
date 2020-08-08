@@ -34,7 +34,7 @@ export default function UserDashboard() {
 
   return (
     <Container>
-      <Container>
+      {/* <Container> */}
         <Grid container spacing={3}>
           <Grid item md={4}>
             <UserAvatar user={userData.user} />
@@ -49,7 +49,7 @@ export default function UserDashboard() {
             </Box>
           </Grid>
         </Grid>
-      </Container>
+      {/* </Container> */}
 
       <Grid item xs={12}>
         <Divider />

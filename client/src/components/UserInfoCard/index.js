@@ -28,7 +28,9 @@ export default function UserInfoCard() {
           Email: {userData.email}
         </Typography>
         <Typography variant="h5" component="h2">
-          LERNer since: <Moment format="DD/MMM/YYYY">{userData.dateCreated}</Moment>
+          LERNer since: <Moment format="DD/MMM/YYYY- h:mm"
+           local
+          >{userData.dateCreated}</Moment>
         </Typography>
       </CardContent>
     </Card>

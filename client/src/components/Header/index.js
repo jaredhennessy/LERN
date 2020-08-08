@@ -31,6 +31,13 @@ const useStyles = makeStyles(theme => ({
     top: "0.8rem",
     zIndex: 1,
   },
+  logo: {
+    position: "fixed",
+    left: "5rem",
+    top: "4rem",
+    zIndex: 1,
+    height: "8rem"
+  },
   parent: {
     width: "100%",
     height: "100%",
@@ -59,6 +66,11 @@ function Header() {
           href={"/users/" + userData.user}
         />
       </a>
+      <img
+        alt="LERN logo"
+        src={require("../../images/LERN.png")}
+        className={classes.logo}
+      ></img>
     </div>
   );
 }
