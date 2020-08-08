@@ -1,5 +1,15 @@
+/* .App {
+  text-align: center;
+  margin: 0;
+  padding: 0;
+} */
+
 .App {
   text-align: center;
+  /* padding: 100px; */
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
 }
 
 .App-logo {
@@ -36,3 +46,10 @@
     transform: rotate(360deg);
   }
 }
+
+.Header, .Navbar {
+  margin: 0;
+  padding: 0;
+}
+
+

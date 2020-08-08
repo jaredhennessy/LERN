@@ -39,5 +39,47 @@ export default {
       userId: userID,
       courseId: courseID
     });
+  },
+
+  // Updates the pageNumber field in the courses array of the User model in the specified direction, or returns complete
+  updateCoursePage: function(courseID, userID, direction, endPage) {
+    return axios.put("/api/users/move/" + direction, {
+      userId: userID,
+      courseId: courseID,
+      endPage: endPage
+    });
+  },
+
+  // Calls API to check if JSON web token is valid
+  confirmToken: function(tokenLocal) {
+    return axios.post("/api/users/checkToken", null, {
+      headers: { authorization: tokenLocal }
+    });
+  },
+
+  // If web token is valid, then return the user data associated with the token
+  getUserWithToken: function(tokenLocal) {
+    return axios.get("/api/users", {
+      headers: { authorization: "Bearer " + tokenLocal }
+    });
+  },
+
+  // Checks user credentials to log user in
+  userLogin: function(username, password) {
+    return axios.post("/api/users/login", {
+      username: username,
+      password: password
+    });
+  },
+
+  // Checks logs user out
+  userLogout: function() {
+    return axios.delete("/api/users/logout");
+  },
+
+  // Sends new user object to database to register user
+  registerUser: function(newUser) {
+    return axios.post("/api/users/register", newUser)
   }
+
 };

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory } from "react-router-dom";
-import Axios from "axios";
+import API from "../../utils/API";
 import UserContext from '../../UserContext/UserContext';
 
 function Logout() {
@@ -10,14 +10,11 @@ function Logout() {
 
   // Remove refresh token from database and localstorage
   function logout() {
-    Axios.delete("/api/users/logout")
-      .then(
-        setUserData({
-          token: undefined,
-          user: undefined,
-        })
-      )
-      .catch(err => console.log(err.response.data));
+    API.userLogout().catch(err => console.log(err.response.data));
+    setUserData({
+      token: undefined,
+      user: undefined,
+    })
     localStorage.setItem("auth-token", "");
     localStorage.setItem("ref-token", "");
     localStorage.setItem("user", "");
@@ -28,6 +25,7 @@ function Logout() {
 
   useEffect(() => {
     logout();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
