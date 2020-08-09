@@ -106,9 +106,19 @@ module.exports = {
     }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete")
       .populate({
         path: "courses.Course",
-        populate: {
-          path: "category instructor pages"
-        },
+        populate: [{
+          path: "category",
+          model: "Category",
+          select: "category"
+        }, {
+          path: "instructor"
+          , model: "Instructor"
+          , select: "username email"
+        }, {
+          path: "pages",
+          model: "Page",
+          select: "pageNumber title text link image"
+        }],
       }).then(data => {
         res.json(data);
       }).catch(err => {
@@ -155,23 +165,6 @@ module.exports = {
     })
 
   },
-
-  // completeCourse(userCourseId) {
-  //   User.findOneAndUpdate({ "courses._id": userCourseId },
-  //     { $set: { "courses.$.dateCompleted": Date.now() } },
-  //     { upsert: true })
-  //     .exec((err, data) => {
-  //       if (err) {
-  //         console.log(err);
-  //       }
-  //       else {
-  //         res.json({
-  //           msg: dir,
-  //           currentPage: newPage
-  //         })
-  //       }
-  //     })
-  // },
 
   movePage: function (req, res) {
     const userId = mongoose.Types.ObjectId(req.body.userId);
