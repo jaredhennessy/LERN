@@ -58,14 +58,14 @@ function NewCourse() {
   const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
   const [pageCount, setPageCount] = useState("");
-  const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "title", image: "", text: "", link: "", course: "" }])
+  const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
   // const history = useHistory();
   const handleCoursePages = (e) => {
 
     console.log(e);
     switch (e) {
       case "add":
-        const newPage = { pageNumber: courseContent.length + 1, title: "pageTitle", image: "", text: "text", link: "link.com", course: "" }
+        const newPage = { pageNumber: courseContent.length + 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }
         setCourseContent([...courseContent, newPage]);
         break;
       case "remove":
@@ -85,26 +85,9 @@ function NewCourse() {
     setCourseContent(oldCourseContent);
   };
 
-  // const handleChange = e => {
-  // console.log(e.target)
-  // if (e.target.value !== "all") {
-  // loadCourses();
-
-  // } else {
-  // loadCoursesByCategory(e.target.value);
-  // }
-  // };
-
-  //loads all courses
-  // function loadCourses() {
-  //   API.getAllCourses()
-  //     .then(res => setCourses(res.data))
-  //     .catch(err => console.log(err));
-  // }
 
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log(e.target)
     const user = userData._id;
 
     // Validate required fields
@@ -115,20 +98,32 @@ function NewCourse() {
     const newCourse = { title: newCourseName, description: courseDescription, image: courseImage, category: courseCategory, instructor: user };
 
     console.log(newCourse);
-    const allPages = courseContent;
 
     const registerCourseResponse = await Axios.post("/api/courses/", newCourse).catch(err => alert(err.response.data));
-    if (registerCourseResponse) {
-      const courseId = registerCourseResponse.data.insertedId
-      console.log(courseId);
-      // const allPages = { pageNumber: , title: , image: , text: , link: , course: courseId }
-      const registerPagesResponse = await Axios.post("api/multi", allPages).catch(err => alert(err.response.data));
-      console.log("Response from posts:", registerCourseResponse, registerPagesResponse);
-    }
 
-    if (registerCourseResponse) {
-      alert(`Successfully created course ${newCourseName}.`)
-      // history.push("/login");
+
+    if (registerCourseResponse.status === 200) {
+
+      const courseId = registerCourseResponse.data.insertedId
+      // const allPages = [];
+
+      for (let i = 0; i < courseContent.length; i++) {
+        courseContent[i].course = courseId;
+      }
+
+      // const allPages = courseContent.map(page => (
+      //   page = [...page, (page.course = courseId)]));
+
+      console.log(courseContent);
+      const registerPagesResponse = await Axios.post("api/multi", courseContent).catch(err => alert(err.response.data));
+
+      if (registerPagesResponse.status === 200) {
+        alert(`Successfully created course ${newCourseName}.`);
+      } else {
+        alert(`There was an error creating your course`);
+      }
+
+      console.log("Response from posts:", registerCourseResponse, registerPagesResponse);
     }
 
   }
