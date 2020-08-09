@@ -47,11 +47,11 @@ export default function CategorySelector({ handleChange }) {
 
         labelId="category-selector-label"
         id="category-selector"
-        value="id"
+        value=""
         onChange={handleChange}
       >
         {categories.map(category => (
-          <MenuItem value={category._id} name={category.category}>{category.category}</MenuItem>
+          <MenuItem id={category._id} value={category._id} name={category.category}>{category.category}</MenuItem>
         ))}
       </Select>
 

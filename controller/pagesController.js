@@ -14,6 +14,7 @@ module.exports = {
             .catch(err => res.status(422).json(err));
     },
     newArray: function (req, res) {
+        console.log(req.body);
         for (i = 0; i < req.body.length; i++) {
             const newPage = new Page(req.body[i]);
             Page.collection.insertOne(newPage)

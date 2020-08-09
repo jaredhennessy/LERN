@@ -49,23 +49,23 @@ const useStyles = makeStyles((theme) => ({
 
 function NewCourse() {
 
-  const classes = useStyles();
+  // const fufu = null;
 
+  const classes = useStyles();
   const [courses, setCourses] = useState([]);
   const { userData } = useContext(UserContext);
   const [newCourseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
-  const [pageCount, setPageCount] = useState("");
-  const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "title", image: "", text: "", link: "", course: "" }])
+  // const [pageCount, setPageCount] = useState("");
+  const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
   // const history = useHistory();
   const handleCoursePages = (e) => {
-
     console.log(e);
     switch (e) {
       case "add":
-        const newPage = { pageNumber: courseContent.length + 1, title: "pageTitle", image: "", text: "text", link: "link.com", course: "" }
+        const newPage = { pageNumber: courseContent.length + 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }
         setCourseContent([...courseContent, newPage]);
         break;
       case "remove":
@@ -85,26 +85,9 @@ function NewCourse() {
     setCourseContent(oldCourseContent);
   };
 
-  // const handleChange = e => {
-  // console.log(e.target)
-  // if (e.target.value !== "all") {
-  // loadCourses();
-
-  // } else {
-  // loadCoursesByCategory(e.target.value);
-  // }
-  // };
-
-  //loads all courses
-  // function loadCourses() {
-  //   API.getAllCourses()
-  //     .then(res => setCourses(res.data))
-  //     .catch(err => console.log(err));
-  // }
 
   const submitForm = async (e) => {
     e.preventDefault();
-    console.log(e.target)
     const user = userData._id;
 
     // Validate required fields
@@ -115,22 +98,33 @@ function NewCourse() {
     const newCourse = { title: newCourseName, description: courseDescription, image: courseImage, category: courseCategory, instructor: user };
 
     console.log(newCourse);
-    const allPages = courseContent;
 
     const registerCourseResponse = await Axios.post("/api/courses/", newCourse).catch(err => alert(err.response.data));
-    if (registerCourseResponse) {
+
+
+    if (registerCourseResponse.status === 200) {
+
       const courseId = registerCourseResponse.data.insertedId
-      console.log(courseId);
-      // const allPages = { pageNumber: , title: , image: , text: , link: , course: courseId }
-      const registerPagesResponse = await Axios.post("api/multi", allPages).catch(err => alert(err.response.data));
+      // const allPages = [];
+
+      for (let i = 0; i < courseContent.length; i++) {
+        courseContent[i].course = courseId;
+      }
+
+      // const allPages = courseContent.map(page => (
+      //   page = [...page, (page.course = courseId)]));
+
+      console.log(courseContent);
+      const registerPagesResponse = await Axios.post("api/multi", courseContent).catch(err => alert(err.response.data));
+
+      if (registerPagesResponse.status === 200) {
+        alert(`Successfully created course ${newCourseName}.`);
+      } else {
+        alert(`There was an error creating your course`);
+      }
+
       console.log("Response from posts:", registerCourseResponse, registerPagesResponse);
     }
-
-    if (registerCourseResponse) {
-      alert(`Successfully created course ${newCourseName}.`)
-      // history.push("/login");
-    }
-
   }
 
   return (
@@ -153,6 +147,7 @@ function NewCourse() {
             <Grid container spacing={0}>
               <Grid item xs={6}>
                 <h5>Select the Category for this course:</h5>
+
               </Grid>
               <Grid item md={6}>
                 <NewCourseCategorySelector handleChange={e => setCourseCategory(e.target.value)} />
@@ -161,7 +156,7 @@ function NewCourse() {
           </Grid>
           <Grid item xs={6}>
             <h5>Select main course image</h5>
-            <Button variant="contained" name="browseImage" color="primary" >Browse</Button>
+            <PictureUpload key="" passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); setCourseImage(picture) }} />
           </Grid>
 
           <Grid item xs={6}>
@@ -172,7 +167,7 @@ function NewCourse() {
 
 
               {courseContent.map(pageContent => (
-                <div>
+                <div key={pageContent.pageNumber}>
                   <Grid item xs={12}>
                     <h5>Page {pageContent.pageNumber}</h5>
                     <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
@@ -181,7 +176,7 @@ function NewCourse() {
                   </Grid>
                   <Grid item xs={12}>
                     <h5>Add an Image to this page</h5>
-                    <PictureUpload />
+                    <PictureUpload key={pageContent.pageNumber} passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} />
                     <br />
                     <h5>show list of uploaded files </h5>
                   </Grid>
@@ -207,27 +202,16 @@ function NewCourse() {
             <h5>Brief course description</h5>
             <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 50 characters" name="Course Description" onChange={e => setCourseDescription(e.target.value)} />
           </Grid>
-
-
           <Grid item xs={6}>
             <br />
             <br />
             <Button variant="contained" color="primary" type="submit" >Submit</Button>
           </Grid>
         </Grid>
-
-
-
       </form>
-
-
-
       <br />
-
       <br />
-
     </div >
-
   )
 }
 
