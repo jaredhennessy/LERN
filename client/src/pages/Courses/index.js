@@ -66,6 +66,8 @@ export default function Courses() {
 
   //searches course names by search bar
   const handleInputChange = e => {
+    //loads all courses (resets category selection)
+    loadCourses();
     setSearch(e.target.value);
     arrowClick("right");
   };
