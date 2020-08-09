@@ -32,22 +32,6 @@ export default function LERN() {
   const [slideIn, setSlideIn] = useState(true);
   const [slideDirection, setSlideDirection] = useState("left");
 
-  // const unCheck = () => {
-  //   setChecked((prev) => !prev);
-  // };
-
-  const arrowClick = (direction) => {
-    const oppDirection = direction === "left" ? "right" : "left";
-    setSlideDirection(direction);
-    setSlideIn(false);
-
-    setTimeout(() => {
-      setSlideDirection(oppDirection);
-      setSlideIn(true);
-    }, 500);
-  }
-
-
   // On mount, use the URL parameters to pull and render the course page the user is at
   let currentPage = useParams();
   useEffect(() => {
@@ -58,9 +42,7 @@ export default function LERN() {
       );
       setCourseData(courseResponse.data[0]);
     };
-  
     getCourse();
-    
   }, [currentPage.course, currentPage.page]);
 
   const nextPage = `/pages/c/${currentPage.course}/p/${
@@ -84,6 +66,18 @@ export default function LERN() {
     );
     if (updateResponse.data.msg === "complete")
       history.push(`/pages/c/${currentPage.course}/complete`);
+  }
+
+  // Sets the slide direction depending on which arrow is clicked
+  const arrowClick = (direction) => {
+    const oppDirection = direction === "left" ? "right" : "left";
+    setSlideDirection(direction);
+    setSlideIn(false);
+
+    setTimeout(() => {
+      setSlideDirection(oppDirection);
+      setSlideIn(true);
+    }, 500);
   }
 
   return courseData !== undefined ? (

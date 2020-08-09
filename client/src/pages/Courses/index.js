@@ -7,7 +7,7 @@ import API from "../../utils/API";
 import CategorySelector from "../../components/CategorySelector";
 import Slide from "@material-ui/core/Slide";
 import SearchBar from "../../components/SearchBar";
-import Paginate from "../../components/Paginate";
+import ArrowButtons from "../../components/ArrowButtons";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -24,32 +24,50 @@ export default function Courses() {
   const [search, setSearch] = useState("");
   const [filteredCourses, setFilteredCourses] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [coursesPerPage] = useState(16);
+  const [coursesPerPage] = useState(8);
   const classes = useStyles();
+  const [slideIn, setSlideIn] = useState(true);
+  const [slideDirection, setSlideDirection] = useState("left");
+  const indexOfLastCourse = currentPage * coursesPerPage;
+  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  const currentCourses = filteredCourses.slice(
+    indexOfFirstCourse,
+    indexOfLastCourse
+  );
 
-  const [checked, setChecked] = useState(false);
-  // const [loading, setLoading] = useState(false);
-
+  //loads all courses on page load
   useEffect(() => loadCourses(), []);
 
+  //loads all courses
+  function loadCourses() {
+    API.getAllCourses()
+      .then(res => setCourses(res.data))
+      .catch(err => console.log(err));
+  }
+
+  //loads courses by category when category button clicked
   const handleChange = catId => {
-    unCheck();
     if (catId === "all") {
       loadCourses();
     } else {
       loadCoursesByCategory(catId);
       console.log(catId);
     }
+    arrowClick("right");
   };
 
-  const unCheck = () => {
-    setChecked((prev) => !prev);
-  };
+  //loads courses of selected category
+  function loadCoursesByCategory(categoryId) {
+    API.getCoursesByCategory(categoryId)
+      .then(res => setCourses(res.data))
+      .catch(err => console.log(err));
+    console.log(categoryId);
+  }
 
-
+  //searches course names by search bar
   const handleInputChange = e => {
     setSearch(e.target.value);
-    unCheck();
+    arrowClick("right");
   };
 
   //loads courses containing search
@@ -61,33 +79,24 @@ export default function Courses() {
     );
   }, [search, courses]);
 
-  //loads all courses
-  function loadCourses() {
-    API.getAllCourses()
-      .then(res => setCourses(res.data))
-      .catch(err => console.log(err));
-      unCheck();
-  }
+  // Sets the currentPage and slide direction depending on which arrow is clicked
+  const arrowClick = direction => {
+    const oppDirection = direction === "left" ? "right" : "left";
+    //if on last page, go back to page 1 if right arrow clicked
+    indexOfLastCourse > courses.length
+      ? setCurrentPage(1)
+      : setCurrentPage(
+          direction === "left" ? currentPage - 1 : currentPage + 1
+        );
 
-  //loads courses of selected category
-  function loadCoursesByCategory(categoryId) {
-    API.getCoursesByCategory(categoryId)
-      .then(res => setCourses(res.data))
-      .catch(err => console.log(err));
-    console.log(categoryId);
-    unCheck();
-  }
+    setSlideDirection(direction);
+    setSlideIn(false);
 
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
-  const currentCourses = filteredCourses.slice(
-    indexOfFirstCourse,
-    indexOfLastCourse
-  );
-
-  //Change page
-  const paginator = pageNumber => setCurrentPage(pageNumber);
-  // console.log(currentPage);
+    setTimeout(() => {
+      setSlideDirection(oppDirection);
+      setSlideIn(true);
+    }, 500);
+  };
 
   return (
     <Container>
@@ -108,9 +117,8 @@ export default function Courses() {
             {currentCourses.map(course => (
               <Grid item md={3} key={course.id}>
                 <Slide
-                  direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  direction={slideDirection}
+                  in={slideIn}
                 >
                   <Paper>
                     <CourseCard
@@ -131,10 +139,10 @@ export default function Courses() {
           <h3>No Results</h3>
         )}
       </div>
-      <Paginate
+      <ArrowButtons
         coursesPerPage={coursesPerPage}
         totalCourses={courses.length}
-        paginator={paginator}
+        arrowClick={arrowClick}
       />
     </Container>
   );
