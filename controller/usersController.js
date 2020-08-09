@@ -156,22 +156,22 @@ module.exports = {
 
   },
 
-  // completeCourse(userCourseId) {
-  //   User.findOneAndUpdate({ "courses._id": userCourseId },
-  //     { $set: { "courses.$.dateCompleted": Date.now() } },
-  //     { upsert: true })
-  //     .exec((err, data) => {
-  //       if (err) {
-  //         console.log(err);
-  //       }
-  //       else {
-  //         res.json({
-  //           msg: dir,
-  //           currentPage: newPage
-  //         })
-  //       }
-  //     })
-  // },
+  completeCourse(userCourseId) {
+    User.findOneAndUpdate({ "courses._id": userCourseId },
+      { $set: { "courses.$.dateCompleted": Date.now() } },
+      { upsert: true })
+      .exec((err, data) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          res.json({
+            msg: dir,
+            currentPage: newPage
+          })
+        }
+      })
+  },
 
   movePage: function (req, res) {
     const userId = mongoose.Types.ObjectId(req.body.userId);
