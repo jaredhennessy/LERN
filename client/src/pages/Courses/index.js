@@ -9,6 +9,8 @@ import Slide from "@material-ui/core/Slide";
 import SearchBar from "../../components/SearchBar";
 import ArrowButtons from "../../components/ArrowButtons";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   topMarg: {
@@ -118,10 +120,7 @@ export default function Courses() {
           <Grid container spacing={3}>
             {currentCourses.map(course => (
               <Grid item md={3} key={course.id}>
-                <Slide
-                  direction={slideDirection}
-                  in={slideIn}
-                >
+                <Slide direction={slideDirection} in={slideIn}>
                   <Paper>
                     <CourseCard
                       title={course.title}
@@ -136,16 +135,32 @@ export default function Courses() {
                 </Slide>
               </Grid>
             ))}
-          </Grid>
+            <Grid container spacing={3}>
+              <Grid item md={4}></Grid>
+              <Grid item md={4}>
+                <ArrowButtons
+                  coursesPerPage={coursesPerPage}
+                  totalCourses={courses.length}
+                  arrowClick={arrowClick}
+                />
+                </Grid>
+                <Grid item md={4}></Grid>
+              </Grid>
+            </Grid>
         ) : (
-          <h3>No Results</h3>
+          <div >
+            <Typography gutterBottom variant="h5" component="h3">
+              No Results
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h4">
+              Would you like to add a new course?
+            </Typography>
+            <Button color="primary" href="/teach">
+              Teach a Course
+            </Button>
+          </div>
         )}
       </div>
-      <ArrowButtons
-        coursesPerPage={coursesPerPage}
-        totalCourses={courses.length}
-        arrowClick={arrowClick}
-      />
     </Container>
   );
 }
