@@ -54,31 +54,36 @@ userSchema.virtual("coursesEnrolled").get(function () {
 })
 
 userSchema.virtual("coursesInProgress").get(function () {
-  const inProgress = this.courses.filter(course => {
-    return course.dateCompleted === null;
-  });
-  if (this.inProgress === []) {
-    return 0
-  } else {
-    return inProgress.length
-  }
+  if (this.courses) {
+    const inProgress = this.courses
+      .filter(course => {
+        return course.dateCompleted === null;
+      });
+    if (this.inProgress === []) {
+      return 0
+    } else {
+      return inProgress.length
+    }
+  } else return null
 })
 
 userSchema.virtual("coursesCompleted").get(function () {
-  const completed = this.courses.filter(course => {
-    return course.dateCompleted !== null;
-  });
-  if (this.completed === []) {
-    return 0
-  } else {
-    return completed.length
-  }
+  if (this.courses) {
+    const completed = this.courses.filter(course => {
+      return course.dateCompleted !== null;
+    });
+    if (this.completed === []) {
+      return 0
+    } else {
+      return completed.length
+    }
+  } else return null
 })
 
 userSchema.virtual("percentComplete").get(function () {
   return (this.coursesCompleted / this.coursesEnrolled) * 100
 })
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema, "users");
 
 module.exports = User;
