@@ -15,7 +15,7 @@ export default function PageFooter() {
   return (
     <footer>
      
-     {/* <Divider style={{ margin: "24px auto", width: "80%" }} /> */}
+     <Divider style={{ margin: "24px auto", width: "80%" }} />
      <Accordion>
         <AccordionSummary href="AccordionDetails">
             <Grid container justify={"center"} spacing={2}>
