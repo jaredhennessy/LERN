@@ -49,19 +49,19 @@ const useStyles = makeStyles((theme) => ({
 
 function NewCourse() {
 
-  const classes = useStyles();
+  // const fufu = null;
 
+  const classes = useStyles();
   const [courses, setCourses] = useState([]);
   const { userData } = useContext(UserContext);
   const [newCourseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
-  const [pageCount, setPageCount] = useState("");
+  // const [pageCount, setPageCount] = useState("");
   const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
   // const history = useHistory();
   const handleCoursePages = (e) => {
-
     console.log(e);
     switch (e) {
       case "add":
@@ -125,7 +125,6 @@ function NewCourse() {
 
       console.log("Response from posts:", registerCourseResponse, registerPagesResponse);
     }
-
   }
 
   return (
@@ -148,6 +147,7 @@ function NewCourse() {
             <Grid container spacing={0}>
               <Grid item xs={6}>
                 <h5>Select the Category for this course:</h5>
+
               </Grid>
               <Grid item md={6}>
                 <NewCourseCategorySelector handleChange={e => setCourseCategory(e.target.value)} />
@@ -156,7 +156,7 @@ function NewCourse() {
           </Grid>
           <Grid item xs={6}>
             <h5>Select main course image</h5>
-            <Button variant="contained" name="browseImage" color="primary" >Browse</Button>
+            <PictureUpload key="" passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); setCourseImage(picture) }} />
           </Grid>
 
           <Grid item xs={6}>
@@ -167,7 +167,7 @@ function NewCourse() {
 
 
               {courseContent.map(pageContent => (
-                <div>
+                <div key={pageContent.pageNumber}>
                   <Grid item xs={12}>
                     <h5>Page {pageContent.pageNumber}</h5>
                     <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
@@ -176,7 +176,7 @@ function NewCourse() {
                   </Grid>
                   <Grid item xs={12}>
                     <h5>Add an Image to this page</h5>
-                    <PictureUpload />
+                    <PictureUpload key={pageContent.pageNumber} passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} />
                     <br />
                     <h5>show list of uploaded files </h5>
                   </Grid>
@@ -202,27 +202,16 @@ function NewCourse() {
             <h5>Brief course description</h5>
             <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 50 characters" name="Course Description" onChange={e => setCourseDescription(e.target.value)} />
           </Grid>
-
-
           <Grid item xs={6}>
             <br />
             <br />
             <Button variant="contained" color="primary" type="submit" >Submit</Button>
           </Grid>
         </Grid>
-
-
-
       </form>
-
-
-
       <br />
-
       <br />
-
     </div >
-
   )
 }
 

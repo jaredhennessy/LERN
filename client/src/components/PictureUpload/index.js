@@ -24,7 +24,10 @@ function PictureUpload() {
 
     // Post form to database, response returns the filename
     let formData = new FormData();
+
     formData.append("file", file);
+    console.log(file);
+    console.log(formData)
     const fileUpload = await axios({
       method: "post",
       url: "/api/files/upload",
@@ -40,7 +43,7 @@ function PictureUpload() {
         imageURL: fileName,
       })
       .then(() => {
-        window.location.reload();
+        // window.location.reload();
       });
   }
 
@@ -81,9 +84,9 @@ function PictureUpload() {
             </Button>
           </InputLabel >
         </div>
-        <br/>
+        <br />
         <Button
-        className={classes.autoMargin}
+          className={classes.autoMargin}
           variant="contained"
           color="secondary"
           type="submit"
