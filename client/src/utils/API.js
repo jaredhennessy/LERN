@@ -28,15 +28,10 @@ export default {
     return axios.get("/api/users/courses/" + id);
   },
 
-  //Gets courses completed by a specific user
-  getUserCompletedCourses: function(id) {
-    return axios.get("/api/users/courses/complete/" + id);
+  //Gets course info for a  specific user
+  getUserCourseInfo: function(id) {
+    return axios.get("/api/users/courses/"+ id);
   },
-
-  //Gets completion percentage of courses
-  // getUserCompletionPercentage: function(id) {
-  //   return axios.get("")
-  // },
 
   // Returns the page with the specified pageNumber in the given course
   getCoursePage: function(courseID, pageNumber) {
