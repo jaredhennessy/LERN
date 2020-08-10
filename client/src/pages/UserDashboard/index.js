@@ -32,7 +32,10 @@ export default function UserDashboard() {
   const [userCourses, setTeachingCourses] = useState({
     teaching: [],
     learning: [],
-    // completed: []
+    completed: "",
+    enrolled: "",
+    inProgress: "",
+    percentComplete: "",
   });
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
@@ -44,15 +47,18 @@ export default function UserDashboard() {
   useEffect(() => {
     const getCourses = async () => {
       let teachingCourses = await API.getUserTeachingCourses(userData._id);
-      console.log("teaching", teachingCourses)
+      // console.log("teaching", teachingCourses)
       let learningCourses = await API.getUserLearningCourses(userData._id);
-      console.log("learning", learningCourses)
-      // let completedCourses = await API.getUserCompletedCourses(userData._id);
-      // console.log("complete", completedCourses)
+      // console.log("learning", learningCourses)
+      let userCourseData = await API.getUserCourseInfo(userData._id);
+      // console.log("complete", userCourseData)
       setTeachingCourses({
         teaching: teachingCourses.data,
         learning: learningCourses.data.courses,
-        // completed: completedCourses.data.courses,
+        completed: userCourseData.data.coursesCompleted,
+        enrolled: userCourseData.data.coursesEnrolled,
+        inProgress: userCourseData.data.coursesInProgress,
+        percentComplete: userCourseData.data.percentComplete,
       })
     }
       getCourses();
@@ -62,11 +68,13 @@ export default function UserDashboard() {
 
   console.log("teachLen", userCourses.teaching.length);
   console.log("learnLen", userCourses.learning.length);
-  // console.log("completeLen", userCourses.completed.length);
+  console.log("completed", userCourses.completed);
+  console.log("enrolled", userCourses.enrolled);
+  console.log("progress", userCourses.inProgress);
+  console.log("percent", userCourses.percentComplete);
 
   return (
     <Container>
-      {/* <Container> */}
         <Grid className={classes.topMarg} container spacing={3}>
           <Grid item md={4}>
             <UserAvatar user={userData.user} />
@@ -76,10 +84,15 @@ export default function UserDashboard() {
             <UserInfoCard user={userData.user} />
           </Grid>
           <Grid item md={4}>
-            <UserStatsCard  learningCoursesLength={userCourses.learning.length} teachingCoursesLength={userCourses.teaching.length}/>
+            <UserStatsCard  
+            teachingCoursesLength={userCourses.teaching.length}
+            completed={userCourses.completed}
+            enrolled={userCourses.enrolled}
+            inProgress={userCourses.inProgress}
+            percentComplete={userCourses.percentComplete}
+            />
           </Grid>
         </Grid>
-      {/* </Container> */}
 
       <Grid item xs={12}>
         <Divider className={classes.topMarg} />
