@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import Container from "@material-ui/core/Container";
 import UserAvatar from "../../components/UserAvatar";
 import UserInfoCard from "../../components/UserInfoCard";
+import UserStatsCard from "../../components/UserStatsCard";
 import Button from "@material-ui/core/Button";
 import CourseCard from "../../components/CourseCard";
 import Paper from "@material-ui/core/Paper";
@@ -13,6 +14,7 @@ import Divider from "@material-ui/core/Divider";
 import API from "../../utils/API";
 import { makeStyles } from "@material-ui/core/styles";
 import Slide from "@material-ui/core/Slide";
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
 
@@ -29,7 +31,8 @@ export default function UserDashboard() {
   const { userData } = useContext(UserContext);
   const [userCourses, setTeachingCourses] = useState({
     teaching: [],
-    learning: []
+    learning: [],
+    // completed: []
   });
   const classes = useStyles();
   const [checked, setChecked] = useState(false);
@@ -41,16 +44,25 @@ export default function UserDashboard() {
   useEffect(() => {
     const getCourses = async () => {
       let teachingCourses = await API.getUserTeachingCourses(userData._id);
+      console.log("teaching", teachingCourses)
       let learningCourses = await API.getUserLearningCourses(userData._id);
+      console.log("learning", learningCourses)
+      // let completedCourses = await API.getUserCompletedCourses(userData._id);
+      // console.log("complete", completedCourses)
       setTeachingCourses({
         teaching: teachingCourses.data,
-        learning: learningCourses.data.courses
+        learning: learningCourses.data.courses,
+        // completed: completedCourses.data.courses,
       })
     }
       getCourses();
       unCheck();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  console.log("teachLen", userCourses.teaching.length);
+  console.log("learnLen", userCourses.learning.length);
+  // console.log("completeLen", userCourses.completed.length);
 
   return (
     <Container>
@@ -60,13 +72,11 @@ export default function UserDashboard() {
             <UserAvatar user={userData.user} />
             <PictureUpload />
           </Grid>
-          <Grid item md={6}>
+          <Grid item md={4}>
             <UserInfoCard user={userData.user} />
           </Grid>
-          <Grid item md={2}>
-            <Box justify={"center"}>
-              {/* <Button color="primary" variant="contained" href={"/editProfile/" + userData.user}>Edit Profile</Button> */}
-            </Box>
+          <Grid item md={4}>
+            <UserStatsCard  learningCoursesLength={userCourses.learning.length} teachingCoursesLength={userCourses.teaching.length}/>
           </Grid>
         </Grid>
       {/* </Container> */}
@@ -105,7 +115,14 @@ export default function UserDashboard() {
             ))}
           </Grid>
         ) : (
-            <h3>No Results</h3>
+          <div >
+          <Typography gutterBottom variant="h5" component="h3">
+            You have not enrolled in any courses
+          </Typography>
+          <Typography gutterBottom variant="h6" component="h4">
+            Click Browse to view Courses
+          </Typography>
+        </div>
           )}
       </Container>
 
@@ -143,7 +160,14 @@ export default function UserDashboard() {
             ))}
           </Grid>
         ) : (
-            <h3>No Results</h3>
+          <div >
+          <Typography gutterBottom variant="h5" component="h3">
+            You have not taught any courses
+          </Typography>
+          <Typography gutterBottom variant="h6" component="h4">
+            Click New Course to teach a course
+          </Typography>
+        </div>
           )}
       </Container>
     </Container>

@@ -29,11 +29,8 @@ export default function LERN() {
   const { userData } = useContext(UserContext);
   let history = useHistory();
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
-
-  const unCheck = () => {
-    setChecked((prev) => !prev);
-  };
+  const [slideIn, setSlideIn] = useState(true);
+  const [slideDirection, setSlideDirection] = useState("left");
 
   // On mount, use the URL parameters to pull and render the course page the user is at
   let currentPage = useParams();
@@ -45,9 +42,7 @@ export default function LERN() {
       );
       setCourseData(courseResponse.data[0]);
     };
-    unCheck();
     getCourse();
-    
   }, [currentPage.course, currentPage.page]);
 
   const nextPage = `/pages/c/${currentPage.course}/p/${
@@ -73,6 +68,18 @@ export default function LERN() {
       history.push(`/pages/c/${currentPage.course}/complete`);
   }
 
+  // Sets the slide direction depending on which arrow is clicked
+  const arrowClick = (direction) => {
+    const oppDirection = direction === "left" ? "right" : "left";
+    setSlideDirection(direction);
+    setSlideIn(false);
+
+    setTimeout(() => {
+      setSlideDirection(oppDirection);
+      setSlideIn(true);
+    }, 500);
+  }
+
   return courseData !== undefined ? (
     <div>
       <Container className={classes.topMarg}>
@@ -80,9 +87,9 @@ export default function LERN() {
           <Grid item md={3}></Grid>
           <Grid item md={6}>
           <Slide
-                  direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  direction={slideDirection}
+                  in={slideIn}
+                  // style={{ transitionDelay: checked ? "250ms" : "500ms" }}
                 >
             <Card>
               <CardHeader title={courseData.title} />
@@ -140,7 +147,7 @@ export default function LERN() {
           <Link to={nextPage}>
             
             <Button
-              onClick={() => {updatePage("next"); unCheck();}}
+              onClick={() => {updatePage("next"); arrowClick("right");}}
             >
               <KeyboardArrowRightIcon color="primary" fontSize="large"/>
             </Button>
@@ -149,14 +156,14 @@ export default function LERN() {
           <>  
             <Link to={prevPage}>
               <Button
-                onClick={() => {updatePage("prev"); unCheck();}}
+                onClick={() => {updatePage("prev"); arrowClick("left");}}
               >
                 <KeyboardArrowLeftIcon color="primary" fontSize="large"/>
               </Button>
             </Link>
             <Link to={nextPage}>
               <Button
-                onClick={() => {updatePage("next"); unCheck();}}
+                onClick={() => {updatePage("next"); arrowClick("right");}}
               >
                 <KeyboardArrowRightIcon color="primary" fontSize="large"/>
               </Button>

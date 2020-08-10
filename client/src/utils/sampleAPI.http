@@ -72,6 +72,14 @@ content-type: application/json
 http://localhost:3001/api/courses
 
 ##########
+// all courses created in a specified category
+http://localhost:3001/api/courses/cat/5f21fa5e4fadb841d8cb98f8
+
+##########
+// all courses created by specified user/instructor
+http://localhost:3001/api/courses/i/5f23a9a351dd13002a69a3d0
+
+##########
 // single course matching id
 http://localhost:3001/api/courses/5f25ccebd3c0eb0be44eef56
 
