@@ -95,6 +95,7 @@ function PictureUpload(props) {
 
   console.log(pictureFileName);
   console.log(file);
+  console.log(props.key);
   return (
 
     <div>

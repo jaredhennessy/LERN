@@ -105,7 +105,6 @@ function NewCourse() {
     if (registerCourseResponse.status === 200) {
 
       const courseId = registerCourseResponse.data.insertedId
-      // const allPages = [];
 
       for (let i = 0; i < courseContent.length; i++) {
         courseContent[i].course = courseId;
