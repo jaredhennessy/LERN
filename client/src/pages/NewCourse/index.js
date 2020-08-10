@@ -115,7 +115,7 @@ function NewCourse() {
       //   page = [...page, (page.course = courseId)]));
 
       console.log(courseContent);
-      const registerPagesResponse = await Axios.post("api/multi", courseContent).catch(err => alert(err.response.data));
+      const registerPagesResponse = await Axios.post("api/pages/multi", courseContent).catch(err => alert(err.response.data));
 
       if (registerPagesResponse.status === 200) {
         alert(`Successfully created course ${newCourseName}.`);
