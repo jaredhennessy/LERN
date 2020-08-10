@@ -1,16 +1,18 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
+// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import NewCourseCategorySelector from "../../components/NewCourseCategorySelector";
-import API from "../../utils/API";
+// import API from "../../utils/API";
 import PictureUpload from "../../components/NewCoursePictureUpload";
 import UserContext from "../../UserContext/UserContext";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from '@material-ui/icons/Remove';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +24,16 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
+  courseDescription: {
+    width: "80%"
+  },
+  pageButton: {
+    margin: "20px"
+  },
+  autoMargin: {
+    margin: "auto"
+  },
+
 }));
 
 // const useStyles = makeStyles((theme) => ({
@@ -69,8 +81,10 @@ function NewCourse() {
         setCourseContent([...courseContent, newPage]);
         break;
       case "remove":
-        const newCourseContent = courseContent.pop();
-        setCourseContent([...courseContent]);
+        if (courseContent.length > 1) {
+          const newCourseContent = courseContent.pop();
+          setCourseContent([...courseContent]);
+        }
         break;
       default:
     };
@@ -109,10 +123,6 @@ function NewCourse() {
       for (let i = 0; i < courseContent.length; i++) {
         courseContent[i].course = courseId;
       }
-
-      // const allPages = courseContent.map(page => (
-      //   page = [...page, (page.course = courseId)]));
-
       console.log(courseContent);
       const registerPagesResponse = await Axios.post("api/pages/multi", courseContent).catch(err => alert(err.response.data));
 
@@ -127,89 +137,123 @@ function NewCourse() {
   }
 
   return (
-    <div>
-      <h1>New Course</h1>
-      <form noValidate className={classes.root} autoComplete="off" onSubmit={submitForm}>
-        <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <Grid container spacing={0}>
-              <Grid item xs={4} >
-                <h5>Course name:</h5>
-              </Grid>
-              <Grid item xs={8}>
-                <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="courseNameInput" onChange={e => setCourseName(e.target.value)} />
-              </Grid>
-            </Grid>
+    <div className={classes.root}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <h1>New Course</h1>
+        </Grid>
+        <form noValidate className={classes.root} autoComplete="off" onSubmit={submitForm}>
+
+          <Grid item xs={12}>
+            {/* <Grid container spacing={0}> */}
+            {/* <Grid item xs={4} > */}
+            <h5>Course name:</h5>
+            {/* </Grid>
+              <Grid item xs={8}> */}
+            <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="courseNameInput" onChange={e => setCourseName(e.target.value)} />
+            {/* </Grid> */}
+            {/* </Grid> */}
           </Grid>
 
-          <Grid item xs={6}>
-            <Grid container spacing={0}>
-              <Grid item xs={6}>
-                <h5>Select the Category for this course:</h5>
+          <Grid item xs={12}>
+            {/* <Grid container spacing={0}> */}
+            {/* <Grid item xs={6}> */}
+            <h5>Select the Category for this course:</h5>
 
-              </Grid>
-              <Grid item md={6}>
-                <NewCourseCategorySelector handleChange={e => setCourseCategory(e.target.value)} />
-              </Grid>
-            </Grid>
+            {/* </Grid> */}
+            {/* <Grid item md={12}> */}
+            <NewCourseCategorySelector handleChange={e => setCourseCategory(e.target.value)} />
+            {/* </Grid> */}
+            {/* </Grid> */}
           </Grid>
-          <Grid item xs={6}>
-            <h5>Select main course image</h5>
-            <PictureUpload key="" passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); setCourseImage(picture) }} />
-          </Grid>
-
-          <Grid item xs={6}>
-            <h5>Course content</h5>
-            <Grid container spacing={1}>
-
-
-
-
-              {courseContent.map(pageContent => (
-                <div key={pageContent.pageNumber}>
-                  <Grid item xs={12}>
-                    <h5>Page {pageContent.pageNumber}</h5>
-                    <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
-                    <TextareaAutosize required aria-label="minimum height" rowsMin={14} variant="outlined" placeholder="write your course here" name="text"
-                      onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <h5>Add an Image to this page</h5>
-                    <PictureUpload key={pageContent.pageNumber} passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} />
-                    <br />
-                    <h5>show list of uploaded files </h5>
-                  </Grid>
-                </div>
-              ))}
-
-
-
-
-
-              <Grid container spacing={1}>
-                <Grid item xs={6}>
-                  <Button variant="contained" color="primary" onClick={e => { handleCoursePages("remove") }}  >Remove Page</Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <Button variant="contained" color="primary" onClick={e => { handleCoursePages("add") }}  >Add Page</Button>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <h5>Brief course description</h5>
             <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 50 characters" name="Course Description" onChange={e => setCourseDescription(e.target.value)} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
+            <h5>Select main course image</h5>
+            <PictureUpload key="course-image" passThePicture={picture => { console.log("P UP COURSE IMAGE"); setCourseImage(picture) }} />
+          </Grid>
+
+          <Grid item xs={12}>
+            <h5>Course content</h5>
+            {/* <Grid container spacing={1}> */}
+
+
+
+
+            {courseContent.map(pageContent => (
+              <div className={classes.root}>
+                {/* <Grid item xs={12} > */}
+                <Grid item xs={12}>
+                  <h4>Page {pageContent.pageNumber}</h4>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField required variant="outlined" margin="dense" label="Page name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
+                </Grid>
+                <br />
+                <Grid item xs={12}>
+                  <TextareaAutosize className={classes.courseDescription} required aria-label="minimum height" rowsMin={1} variant="outlined" placeholder="Links to add" name="link"
+                    onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
+                </Grid>
+                <br />
+                <Grid item xs={12}>
+                  <TextareaAutosize className={classes.courseDescription} required aria-label="minimum height" rowsMin={20} variant="outlined" placeholder="write your course here" name="text"
+                    onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
+                </Grid>
+                <Grid item xs={12}>
+                  <h5 style={{}}>Add an Image to this page</h5>
+                  <PictureUpload Key={pageContent.pageNumber} passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} />
+                  {/* <br /> */}
+                  <h5>show list of uploaded files </h5>
+                </Grid>
+                {/* </Grid> */}
+              </div>
+            ))}
+
+
+
+
+
+            {/* <Grid container spacing={1}> */}
+            <Grid item xs={12}>
+              <Button
+                className={classes.pageButton}
+                variant="contained" color="primary"
+                aria-label="remove page"
+                component="span"
+                onClick={e => { handleCoursePages("remove") }}
+              > <RemoveIcon /> Page
+                     </Button>
+              {/* </Grid>
+                <Grid item xs={6}> */}
+              <Button
+                className={classes.pageButton}
+                variant="contained"
+                color="primary"
+                aria-label="add page"
+                component="span"
+                onClick={e => { handleCoursePages("add") }}
+              > <AddIcon /> Page
+                     </Button>
+
+
+            </Grid>
+            {/* </Grid> */}
+            {/* </Grid> */}
+          </Grid>
+
+
+          <Grid item xs={12}>
             <br />
             <br />
             <Button variant="contained" color="primary" type="submit" >Submit</Button>
           </Grid>
-        </Grid>
-      </form>
-      <br />
-      <br />
+
+        </form>
+        <br />
+        <br />
+      </Grid>
     </div >
   )
 }

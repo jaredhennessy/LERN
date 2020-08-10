@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-function PictureUpload(props) {
+function PictureUpload({ passThePicture, Key }) {
   const classes = useStyles();
   const [file, setFile] = useState(null)
   const [pictureFileName, setPictureFileName] = useState(false);
@@ -71,40 +71,48 @@ function PictureUpload(props) {
         headers: { 'content-type': `multipart/form-data` }
       });
       setPictureFileName(fileUpload.data.file.filename)
-      // pictureFileName = fileUpload.data.file.filename;
     };
-    if (file != null) {
-      console.log("executing postAndUpdate");
+    // console.log("USEEFFECT PictureUpload TRIED")
+    if (!(file === null)) {
+      console.log("executing postAndUpdate of PictureUp");
       postAndUpdate();
     }
   }, [file]);
 
+
+
   useEffect(() => {
+
     function passPicture() {
-      props.passThePicture(pictureFileName);
-      console.log("PASSTHE PICTURE", pictureFileName);
+      passThePicture(pictureFileName);
+      console.log("PASS THE PICTURE", pictureFileName);
     }
+
     if (!(pictureFileName === false)) {
-      console.log("pictureFileName=(has to be ! False)", pictureFileName);
+      // console.log("pictureFileName=", pictureFileName);
       passPicture();
       setPictureFileName(false);
       setFile(null);
     }
-    console.log("USEEFFECT TRIED")
-  }, [pictureFileName])
 
-  console.log(pictureFileName);
-  console.log(file);
-  console.log(props.key);
+    // console.log("USEEFFECT PassPicture TRIED")
+
+  }, [pictureFileName, passThePicture])
+
+
+  // console.log(pictureFileName);
+  // console.log(file);
+  // console.log(Key);
+
   return (
 
-    <div>
+    <div key={Key}>
       <div>
         <InputLabel
           htmlFor="file">
           <br />
           <input
-            key={props.key}
+            key={Key}
             style={{ display: "none" }}
             type="file"
             name="file"
