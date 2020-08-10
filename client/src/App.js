@@ -22,6 +22,7 @@ import Logout from "./pages/Logout";
 import CompleteCourse from "./pages/CompleteCourse";
 import { ThemeProvider } from '@material-ui/core/styles'
 import createMuiTheme from "./theme";
+import FooterAlt from "./components/FooterAlt";
 import API from "./utils/API";
 
 function App() {
@@ -94,7 +95,7 @@ function App() {
             <Route exact path="/pages/c/:course/complete" render={() =>
               userData.user ? <CompleteCourse /> : <Login />} />
           </Switch>
-          <PageFooter />
+          <FooterAlt />
           </ThemeProvider>
         </div>
       </UserContext.Provider>
