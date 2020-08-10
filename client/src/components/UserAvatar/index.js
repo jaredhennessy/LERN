@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function UserAvatar() {
   const { userData } = useContext(UserContext);
-  const [grow, setGrow] = useState(true);
+  const grow = useState(true);
 
   const classes = useStyles();
 

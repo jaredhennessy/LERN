@@ -2,39 +2,52 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import Box from "@material-ui/core/Box";
-import FacebookIcon from '@material-ui/icons/Facebook';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import Accordion from '@material-ui/core/Accordion';
-import AccordionSummary from '@material-ui/core/AccordionSummary';
-import AccordionDetails from '@material-ui/core/AccordionDetails';
+import Accordion from "@material-ui/core/Accordion";
+import AccordionSummary from "@material-ui/core/AccordionSummary";
+import AccordionDetails from "@material-ui/core/AccordionDetails";
 
 export default function PageFooter() {
   return (
     <footer>
-     
-     <Divider style={{ margin: "24px auto", width: "80%" }} />
-     <Accordion>
+      <Divider style={{ margin: "24px auto", width: "80%" }} />
+      <Accordion>
         <AccordionSummary href="AccordionDetails">
-            <Grid container justify={"center"} spacing={2}>
+          <Grid container justify={"center"} spacing={2}>
             <Grid item md={12}>
-                  <Typography align={"center"}>
-                  © Copyright 2020 LERN
-                </Typography>
-                </Grid>
-                </Grid>
+              <Typography align={"center"}>© Copyright 2020 LERN</Typography>
+            </Grid>
+            <Grid item md={12}>
+              <Typography align={"center"}>Meet the LERN Team</Typography>
+            </Grid>
+          </Grid>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-            sit amet blandit leo lobortis eget.
-          </Typography>
+          <Grid container spacing={2}>
+            <Grid item md={3}>
+              <a href="https://github.com/cbragg9">
+                https://github.com/cbragg9
+              </a>
+            </Grid>
+            <Grid item md={3}>
+              <a href="https://github.com/jaredhennessy">
+                https://github.com/jaredhennessy
+              </a>
+            </Grid>
+            <Grid item md={3}>
+              <a href="https://github.com/cristianmontenegrop">
+                https://github.com/cristianmontenegrop
+              </a>
+            </Grid>
+            <Grid item md={3}>
+              <a href="https://github.com/thedanitor">
+                https://github.com/thedanitor
+              </a>
+            </Grid>
+          </Grid>
         </AccordionDetails>
       </Accordion>
-  
-        {/* <Grid item xs={12} sm={6} md={3}>
+
+      {/* <Grid item xs={12} sm={6} md={3}>
             <Box>
           <Typography align={"center"} gutterBottom color={"textSecondary"}>
             About
