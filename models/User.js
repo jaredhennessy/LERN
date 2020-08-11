@@ -81,8 +81,23 @@ userSchema.virtual("coursesCompleted").get(function () {
 })
 
 userSchema.virtual("percentComplete").get(function () {
-  return (this.coursesCompleted / this.coursesEnrolled) * 100
+  return Math.round((this.coursesCompleted / this.coursesEnrolled) * 100)
 })
+
+// userSchema.virtual("coursesTaughtDetails", {
+//   ref: "Course",
+//   localField: "_id",
+//   foreignField: "instructor",
+//   justOne: false
+// })
+
+// userSchema.virtual("coursesTaught").get(function () {
+//   if (this.coursesTaughtDetails === []) {
+//     return 0
+//   } else {
+//     return this.coursesTaughtDetails.length
+//   }
+// })
 
 const User = mongoose.model("User", userSchema, "users");
 

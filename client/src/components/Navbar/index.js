@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { fade, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
-import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
+// import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import HomeIcon from "@material-ui/icons/Home";
 import CategoryIcon from "@material-ui/icons/Category";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -117,12 +117,12 @@ export default function Navbar() {
 
   // Array to store mobile menu items, will be rendered by .map
   const menuItems = [
-    {
-      ariaLabel: "donate",
-      icon: <MonetizationOnIcon />,
-      pLabel: "Donate",
-      link: "/donate",
-    },
+    // {
+    //   ariaLabel: "donate",
+    //   icon: <MonetizationOnIcon />,
+    //   pLabel: "Donate",
+    //   link: "/donate",
+    // },
     {
       ariaLabel: "home",
       icon: <HomeIcon />,
@@ -187,9 +187,9 @@ export default function Navbar() {
         <Toolbar>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <Button color="inherit" href="/donate">
+            {/* <Button color="inherit" href="/donate">
               Donate
-            </Button>
+            </Button> */}
             <Button color="inherit" href="/">
               Home
             </Button>
@@ -210,15 +210,15 @@ export default function Navbar() {
                 </Button>
               </>
             ) : (
-              <>
-                <Button color="inherit" href="/register">
-                  Register
+                <>
+                  <Button color="inherit" href="/register">
+                    Register
                 </Button>
-                <Button color="inherit" href="/login">
-                  Login
+                  <Button color="inherit" href="/login">
+                    Login
                 </Button>
-              </>
-            )}
+                </>
+              )}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -253,21 +253,21 @@ export default function Navbar() {
         ))}
         {userData.user
           ? loggedInMenu.map(item => (
-              <MenuItem key={item.pLabel} component={Link} to={item.link}>
-                <IconButton aria-label={item.ariaLabel} color="inherit">
-                  <Badge color="secondary">{item.icon}</Badge>
-                </IconButton>
-                <p>{item.pLabel}</p>
-              </MenuItem>
-            ))
+            <MenuItem key={item.pLabel} component={Link} to={item.link}>
+              <IconButton aria-label={item.ariaLabel} color="inherit">
+                <Badge color="secondary">{item.icon}</Badge>
+              </IconButton>
+              <p>{item.pLabel}</p>
+            </MenuItem>
+          ))
           : loggedOutMenu.map(item => (
-              <MenuItem key={item.pLabel} component={Link} to={item.link}>
-                <IconButton aria-label={item.ariaLabel} color="inherit">
-                  <Badge color="secondary">{item.icon}</Badge>
-                </IconButton>
-                <p>{item.pLabel}</p>
-              </MenuItem>
-            ))}
+            <MenuItem key={item.pLabel} component={Link} to={item.link}>
+              <IconButton aria-label={item.ariaLabel} color="inherit">
+                <Badge color="secondary">{item.icon}</Badge>
+              </IconButton>
+              <p>{item.pLabel}</p>
+            </MenuItem>
+          ))}
       </Menu>
       {renderMenu}
     </div>
