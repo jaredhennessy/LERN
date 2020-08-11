@@ -79,7 +79,7 @@ export default function CourseCard({
     <div>
       <Card className={classes.root}>
         <CardActionArea>
-          <CardMedia className={classes.media} image={image} title={title} />
+          <CardMedia className={classes.media} image={"/api/files/" + image} title={title} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {title}
