@@ -51,7 +51,7 @@ export default function CategorySelector({ handleChange }) {
         onChange={handleChange}
       >
         {categories.map(category => (
-          <MenuItem id={category._id} value={category._id} name={category.category}>{category.category}</MenuItem>
+          <MenuItem onClick={e => { setSelectedCategory(category.category) }} key={category._id} id={category._id} value={category._id} name={category.category}>{category.category}</MenuItem>
         ))}
       </Select>
 
