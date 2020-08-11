@@ -63,7 +63,6 @@ export default function Courses() {
     API.getCoursesByCategory(categoryId)
       .then(res => setCourses(res.data))
       .catch(err => console.log(err));
-    console.log(categoryId);
   }
 
   //searches course names by search bar
@@ -113,7 +112,7 @@ export default function Courses() {
         </Grid>
       </Grid>
 
-      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
+      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} selectedCategories={courses}/>
 
       <div>
         {currentCourses.length ? (
