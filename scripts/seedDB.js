@@ -58,7 +58,7 @@ const users = [
     "username": "Jared",
     "password": "$2b$10$W3uCbM98tVCxY51SSPzo8us743lrgjC0CAsWz0r7WX2BuDdNgOMCO",
     "email": "jared@lern.org",
-    "image": "186114a74af64e7555cb77fc7e02db21.jpg"
+    "image": ""
     // ,
     // "courses": [
     //   {
@@ -74,21 +74,21 @@ const users = [
     "username": "Chris",
     "password": "$2b$10$W3uCbM98tVCxY51SSPzo8us743lrgjC0CAsWz0r7WX2BuDdNgOMCO",
     "email": "chris@lern.org",
-    "image": "186114a74af64e7555cb77fc7e02db21.jpg"
+    "image": ""
   }),
   new db.User({
     "_id": "5f23bfaac3bfc2002aaee6c9",
     "username": "Cristian",
     "password": "$2b$10$W3uCbM98tVCxY51SSPzo8us743lrgjC0CAsWz0r7WX2BuDdNgOMCO",
     "email": "cristian@lern.org",
-    "image": "186114a74af64e7555cb77fc7e02db21.jpg"
+    "image": ""
   }),
   new db.User({
     "_id": "5f2482697ed203002a38cf8d",
     "username": "Dan",
     "password": "$2b$10$W3uCbM98tVCxY51SSPzo8us743lrgjC0CAsWz0r7WX2BuDdNgOMCO",
     "email": "dan@lern.org",
-    "image": "186114a74af64e7555cb77fc7e02db21.jpg"
+    "image": ""
   })
 ]
 
