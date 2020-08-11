@@ -4,7 +4,6 @@
   "description": "LERN built with MERN",
   "main": "server.js",
   "dependencies": {
-    "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",

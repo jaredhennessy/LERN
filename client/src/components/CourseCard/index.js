@@ -123,6 +123,7 @@ export default function CourseCard({
               category={category}
               instructor={instructor}
               dateCreated={dateCreated}
+              startCourse={startCourse}
             />
           </DialogContent>
         </Dialog>

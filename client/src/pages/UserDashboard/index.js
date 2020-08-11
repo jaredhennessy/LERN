@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import CourseCard from "../../components/CourseCard";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-// import Box from "@material-ui/core/Box";
 import UserContext from "../../UserContext/UserContext";
 import PictureUpload from "../../components/PictureUpload";
 import Divider from "@material-ui/core/Divider";
@@ -24,9 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
-
-
 export default function UserDashboard() {
   const { userData } = useContext(UserContext);
   const [userCourses, setTeachingCourses] = useState({
@@ -38,20 +34,17 @@ export default function UserDashboard() {
     percentComplete: "",
   });
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
+  const [slide, setSlide] = useState(false);
 
-  const unCheck = () => {
-    setChecked((prev) => !prev);
+  const slider = () => {
+    setSlide((prev) => !prev);
   };
 
   useEffect(() => {
     const getCourses = async () => {
       let teachingCourses = await API.getUserTeachingCourses(userData._id);
-      // console.log("teaching", teachingCourses)
       let learningCourses = await API.getUserLearningCourses(userData._id);
-      // console.log("learning", learningCourses)
       let userCourseData = await API.getUserCourseInfo(userData._id);
-      // console.log("complete", userCourseData)
       setTeachingCourses({
         teaching: teachingCourses.data,
         learning: learningCourses.data.courses,
@@ -62,7 +55,7 @@ export default function UserDashboard() {
       })
     }
     getCourses();
-    unCheck();
+    slider();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -109,8 +102,8 @@ export default function UserDashboard() {
               <Grid item md={3} key={course.Course._id}>
                 <Slide
                   direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  in={slide}
+                  style={{ transitionDelay: slide ? "250ms" : "500ms" }}
                 >
                   <Paper>
                     <CourseCard
@@ -154,8 +147,8 @@ export default function UserDashboard() {
               <Grid item md={3} key={course._id}>
                 <Slide
                   direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  in={slide}
+                  style={{ transitionDelay: slide ? "250ms" : "500ms" }}
                 >
                   <Paper>
                     <CourseCard
