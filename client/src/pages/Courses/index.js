@@ -74,7 +74,7 @@ export default function Courses() {
   //searches course names by search bar
   const handleInputChange = e => {
     //loads all courses (resets category selection)
-    loadCourses();
+    // loadCourses();
     setSearch(e.target.value);
     arrowClick("right");
   };
@@ -92,7 +92,7 @@ export default function Courses() {
   const arrowClick = direction => {
     const oppDirection = direction === "left" ? "right" : "left";
     //if on last page, go back to page 1 if right arrow clicked
-    indexOfLastCourse > courses.length
+    indexOfLastCourse >= courses.length
       ? setCurrentPage(1)
       : setCurrentPage(
           direction === "left" ? currentPage - 1 : currentPage + 1

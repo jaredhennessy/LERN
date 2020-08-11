@@ -83,7 +83,9 @@ function PictureUpload() {
         <div>
           <label data-button className={classes.inputfile} htmlFor="file">Choose File</label>
           <br />
-          <input className="MuiButton-label MuiButton-containedPrimary MuiButton-root MuiButtonBase-root" type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])} />
+          <input 
+          // className="MuiButton-label MuiButton-containedPrimary MuiButton-root MuiButtonBase-root"
+           type="file" name="file" id="file" onChange={e => setFile(e.target.files[0])} />
         </div>
         <input className="MuiButton-label MuiButton-containedPrimary MuiButton-root MuiButtonBase-root" type="submit" value="Submit" />
       </form>
