@@ -34,13 +34,14 @@ export default function CourseCardModal({
   category,
   instructor,
   dateCreated,
+  startCourse,
 }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={title} />
+        <CardMedia className={classes.media} image={"/api/files/" + image} title={title} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Title: {title}
@@ -60,7 +61,7 @@ export default function CourseCardModal({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={startCourse}>
           Begin Course
         </Button>
       </CardActions>

@@ -23,19 +23,20 @@ export default function UserStatsCard({ teachingCoursesLength, completed, enroll
     <Card classes={{ root: classes.card }}>
       <CardContent>
         <Typography className={classes.leftText} variant="h5">
-          Courses Completed <strong>{completed}</strong>
+          Courses Started <strong>{enrolled}</strong>
         </Typography>
+        <Typography className={classes.leftText} variant="h5">
+          Courses In Progress <strong>{inProgress}</strong>
+        </Typography>
+        <Typography className={classes.leftText} variant="h5">
+          Courses Completed <strong>{completed} ({percentComplete}%)</strong>
+        </Typography>
+        {/*  
+        <Typography className={classes.leftText} variant="h5">
+          Courses Completed <strong>{percentComplete}%</strong>
+        </Typography> */}
         <Typography className={classes.leftText} variant="h5">
           Courses Taught <strong>{teachingCoursesLength}</strong>
-        </Typography>
-        <Typography className={classes.leftText} variant="h5">
-          Total Enrolled Courses <strong>{enrolled}</strong>
-        </Typography>
-        <Typography className={classes.leftText} variant="h5">
-          Current Enrolled Courses <strong>{inProgress}</strong>
-        </Typography>
-        <Typography className={classes.leftText} variant="h5">
-          Course Completion <strong>{percentComplete}%</strong>
         </Typography>
       </CardContent>
     </Card>

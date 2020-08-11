@@ -15,7 +15,7 @@ function FileUpload() {
     };
     getImages();
     console.log(fileArray);
-  }, [])
+  }, [fileArray])
 
   return (
     <div>
@@ -37,7 +37,7 @@ function FileUpload() {
           <img src={"api/files/" + files.filename}
             key={files._id}
             alt={files.type}
-            width="50"
+            width="250"
           /><span> Uploaded <Moment format="DD/MMM/YYYY" local>{files.uploadDate}</Moment></span>
         </div>
       ))}

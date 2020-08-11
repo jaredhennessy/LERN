@@ -7,7 +7,7 @@ export default function CategorySelector({ handleChange, selectedCategories }) {
   const [categories, setCategories] = useState([]);
   useEffect(() => loadCategories(), []);
 
-  //loads all categories
+  // loads all categories
   function loadCategories() {
     API.getAllCategories()
       .then(res => setCategories(res.data))
@@ -43,7 +43,7 @@ export default function CategorySelector({ handleChange, selectedCategories }) {
       {categories.map(category => (
         <Grid item key={category._id}>
           <Button
-            onClick={() => handleChange(category._id)}
+            onClick={() => {handleChange(category._id)}}
             value={category._id}
             color={highlightSelected(category._id)}
           >

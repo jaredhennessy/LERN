@@ -7,7 +7,6 @@ import Button from "@material-ui/core/Button";
 import CourseCard from "../../components/CourseCard";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Box from "@material-ui/core/Box";
 import UserContext from "../../UserContext/UserContext";
 import PictureUpload from "../../components/PictureUpload";
 import Divider from "@material-ui/core/Divider";
@@ -24,9 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 }));
 
-
-
-
 export default function UserDashboard() {
   const { userData } = useContext(UserContext);
   const [userCourses, setTeachingCourses] = useState({
@@ -38,20 +34,17 @@ export default function UserDashboard() {
     percentComplete: "",
   });
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
+  const [slide, setSlide] = useState(false);
 
-  const unCheck = () => {
-    setChecked((prev) => !prev);
+  const slider = () => {
+    setSlide((prev) => !prev);
   };
 
   useEffect(() => {
     const getCourses = async () => {
       let teachingCourses = await API.getUserTeachingCourses(userData._id);
-      // console.log("teaching", teachingCourses)
       let learningCourses = await API.getUserLearningCourses(userData._id);
-      // console.log("learning", learningCourses)
       let userCourseData = await API.getUserCourseInfo(userData._id);
-      // console.log("complete", userCourseData)
       setTeachingCourses({
         teaching: teachingCourses.data,
         learning: learningCourses.data.courses,
@@ -61,9 +54,9 @@ export default function UserDashboard() {
         percentComplete: userCourseData.data.percentComplete,
       })
     }
-      getCourses();
-      unCheck();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    getCourses();
+    slider();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   console.log("teachLen", userCourses.teaching.length);
@@ -75,24 +68,24 @@ export default function UserDashboard() {
 
   return (
     <Container>
-        <Grid className={classes.topMarg} container spacing={3}>
-          <Grid item md={4}>
-            <UserAvatar user={userData.user} />
-            <PictureUpload />
-          </Grid>
-          <Grid item md={4}>
-            <UserInfoCard user={userData.user} />
-          </Grid>
-          <Grid item md={4}>
-            <UserStatsCard  
+      <Grid className={classes.topMarg} container spacing={3}>
+        <Grid item md={4}>
+          <UserAvatar user={userData.user} />
+          <PictureUpload />
+        </Grid>
+        <Grid item md={4}>
+          <UserInfoCard user={userData.user} />
+        </Grid>
+        <Grid item md={4}>
+          <UserStatsCard
             teachingCoursesLength={userCourses.teaching.length}
             completed={userCourses.completed}
             enrolled={userCourses.enrolled}
             inProgress={userCourses.inProgress}
             percentComplete={userCourses.percentComplete}
-            />
-          </Grid>
+          />
         </Grid>
+      </Grid>
 
       <Grid item xs={12}>
         <Divider className={classes.topMarg} />
@@ -104,43 +97,43 @@ export default function UserDashboard() {
           <Button variant="contained" color="primary" href="/courses">Browse</Button>
         </span>
         {userCourses.learning.length ? (
-          <Grid  className={classes.topMarg} container spacing={3}>
+          <Grid className={classes.topMarg} container spacing={3}>
             {userCourses.learning.map(course => (
               <Grid item md={3} key={course.Course._id}>
                 <Slide
                   direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  in={slide}
+                  style={{ transitionDelay: slide ? "250ms" : "500ms" }}
                 >
-                <Paper>
-                  <CourseCard
-                    title={course.Course.title}
-                    description={course.Course.description}
-                    image={course.image}
-                    category={course.Course.category.category}
-                    instructor={course.Course.instructor.username}
-                    dateCreated={course.Course.dateCreated}
-                    courseID={course.Course._id}
-                  />
-                </Paper>
+                  <Paper>
+                    <CourseCard
+                      title={course.Course.title}
+                      description={course.Course.description}
+                      image={course.Course.image}
+                      category={course.Course.category.category}
+                      instructor={course.Course.instructor.username}
+                      dateCreated={course.Course.dateCreated}
+                      courseID={course.Course._id}
+                    />
+                  </Paper>
                 </Slide>
               </Grid>
             ))}
           </Grid>
         ) : (
-          <div >
-          <Typography gutterBottom variant="h5" component="h3">
-            You have not enrolled in any courses
+            <div >
+              <Typography gutterBottom variant="h5" component="h3">
+                You have not enrolled in any courses
           </Typography>
-          <Typography gutterBottom variant="h6" component="h4">
-            Click Browse to view Courses
+              <Typography gutterBottom variant="h6" component="h4">
+                Click Browse to view Courses
           </Typography>
-        </div>
+            </div>
           )}
       </Container>
 
       <Grid item xs={12}>
-        <Divider className={classes.topMarg}/>
+        <Divider className={classes.topMarg} />
       </Grid>
 
       <Container>
@@ -149,38 +142,38 @@ export default function UserDashboard() {
           New Course
             </Button>
         {userCourses.teaching.length ? (
-          <Grid  className={classes.topMarg} container spacing={3}>
+          <Grid className={classes.topMarg} container spacing={3}>
             {userCourses.teaching.map(course => (
               <Grid item md={3} key={course._id}>
                 <Slide
                   direction="left"
-                  in={checked}
-                  style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+                  in={slide}
+                  style={{ transitionDelay: slide ? "250ms" : "500ms" }}
                 >
-                <Paper>
-                  <CourseCard
-                    title={course.title}
-                    description={course.description}
-                    image={course.image}
-                    category={course.category.category}
-                    instructor={course.instructor.username}
-                    dateCreated={course.dateCreated}
-                    courseID={course._id}
-                  />
-                </Paper>
+                  <Paper>
+                    <CourseCard
+                      title={course.title}
+                      description={course.description}
+                      image={course.image}
+                      category={course.category.category}
+                      instructor={course.instructor.username}
+                      dateCreated={course.dateCreated}
+                      courseID={course._id}
+                    />
+                  </Paper>
                 </Slide>
               </Grid>
             ))}
           </Grid>
         ) : (
-          <div >
-          <Typography gutterBottom variant="h5" component="h3">
-            You have not taught any courses
+            <div >
+              <Typography gutterBottom variant="h5" component="h3">
+                You have not taught any courses
           </Typography>
-          <Typography gutterBottom variant="h6" component="h4">
-            Click New Course to teach a course
+              <Typography gutterBottom variant="h6" component="h4">
+                Click New Course to teach a course
           </Typography>
-        </div>
+            </div>
           )}
       </Container>
     </Container>
