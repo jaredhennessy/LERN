@@ -4,6 +4,9 @@
   "description": "LERN built with MERN",
   "main": "server.js",
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-brands-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "axios": "^0.19.2",
     "bcrypt": "^5.0.0",
