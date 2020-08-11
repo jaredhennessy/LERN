@@ -103,23 +103,30 @@ module.exports = {
     // Return through courses and return courses where course owner matches username
     User.findOne({
       _id: req.params.id
-    }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete")
-      .populate({
-        path: "courses.Course",
-        populate: [{
-          path: "category",
-          model: "Category",
-          select: "category"
-        }, {
-          path: "instructor"
-          , model: "Instructor"
-          , select: "username email"
-        }, {
-          path: "pages",
-          model: "Page",
-          select: "pageNumber title text link image"
-        }],
-      }).then(data => {
+    }).select("username email image courses dateCreated enrolled coursesEnrolled coursesInProgress coursesCompleted percentComplete coursesTaught")
+      .populate([
+        //   {
+        //   path: "coursesTaughtDetails",
+        //   model: "Course",
+        //   select: "title"
+        // }, 
+        {
+          path: "courses.Course",
+          populate: [{
+            path: "category",
+            model: "Category",
+            select: "category"
+          }, {
+            path: "instructor"
+            , model: "Instructor"
+            , select: "username email"
+          }, {
+            path: "pages",
+            model: "Page",
+            select: "pageNumber title text link image"
+          }],
+        }
+      ]).then(data => {
         res.json(data);
       }).catch(err => {
         console.log(err);
