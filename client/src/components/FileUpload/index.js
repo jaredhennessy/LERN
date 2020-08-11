@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Moment from 'react-moment';
 import axios from "axios";
 
 function FileUpload() {
@@ -13,6 +14,7 @@ function FileUpload() {
       setFileArray({ fileList: fileApi.data });
     };
     getImages();
+    console.log(fileArray);
   }, [])
 
   return (
@@ -36,7 +38,7 @@ function FileUpload() {
             key={files._id}
             alt={files.type}
             width="50"
-          />
+          /><span> Uploaded <Moment format="DD/MMM/YYYY" local>{files.uploadDate}</Moment></span>
         </div>
       ))}
     </div>

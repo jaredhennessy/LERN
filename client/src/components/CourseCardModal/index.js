@@ -19,12 +19,12 @@ const useStyles = makeStyles({
     height: 300,
     width: 600,
   },
-//   description: {
-//     maxHeight: 75,
-//     textOverflow: "ellipsis",
-//     overflow: "hidden",
-//     whiteSpace: "no-wrap",
-//   },
+  //   description: {
+  //     maxHeight: 75,
+  //     textOverflow: "ellipsis",
+  //     overflow: "hidden",
+  //     whiteSpace: "no-wrap",
+  //   },
 });
 
 export default function CourseCardModal({
@@ -55,7 +55,7 @@ export default function CourseCardModal({
             Instructor: {instructor}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Created: <Moment format="DD/MMM/YYYY">{dateCreated}</Moment>
+            Created: <Moment format="DD/MMM/YYYY" local>{dateCreated}</Moment>
           </Typography>
         </CardContent>
       </CardActionArea>
