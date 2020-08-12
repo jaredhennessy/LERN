@@ -30,6 +30,8 @@ export default function Courses() {
   const classes = useStyles();
   const [slideIn, setSlideIn] = useState(true);
   const [slideDirection, setSlideDirection] = useState("left");
+  // const [chosen, setChosen] = useState(false)
+  const [variant, setVariant] =useState(false);
   const indexOfLastCourse = currentPage * coursesPerPage;
   const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
   const currentCourses = filteredCourses.slice(
@@ -45,31 +47,33 @@ export default function Courses() {
     API.getAllCourses()
       .then(res => setCourses(res.data))
       .catch(err => console.log(err));
-  }
+  };
 
   //loads courses by category when category button clicked
   const handleChange = catId => {
-    if (catId === "all") {
-      loadCourses();
-    } else {
-      loadCoursesByCategory(catId);
-      console.log(catId);
-    }
+   const categoryId = catId === "all" ? loadCourses() : loadCoursesByCategory(catId);
+  //  setChosen(catId);
+  //  onClick={() => setChosen(catId)}
     arrowClick("right");
   };
+
+  //changes button variant if selected
+  const btnChange = () => {
+    setVariant(true);
+    const btnChecked = variant === true ? "contained" : "text";
+  }
 
   //loads courses of selected category
   function loadCoursesByCategory(categoryId) {
     API.getCoursesByCategory(categoryId)
       .then(res => setCourses(res.data))
       .catch(err => console.log(err));
-    console.log(categoryId);
   }
 
   //searches course names by search bar
   const handleInputChange = e => {
     //loads all courses (resets category selection)
-    loadCourses();
+    // loadCourses();
     setSearch(e.target.value);
     arrowClick("right");
   };
@@ -87,7 +91,7 @@ export default function Courses() {
   const arrowClick = direction => {
     const oppDirection = direction === "left" ? "right" : "left";
     //if on last page, go back to page 1 if right arrow clicked
-    indexOfLastCourse > courses.length
+    indexOfLastCourse >= courses.length
       ? setCurrentPage(1)
       : setCurrentPage(
           direction === "left" ? currentPage - 1 : currentPage + 1
@@ -102,6 +106,11 @@ export default function Courses() {
     }, 500);
   };
 
+  //change category button color when selected
+  // const changeButtonColor = e => {
+  //   const buttonColor = btnColor === e.target ? setBtnColor === true : setBtnColor === false;
+  // }
+
   return (
     <Container>
       <Grid container spacing={3}>
@@ -113,7 +122,7 @@ export default function Courses() {
         </Grid>
       </Grid>
 
-      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} />
+      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} selectedCategories={courses}/>
 
       <div>
         {currentCourses.length ? (

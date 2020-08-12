@@ -19,12 +19,12 @@ const useStyles = makeStyles({
     height: 300,
     width: 600,
   },
-//   description: {
-//     maxHeight: 75,
-//     textOverflow: "ellipsis",
-//     overflow: "hidden",
-//     whiteSpace: "no-wrap",
-//   },
+  //   description: {
+  //     maxHeight: 75,
+  //     textOverflow: "ellipsis",
+  //     overflow: "hidden",
+  //     whiteSpace: "no-wrap",
+  //   },
 });
 
 export default function CourseCardModal({
@@ -34,13 +34,14 @@ export default function CourseCardModal({
   category,
   instructor,
   dateCreated,
+  startCourse,
 }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={image} title={title} />
+        <CardMedia className={classes.media} image={"/api/files/" + image} title={title} />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Title: {title}
@@ -55,12 +56,12 @@ export default function CourseCardModal({
             Instructor: {instructor}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Created: <Moment format="DD/MMM/YYYY">{dateCreated}</Moment>
+            Created: <Moment format="DD/MMM/YYYY" local>{dateCreated}</Moment>
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={startCourse}>
           Begin Course
         </Button>
       </CardActions>
