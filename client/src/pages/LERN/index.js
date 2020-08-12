@@ -7,7 +7,7 @@ import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
+// import CardMedia from "@material-ui/core/CardMedia";
 import CardHeader from "@material-ui/core/CardHeader";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -98,8 +98,9 @@ export default function LERN() {
               <Card>
                 <CardHeader title={courseData.title} />
                 <CardActionArea>
-                  <CardMedia className={classes.media} image={"/api/files/" + courseData.course.image} title={courseData.title} />
+                  {/* <CardMedia image={courseData.image} title={courseData.title} /> */}
                   <CardContent>
+                    <img src={"/api/files/" + courseData.image} alt={courseData.title} height="300" />
                     <Typography
                       gutterBottom
                       variant="h5"
