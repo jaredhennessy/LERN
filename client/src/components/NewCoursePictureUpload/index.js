@@ -1,20 +1,20 @@
 
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import InputLabel from "@material-ui/core/InputLabel";
+// import Button from "@material-ui/core/Button";
+// import AddIcon from "@material-ui/icons/Add";
+// import InputLabel from "@material-ui/core/InputLabel";
 import React from "react";
 // import axios from "axios";
-import { makeStyles } from '@material-ui/core/styles'
+// import { makeStyles } from '@material-ui/core/styles'
 // import { PromiseProvider } from "mongoose";
 
-const useStyles = makeStyles(theme => ({
-  autoMargin: {
-    margin: "auto"
-  },
-}))
+// const useStyles = makeStyles(theme => ({
+//   autoMargin: {
+//     margin: "auto"
+//   },
+// }))
 
 function PictureUpload({ onChange, name }) {
-  const classes = useStyles();
+  // const classes = useStyles();
   // const [file, setFile] = useState(null)
   // const [pictureFileName, setPictureFileName] = useState(false);
 
@@ -72,6 +72,7 @@ function PictureUpload({ onChange, name }) {
           // style={{ display: "none" }}
           accept="image/*"
           type="file"
+          accept="image/*"
           name={name}
           id={name}
           // onChange={e => { console.log("onChange SetFile exec:", e.target.files[0]); setFile(e.target.files[0]) }}

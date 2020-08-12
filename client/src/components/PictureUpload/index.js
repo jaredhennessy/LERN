@@ -51,6 +51,7 @@ function PictureUpload() {
               className={classes.autoMargin}
               accept="image/*"
               type="file"
+              accept="image/*"
               name="file"
               id="file"
               onChange={e => setFile(e.target.files[0])}
