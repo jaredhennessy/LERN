@@ -46,43 +46,43 @@ export default function PageFooter() {
           <Grid container spacing={2}>
             <Grid item xs={6} sm={3}>
               <Typography variant="h5" component="h3">
-              Chris  
+                Chris&nbsp;
               <Link href="https://github.com/cbragg9"
-              target="_blank"
-              rel="noopener noreferrer">
-                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
-              </Link>
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <FontAwesomeIcon className="iconLink" icon={faGithub} />
+                </Link>
               </Typography>
             </Grid>
             <Grid item xs={6} sm={3}>
-            <Typography variant="h5" component="h3">
-              Jared
+              <Typography variant="h5" component="h3">
+                Jared&nbsp;
               <Link href="https://github.com/jaredhennessy"
-              target="_blank"
-              rel="noopener noreferrer">
-                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
-              </Link>
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <FontAwesomeIcon className="iconLink" icon={faGithub} />
+                </Link>
               </Typography>
             </Grid>
             <Grid item xs={6} sm={3}>
-            <Typography variant="h5" component="h3">
-              Christian
+              <Typography variant="h5" component="h3">
+                Christian&nbsp;
               <Link href="https://github.com/cristianmontenegrop"
-              target="_blank"
-              rel="noopener noreferrer">
-                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
-              </Link>
+                  target="_blank"
+                  rel="noopener noreferrer">
+                  <FontAwesomeIcon className="iconLink" icon={faGithub} />
+                </Link>
               </Typography>
             </Grid>
             <Grid item xs={6} sm={3}>
-            <Typography variant="h5" component="h3">
-              Dan
+              <Typography variant="h5" component="h3">
+                Dan&nbsp;
               <Link href="https://github.com/thedanitor"
-              target="_blank"
-              rel="noopener noreferrer"
-              >
-                <FontAwesomeIcon icon={faGithub}/>
-              </Link>
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FontAwesomeIcon icon={faGithub} />
+                </Link>
               </Typography>
             </Grid>
           </Grid>

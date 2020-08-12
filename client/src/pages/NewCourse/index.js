@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -13,6 +13,8 @@ import PictureUpload from "../../components/NewCoursePictureUpload";
 import UserContext from "../../UserContext/UserContext";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from '@material-ui/icons/Remove';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -68,9 +70,9 @@ function NewCourse() {
   const [courseDescription, setCourseDescription] = useState("");
   const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
-  // const [pageCount, setPageCount] = useState("");
+  // const [pictureFileDisplay, setPictureFileDisplay] = useState({});
   const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
-  // const history = useHistory();
+  const history = useHistory();
 
 
   const handleCoursePages = (e) => {
@@ -157,6 +159,10 @@ function NewCourse() {
 
       if (registerPagesResponse.status === 200) {
         alert(`Successfully created course ${newCourseName}.`);
+
+        history.push(`/users/${userData.user}`);
+
+
       } else {
         alert(`There was an error creating your course`);
       }
@@ -174,77 +180,64 @@ function NewCourse() {
         <form noValidate className={classes.root} autoComplete="off" onSubmit={submitForm}>
 
           <Grid item xs={12}>
-            {/* <Grid container spacing={0}> */}
-            {/* <Grid item xs={4} > */}
             <h5>Course name:</h5>
-            {/* </Grid>
-              <Grid item xs={8}> */}
             <TextField required variant="outlined" margin="dense" label="Course name" id="outline-required" name="courseNameInput" onChange={e => setCourseName(e.target.value)} />
-            {/* </Grid> */}
-            {/* </Grid> */}
           </Grid>
 
           <Grid item xs={12}>
-            {/* <Grid container spacing={0}> */}
-            {/* <Grid item xs={6}> */}
             <h5>Select the Category for this course:</h5>
-
-            {/* </Grid> */}
-            {/* <Grid item md={12}> */}
             <NewCourseCategorySelector handleChange={e => setCourseCategory(e.target.value)} />
-            {/* </Grid> */}
-            {/* </Grid> */}
           </Grid>
+
           <Grid item xs={12}>
             <h5>Brief course description</h5>
             <TextareaAutosize required aria-label="minimum height" rowsMin={5} variant="outlined" placeholder="max 50 characters" name="Course Description" onChange={e => setCourseDescription(e.target.value)} />
           </Grid>
+
           <Grid item xs={12}>
             <h5>Select main course image</h5>
-            <PictureUpload key="course-image" name="course-image" onChange={e => { console.log("course-image"); PictureUploadHandling(e, "course-image") }} />
-
+            <PictureUpload key="course-image" name="course-image" onChange={e => { console.log("course-image", e.target.files[0].name); PictureUploadHandling(e, "course-image") }} />
+            {/* <h5>show list of uploaded file: {pictureFileDisplay} </h5> */}
           </Grid>
 
           <Grid item xs={12}>
             <h5>Course content</h5>
-            {/* <Grid container spacing={1}> */}
-
 
             {courseContent.map(pageContent => (
               <div key={pageContent.pageNumber} className={classes.root}>
-                {/* <Grid item xs={12} > */}
+
                 <Grid item xs={12}>
                   <h4>Page {pageContent.pageNumber}</h4>
                 </Grid>
+
                 <Grid item xs={12}>
                   <TextField required variant="outlined" margin="dense" label="Page name" id="outline-required" name="title" onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
                 </Grid>
+
                 <br />
                 <Grid item xs={12}>
                   <TextareaAutosize className={classes.courseDescription} required aria-label="minimum height" rowsMin={1} variant="outlined" placeholder="Links to add" name="link"
                     onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
                 </Grid>
+
                 <br />
                 <Grid item xs={12}>
                   <TextareaAutosize className={classes.courseDescription} required aria-label="minimum height" rowsMin={20} variant="outlined" placeholder="write your course here" name="text"
                     onChange={e => handleCourseContentChange(e, pageContent.pageNumber)} />
                 </Grid>
+
                 <Grid item xs={12}>
                   <h5 style={{}}>Add an Image to this page</h5>
                   {/* <PictureUpload Key={pageContent.pageNumber} passPictureData={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} /> */}
                   <PictureUpload key={String(pageContent.pageNumber)} name={String(pageContent.pageNumber)} onChange={e => { PictureUploadHandling(e, pageContent.pageNumber) }} />
-
-
-                  <h5>show list of uploaded files </h5>
+                  {/* <h5>show list of uploaded file: {pageContent.image} </h5> */}
                 </Grid>
-                {/* </Grid> */}
+
                 <br />
                 <br />
               </div>
             ))}
 
-
-            {/* <Grid container spacing={1}> */}
             <Grid item xs={12}>
               <Button
                 className={classes.pageButton}
@@ -252,10 +245,9 @@ function NewCourse() {
                 aria-label="remove page"
                 component="span"
                 onClick={e => { handleCoursePages("remove") }}
-              > <RemoveIcon /> Page
-                     </Button>
-              {/* </Grid>
-                <Grid item xs={6}> */}
+              >
+                <RemoveIcon /> Page
+              </Button>
               <Button
                 className={classes.pageButton}
                 variant="contained"
@@ -263,15 +255,12 @@ function NewCourse() {
                 aria-label="add page"
                 component="span"
                 onClick={e => { handleCoursePages("add") }}
-              > <AddIcon /> Page
-                     </Button>
-
-
+              >
+                <AddIcon /> Page
+              </Button>
             </Grid>
-            {/* </Grid> */}
-            {/* </Grid> */}
-          </Grid>
 
+          </Grid>
 
           <Grid item xs={12}>
             <br />
