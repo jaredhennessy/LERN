@@ -110,20 +110,23 @@ function Header() {
         alt="banner"
         src={require("../../images/banner.jpg")}
       />
-      <a href={"/users/" + userData.user}>
-        <Avatar
-          alt={userData.user}
-          className={classes.avatar}
-          src={"/api/files/" + userData.userIMG}
-          href={"/users/" + userData.user}
-        />
-      </a>
-      <img
+      {userData.user ? (
+        <a href={"/users/" + userData.user} className={(userData.user ? "" : "hidden")}>
+          <Avatar
+            alt={userData.user}
+            className={classes.avatar + (userData.user ? "" : "hidden")}
+            src={"/api/files/" + userData.userIMG}
+            href={"/users/" + userData.user}
+          />
+        </a>
+      ) : (<div />)
+      }
+      < img
         alt="LERN logo"
         src={require("../../images/LERN_Blue.png")}
         className={classes.logo}
       ></img>
-    </div>
+    </div >
   );
 }
 
