@@ -69,7 +69,7 @@ function PictureUpload({ onChange, name }) {
       <div>
         <input
           // key={Key}
-          style={{ display: "none" }}
+          // style={{ display: "none" }}
           type="file"
           name={name}
           id={name}
@@ -77,7 +77,7 @@ function PictureUpload({ onChange, name }) {
           onChange={onChange}
         />
 
-        <InputLabel
+        {/* <InputLabel
           htmlFor={name}>
           <br />
           <span></span>
@@ -91,7 +91,7 @@ function PictureUpload({ onChange, name }) {
           >
             <AddIcon /> Upload photo
             </Button>
-        </InputLabel >
+        </InputLabel > */}
       </div>
       <br />
     </div>
