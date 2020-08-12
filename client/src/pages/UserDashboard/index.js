@@ -58,14 +58,7 @@ export default function UserDashboard() {
     slider();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("teachLen", userCourses.teaching.length);
-  console.log("learnLen", userCourses.learning.length);
-  console.log("completed", userCourses.completed);
-  console.log("enrolled", userCourses.enrolled);
-  console.log("progress", userCourses.inProgress);
-  console.log("percent", userCourses.percentComplete);
-
+  
   return (
     <Container>
       <Grid className={classes.topMarg} container spacing={3}>
