@@ -50,6 +50,7 @@ function PictureUpload() {
             <input
               className={classes.autoMargin}
               type="file"
+              accept="image/*"
               name="file"
               id="file"
               onChange={e => setFile(e.target.files[0])}
