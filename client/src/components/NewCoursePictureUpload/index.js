@@ -70,6 +70,7 @@ function PictureUpload({ onChange, name }) {
         <input
           // key={Key}
           // style={{ display: "none" }}
+          accept="image/*"
           type="file"
           accept="image/*"
           name={name}
