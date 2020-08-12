@@ -94,7 +94,7 @@ export default function LERN() {
             >
               <Card>
                 <CardHeader title={courseData.title} />
-                <CardActionArea>
+                <CardActionArea onClick={() => { updatePage("next"); arrowClick("right"); }}>
                   <CardMedia image={courseData.image} title={courseData.title} />
                   <CardContent>
                     <Typography
