@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 // import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Axios from "axios";
 import TextField from '@material-ui/core/TextField';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
@@ -13,6 +13,8 @@ import PictureUpload from "../../components/NewCoursePictureUpload";
 import UserContext from "../../UserContext/UserContext";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from '@material-ui/icons/Remove';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -70,7 +72,8 @@ function NewCourse() {
   const [courseCategory, setCourseCategory] = useState("");
   // const [pictureFileDisplay, setPictureFileDisplay] = useState({});
   const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
-  // const history = useHistory();
+  const history = useHistory();
+
 
   const handleCoursePages = (e) => {
     console.log(e);
@@ -156,6 +159,10 @@ function NewCourse() {
 
       if (registerPagesResponse.status === 200) {
         alert(`Successfully created course ${newCourseName}.`);
+
+        history.push(`/users/${userData.user}`);
+
+
       } else {
         alert(`There was an error creating your course`);
       }

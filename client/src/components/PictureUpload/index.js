@@ -49,6 +49,7 @@ function PictureUpload() {
             <br />
             <input
               className={classes.autoMargin}
+              accept="image/*"
               type="file"
               name="file"
               id="file"
