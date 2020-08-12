@@ -67,18 +67,32 @@ userSchema.virtual("coursesInProgress").get(function () {
   } else return null
 })
 
-userSchema.virtual("coursesCompleted").get(function () {
+userSchema.virtual("completeCourses").get(function () {
   if (this.courses) {
-    const completed = this.courses.filter(course => {
+    const complete = this.courses.filter(course => {
       return course.dateCompleted !== null;
     });
-    if (this.completed === []) {
-      return 0
-    } else {
-      return completed.length
-    }
-  } else return null
+    return complete
+  }
 })
+
+userSchema.virtual("incompleteCourses").get(function () {
+  if (this.courses) {
+    const incomplete = this.courses.filter(course => {
+      return course.dateCompleted === null;
+    });
+    return incomplete
+  }
+})
+
+userSchema.virtual("coursesCompleted").get(function () {
+  if (this.completeCourses === []) {
+    return 0
+  } else {
+    return this.completeCourses.length
+  }
+})
+
 
 userSchema.virtual("percentComplete").get(function () {
   return Math.round((this.coursesCompleted / this.coursesEnrolled) * 100)
