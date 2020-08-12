@@ -22,7 +22,6 @@ export default function UserAvatar() {
   const grow = useState(true);
 
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <Grow in={grow} {...(grow ? { timeout: 1000 } : {})}>
