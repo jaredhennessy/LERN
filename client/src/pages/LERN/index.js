@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
   topMarg: {
     marginTop: "1rem",
   },
+  media: {
+    height: 140,
+  },
 
 }));
 
@@ -95,7 +98,11 @@ export default function LERN() {
               <Card>
                 <CardHeader title={courseData.title} />
                 <CardActionArea>
+<<<<<<< HEAD
                   {/* <CardMedia image={courseData.image} title={courseData.title} /> */}
+=======
+                  <CardMedia className={classes.media} image={"/api/files/" + courseData.course.image} title={courseData.title} />
+>>>>>>> e5ddc1b5c152135dcf326f877c1b0dc9ce8834b3
                   <CardContent>
                     <img src={"/api/files/" + courseData.image} alt={courseData.title} height="300" />
                     <Typography
