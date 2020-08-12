@@ -1,124 +1,87 @@
-// import React, { useState } from "react";
+
+// import Button from "@material-ui/core/Button";
+// import AddIcon from "@material-ui/icons/Add";
+// import InputLabel from "@material-ui/core/InputLabel";
+import React from "react";
 // import axios from "axios";
+// import { makeStyles } from '@material-ui/core/styles'
+// import { PromiseProvider } from "mongoose";
 
-// function PictureUpload() {
-//   const [file, setFile] = useState(null);
-//   // const [pictureFileName, setPictureFileName] = useState(null);
+// const useStyles = makeStyles(theme => ({
+//   autoMargin: {
+//     margin: "auto"
+//   },
+// }))
 
-//   async function postAndUpdate(event) {
-//     event.preventDefault();
+function PictureUpload({ onChange, name }) {
+  // const classes = useStyles();
+  // const [file, setFile] = useState(null)
+  // const [pictureFileName, setPictureFileName] = useState(false);
 
-//     // Post form to database, response returns the filename
-//     let formData = new FormData();
-//     formData.append("file", file);
+  // useEffect(() => {
+  //   async function postAndUpdate() {
 
-//     const fileUpload = await axios({
-//       method: 'post',
-//       url: "/api/files/upload",
-//       data: formData,
-//       headers: { 'content-type': `multipart/form-data` }
-//     });
-//     let fileName = fileUpload.data.file.filename;
-
-//     // setPictureFileName(fileUpload.data.file.filename)
-//   }
-
-//   return (
-//     <div>
-//       <form onSubmit={event => postAndUpdate(event)}>
-//         <div>
-//           <label htmlFor="file">Choose File</label>
-//           <br />
-//           <input type="file" name="file" id="file" onChange={e => { setFile(e.target.files[0]) }} />
-//         </div>
-//         <input type="submit" value="Submitt" />
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default PictureUpload();
-
-import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import InputLabel from "@material-ui/core/InputLabel";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import { makeStyles } from '@material-ui/core/styles'
-import { PromiseProvider } from "mongoose";
-
-const useStyles = makeStyles(theme => ({
-  autoMargin: {
-    margin: "auto"
-  },
-}))
-
-function PictureUpload({ passThePicture, Key }) {
-  const classes = useStyles();
-  const [file, setFile] = useState(null)
-  const [pictureFileName, setPictureFileName] = useState(false);
-
-  useEffect(() => {
-    async function postAndUpdate() {
-
-      // Post form to database, response returns the filename
-      let formData = new FormData();
-      formData.append("file", file);
-      const fileUpload = await axios({
-        method: 'post',
-        url: "/api/files/upload",
-        data: formData,
-        headers: { 'content-type': `multipart/form-data` }
-      });
-      setPictureFileName(fileUpload.data.file.filename)
-    };
-    // console.log("USEEFFECT PictureUpload TRIED")
-    if (!(file === null)) {
-      console.log("executing postAndUpdate of PictureUp");
-      postAndUpdate();
-    }
-  }, [file]);
+  //     // Post form to database, response returns the filename
+  //     let formData = new FormData();
+  //     formData.append("file", file);
+  //     const fileUpload = await axios({
+  //       method: 'post',
+  //       url: "/api/files/upload",
+  //       data: formData,
+  //       headers: { 'content-type': `multipart/form-data` }
+  //     });
+  //     setPictureFileName(fileUpload.data.file.filename)
+  //   };
+  //   // console.log("USEEFFECT PictureUpload TRIED")
+  //   if (!(file === null)) {
+  //     console.log("executing postAndUpdate of PictureUp");
+  //     postAndUpdate();
+  //   }
+  // }, [file]);
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    function passPicture() {
-      passThePicture(pictureFileName);
-      console.log("PASS THE PICTURE", pictureFileName);
-    }
+  //   function passPicture() {
+  //     passThePicture(pictureFileName);
+  //     console.log("PASS THE PICTURE", pictureFileName);
+  //   }
 
-    if (!(pictureFileName === false)) {
-      // console.log("pictureFileName=", pictureFileName);
-      passPicture();
-      setPictureFileName(false);
-      setFile(null);
-    }
+  //   if (!(pictureFileName === false)) {
+  //     // console.log("pictureFileName=", pictureFileName);
+  //     passPicture();
+  //     setPictureFileName(false);
+  //     setFile(null);
+  //   }
 
-    // console.log("USEEFFECT PassPicture TRIED")
+  //   // console.log("USEEFFECT PassPicture TRIED")
 
-  }, [pictureFileName, passThePicture])
+  // }, [pictureFileName, passThePicture])
 
 
   // console.log(pictureFileName);
   // console.log(file);
-  // console.log(Key);
 
   return (
 
-    <div key={Key}>
+    <div >
       <div>
-        <InputLabel
-          htmlFor="file">
+        <input
+          // key={Key}
+          // style={{ display: "none" }}
+          accept="image/*"
+          type="file"
+          accept="image/*"
+          name={name}
+          id={name}
+          // onChange={e => { console.log("onChange SetFile exec:", e.target.files[0]); setFile(e.target.files[0]) }}
+          onChange={onChange}
+        />
+
+        {/* <InputLabel
+          htmlFor={name}>
           <br />
-          <input
-            key={Key}
-            style={{ display: "none" }}
-            type="file"
-            name="file"
-            id="file"
-            onChange={e => { console.log("onChange SetFile exec:", e.target.files[0]); setFile(e.target.files[0]) }}
-          />
           <span></span>
           <Button
             className={classes.autoMargin}
@@ -130,7 +93,7 @@ function PictureUpload({ passThePicture, Key }) {
           >
             <AddIcon /> Upload photo
             </Button>
-        </InputLabel >
+        </InputLabel > */}
       </div>
       <br />
     </div>

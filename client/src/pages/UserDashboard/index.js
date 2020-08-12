@@ -28,6 +28,7 @@ export default function UserDashboard() {
   const [userCourses, setTeachingCourses] = useState({
     teaching: [],
     learning: [],
+    learned: [],
     completed: "",
     enrolled: "",
     inProgress: "",
@@ -47,7 +48,8 @@ export default function UserDashboard() {
       let userCourseData = await API.getUserCourseInfo(userData._id);
       setTeachingCourses({
         teaching: teachingCourses.data,
-        learning: learningCourses.data.courses,
+        learning: learningCourses.data.incompleteCourses,
+        learned: learningCourses.data.completeCourses,
         completed: userCourseData.data.coursesCompleted,
         enrolled: userCourseData.data.coursesEnrolled,
         inProgress: userCourseData.data.coursesInProgress,
@@ -58,13 +60,6 @@ export default function UserDashboard() {
     slider();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  console.log("teachLen", userCourses.teaching.length);
-  console.log("learnLen", userCourses.learning.length);
-  console.log("completed", userCourses.completed);
-  console.log("enrolled", userCourses.enrolled);
-  console.log("progress", userCourses.inProgress);
-  console.log("percent", userCourses.percentComplete);
 
   return (
     <Container>
@@ -123,10 +118,52 @@ export default function UserDashboard() {
         ) : (
             <div >
               <Typography gutterBottom variant="h5" component="h3">
-                You have not enrolled in any courses
+                You are not enrolled in any courses.
           </Typography>
               <Typography gutterBottom variant="h6" component="h4">
                 Click Browse to view Courses
+          </Typography>
+            </div>
+          )}
+      </Container>
+
+      <Grid item xs={12}>
+        <Divider className={classes.topMarg} />
+      </Grid>
+
+      <Container>
+        <h2>LERNED</h2>
+        <span>
+          <Button variant="contained" color="primary" href="/courses">Browse</Button>
+        </span>
+        {userCourses.learned.length ? (
+          <Grid className={classes.topMarg} container spacing={3}>
+            {userCourses.learned.map(course => (
+              <Grid item md={3} key={course.Course._id}>
+                <Slide
+                  direction="left"
+                  in={slide}
+                  style={{ transitionDelay: slide ? "250ms" : "500ms" }}
+                >
+                  <Paper>
+                    <CourseCard
+                      title={course.Course.title}
+                      description={course.Course.description}
+                      image={course.Course.image}
+                      category={course.Course.category.category}
+                      instructor={course.Course.instructor.username}
+                      dateCreated={course.Course.dateCreated}
+                      courseID={course.Course._id}
+                    />
+                  </Paper>
+                </Slide>
+              </Grid>
+            ))}
+          </Grid>
+        ) : (
+            <div >
+              <Typography gutterBottom variant="h5" component="h3">
+                You have not completed in any courses.
           </Typography>
             </div>
           )}
@@ -168,10 +205,10 @@ export default function UserDashboard() {
         ) : (
             <div >
               <Typography gutterBottom variant="h5" component="h3">
-                You have not taught any courses
+                You have not taught any courses.
           </Typography>
               <Typography gutterBottom variant="h6" component="h4">
-                Click New Course to teach a course
+                Click New Course to teach a course.
           </Typography>
             </div>
           )}
