@@ -5,86 +5,89 @@ import Divider from "@material-ui/core/Divider";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { makeStyles } from "@material-ui/core/styles";
+import Link from "@material-ui/core/Link";
+
+const useStyles = makeStyles(theme => ({
+  iconLink: {
+    margin: "5rem",
+    color: "#F7F7F7",
+  },
+  accordion: {
+    backgroundColor: "#F7F7F7",
+  }
+
+}));
 
 export default function PageFooter() {
+  const classes = useStyles();
   return (
     <footer>
       <Divider style={{ margin: "24px auto", width: "80%" }} />
-      <Accordion>
-        <AccordionSummary href="AccordionDetails">
+      <Accordion className={classes.accordion}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="LERN-team"
+          id="LERN-team"
+        >
           <Grid container justify={"center"} spacing={2}>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <Typography align={"center"}>© Copyright 2020 LERN</Typography>
             </Grid>
-            <Grid item md={12}>
+            <Grid item xs={12}>
               <Typography align={"center"}>Meet the LERN Team</Typography>
             </Grid>
           </Grid>
         </AccordionSummary>
-        <AccordionDetails>
+        <AccordionDetails >
           <Grid container spacing={2}>
-            <Grid item md={3}>
-              <a href="https://github.com/cbragg9">
-                https://github.com/cbragg9
-              </a>
+            <Grid item xs={6} sm={3}>
+              <Typography variant="h5" component="h3">
+              Chris  
+              <Link href="https://github.com/cbragg9"
+              target="_blank"
+              rel="noopener noreferrer">
+                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
+              </Link>
+              </Typography>
             </Grid>
-            <Grid item md={3}>
-              <a href="https://github.com/jaredhennessy">
-                https://github.com/jaredhennessy
-              </a>
+            <Grid item xs={6} sm={3}>
+            <Typography variant="h5" component="h3">
+              Jared
+              <Link href="https://github.com/jaredhennessy"
+              target="_blank"
+              rel="noopener noreferrer">
+                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
+              </Link>
+              </Typography>
             </Grid>
-            <Grid item md={3}>
-              <a href="https://github.com/cristianmontenegrop">
-                https://github.com/cristianmontenegrop
-              </a>
+            <Grid item xs={6} sm={3}>
+            <Typography variant="h5" component="h3">
+              Christian
+              <Link href="https://github.com/cristianmontenegrop"
+              target="_blank"
+              rel="noopener noreferrer">
+                <FontAwesomeIcon className="iconLink" icon={faGithub}/>
+              </Link>
+              </Typography>
             </Grid>
-            <Grid item md={3}>
-              <a href="https://github.com/thedanitor">
-                https://github.com/thedanitor
-              </a>
+            <Grid item xs={6} sm={3}>
+            <Typography variant="h5" component="h3">
+              Dan
+              <Link href="https://github.com/thedanitor"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+                <FontAwesomeIcon icon={faGithub}/>
+              </Link>
+              </Typography>
             </Grid>
           </Grid>
         </AccordionDetails>
       </Accordion>
-
-      {/* <Grid item xs={12} sm={6} md={3}>
-            <Box>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-            About
-          </Typography>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-            Legal
-          </Typography>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-            Privacy Policy
-          </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-            <Box>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-          Contact LERN
-          </Typography>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-            Disclaimers
-          </Typography>
-          <Typography align={"center"} gutterBottom color={"textSecondary"}>
-            Cookie Statement
-          </Typography>
-          </Box>
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-            <TwitterIcon />
-            <FacebookIcon />
-            <LinkedInIcon />
-            <YouTubeIcon />
-        </Grid> */}
-      {/* </Grid> */}
-
-      {/* <Divider style={{ margin: "24px auto", width: "80%" }} />
-      <Typography variant="caption" align={"center"}>
-        © Copyright 2020 LERN
-      </Typography> */}
     </footer>
   );
 }

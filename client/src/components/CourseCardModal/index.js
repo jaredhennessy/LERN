@@ -34,6 +34,7 @@ export default function CourseCardModal({
   category,
   instructor,
   dateCreated,
+  startCourse,
 }) {
   const classes = useStyles();
 
@@ -60,7 +61,7 @@ export default function CourseCardModal({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button size="small" color="primary" onClick={startCourse}>
           Begin Course
         </Button>
       </CardActions>

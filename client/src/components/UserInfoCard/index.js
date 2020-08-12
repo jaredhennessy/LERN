@@ -5,7 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../../UserContext/UserContext";
 import Moment from 'react-moment';
-import theme from "../../theme"
+// import theme from "../../theme"
 
 const useStyles = makeStyles({
   card: {
@@ -34,7 +34,7 @@ export default function UserInfoCard() {
         </Typography>
         <Typography className={classes.leftText} variant="h5">
           LERNer since <Moment format="DD/MMM/YYYY"
-           local
+            local
           >{userData.dateCreated}</Moment>
         </Typography>
       </CardContent>

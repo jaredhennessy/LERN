@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
   topMarg: {
     marginTop: "1rem",
   },
+  media: {
+    height: 140,
+  },
 
 }));
 
@@ -47,13 +50,14 @@ export default function LERN() {
 
   const nextPage = `/pages/c/${currentPage.course}/p/${
     parseInt(currentPage.page) + 1
-  }`;
+    }`;
   const prevPage = `/pages/c/${currentPage.course}/p/${
     parseInt(currentPage.page) - 1
-  }`;
+    }`;
 
   // Updates the pageNumber field in the courses array of the User model in the specified direction, or redirects to completed page
   async function updatePage(direction) {
+    console.log(courseData);
 
     let courseDetails = await API.getCourse(courseData.course.id);
     let totalPages = courseDetails.data.totalPages;
@@ -86,56 +90,56 @@ export default function LERN() {
         <Grid container spacing={3}>
           <Grid item md={3}></Grid>
           <Grid item md={6}>
-          <Slide
-                  direction={slideDirection}
-                  in={slideIn}
-                  // style={{ transitionDelay: checked ? "250ms" : "500ms" }}
-                >
-            <Card>
-              <CardHeader title={courseData.title} />
-              <CardActionArea>
-                <CardMedia image={courseData.image} title={courseData.title} />
-                <CardContent>
+            <Slide
+              direction={slideDirection}
+              in={slideIn}
+            // style={{ transitionDelay: checked ? "250ms" : "500ms" }}
+            >
+              <Card>
+                <CardHeader title={courseData.title} />
+                <CardActionArea>
+                  <CardMedia className={classes.media} image={"/api/files/" + courseData.course.image} title={courseData.title} />
+                  <CardContent>
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    ></Typography>
+                    <Typography
+                      variant="body2"
+                      component="p"
+                      className=""
+                    >
+                      {courseData.text}
+                    </Typography>
+
+                  </CardContent>
+                </CardActionArea>
+                <CardActions>
                   <Typography
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                  ></Typography>
-                  <Typography
-                    variant="body2"
-                    component="p"
-                    className=""
-                  >
-                    {courseData.text}
-                  </Typography>
-                 
-                </CardContent>
-              </CardActionArea>
-              <CardActions>
-              <Typography
                     variant="body2"
                     color="textSecondary"
                     component="p"
                   >
-                  Additional Resources: <a href={courseData.link}>{courseData.link}</a>
-                  </Typography> 
+                    Additional Resources: <a href={courseData.link}>{courseData.link}</a>
+                  </Typography>
                   <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                       {courseData.course.title}
-                      </Typography>
-                  <br/>
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    {courseData.course.title}
+                  </Typography>
+                  <br />
                   <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      component="p"
-                    >
-                      Page {courseData.pageNumber}
-                      </Typography>
-              </CardActions>
-            </Card>
+                    variant="body2"
+                    color="textSecondary"
+                    component="p"
+                  >
+                    Page {courseData.pageNumber}
+                  </Typography>
+                </CardActions>
+              </Card>
             </Slide>
           </Grid>
           <Grid item md={3}></Grid>
@@ -145,34 +149,34 @@ export default function LERN() {
       <div>
         {currentPage.page === "1" ? (
           <Link to={nextPage}>
-            
+
             <Button
-              onClick={() => {updatePage("next"); arrowClick("right");}}
+              onClick={() => { updatePage("next"); arrowClick("right"); }}
             >
-              <KeyboardArrowRightIcon color="primary" fontSize="large"/>
+              <KeyboardArrowRightIcon color="primary" fontSize="large" />
             </Button>
           </Link>
         ) : (
-          <>  
-            <Link to={prevPage}>
-              <Button
-                onClick={() => {updatePage("prev"); arrowClick("left");}}
-              >
-                <KeyboardArrowLeftIcon color="primary" fontSize="large"/>
-              </Button>
-            </Link>
-            <Link to={nextPage}>
-              <Button
-                onClick={() => {updatePage("next"); arrowClick("right");}}
-              >
-                <KeyboardArrowRightIcon color="primary" fontSize="large"/>
-              </Button>
-            </Link>
-          </>
-        )}
+            <>
+              <Link to={prevPage}>
+                <Button
+                  onClick={() => { updatePage("prev"); arrowClick("left"); }}
+                >
+                  <KeyboardArrowLeftIcon color="primary" fontSize="large" />
+                </Button>
+              </Link>
+              <Link to={nextPage}>
+                <Button
+                  onClick={() => { updatePage("next"); arrowClick("right"); }}
+                >
+                  <KeyboardArrowRightIcon color="primary" fontSize="large" />
+                </Button>
+              </Link>
+            </>
+          )}
       </div>
     </div>
   ) : (
-    <div></div>
-  );
+      <div></div>
+    );
 }

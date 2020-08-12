@@ -14,7 +14,7 @@ import Navbar from "./components/Navbar";
 import Register from "./pages/Register";
 import FileUpload from "./components/FileUpload";
 import UserContext from "./UserContext/UserContext";
-import PageFooter from "./components/PageFooter";
+// import PageFooter from "./components/PageFooter";
 import CreateCourseDisclaimer from "./pages/CreateCourseDisclaimer";
 import NewCourse from "./pages/NewCourse";
 import LERN from "./pages/LERN";
@@ -67,35 +67,35 @@ function App() {
       <UserContext.Provider value={{ userData, setUserData }}>
         <div className="App">
           <ThemeProvider theme={createMuiTheme}>
-          <Header />
-          <Navbar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/logout" component={Logout} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/fileUpload" component={FileUpload} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/courses" component={Courses} />
-            <Route exact path="/donate" component={Donate} />
-            <Route exact path="/editProfile/:id" component={EditProfile} />
-            <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
-            <Route exact path="/newCourse" component={NewCourse} />
-            <Route exact path="/about" component={About} />
+            <Header />
+            <Navbar />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/logout" component={Logout} />
+              <Route exact path="/register" component={Register} />
+              <Route exact path="/fileUpload" component={FileUpload} />
+              <Route exact path="/about" component={About} />
+              <Route exact path="/courses" component={Courses} />
+              <Route exact path="/donate" component={Donate} />
+              <Route exact path="/editProfile/:id" component={EditProfile} />
+              <Route exact path="/createCourseDisclaimer" component={CreateCourseDisclaimer} />
+              <Route exact path="/newCourse" component={NewCourse} />
+              <Route exact path="/about" component={About} />
 
-            {/* Routes requiring user to be logged in, else redirects to Login page */}
-            <Route exact path="/users/:id" render={() =>
-              userData.user ? <Dashboard /> : <Login />} />
-            <Route exact path="/teach/:id" render={() =>
-              userData.user ? <Teach /> : <Login />} />
-            <Route exact path="/teach" render={() =>
-              userData.user ? <Teach /> : <Login />} />
-            <Route exact path="/pages/c/:course/p/:page" render={() =>
-              userData.user ? <LERN /> : <Login />} />
-            <Route exact path="/pages/c/:course/complete" render={() =>
-              userData.user ? <CompleteCourse /> : <Login />} />
-          </Switch>
-          <FooterAlt />
+              {/* Routes requiring user to be logged in, else redirects to Login page */}
+              <Route exact path="/users/:id" render={() =>
+                userData.user ? <Dashboard /> : <Login />} />
+              <Route exact path="/teach/:id" render={() =>
+                userData.user ? <Teach /> : <Login />} />
+              <Route exact path="/teach" render={() =>
+                userData.user ? <Teach /> : <Login />} />
+              <Route exact path="/pages/c/:course/p/:page" render={() =>
+                userData.user ? <LERN /> : <Login />} />
+              <Route exact path="/pages/c/:course/complete" render={() =>
+                userData.user ? <CompleteCourse /> : <Login />} />
+            </Switch>
+            <FooterAlt />
           </ThemeProvider>
         </div>
       </UserContext.Provider>
