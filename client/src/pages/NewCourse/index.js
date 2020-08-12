@@ -61,10 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 function NewCourse() {
 
-  // const fufu = null;
-
   const classes = useStyles();
-  const [courses, setCourses] = useState([]);
+  // const [courses, setCourses] = useState([]);
   const { userData } = useContext(UserContext);
   const [newCourseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
@@ -73,6 +71,8 @@ function NewCourse() {
   // const [pageCount, setPageCount] = useState("");
   const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
   // const history = useHistory();
+
+
   const handleCoursePages = (e) => {
     console.log(e);
     switch (e) {
@@ -90,6 +90,7 @@ function NewCourse() {
     };
   };
 
+
   const handleCourseContentChange = (e, page) => {
     const { name, value } = e.target;
     console.log(name, page, value)
@@ -99,13 +100,41 @@ function NewCourse() {
     setCourseContent(oldCourseContent);
   };
 
+  const PictureUploadHandling = async (e, identifier) => {
+
+    const file = e.target.files[0];
+    console.log("file", file);
+    // Post form to database, response returns the filename
+    let formData = new FormData();
+    formData.append("file", file);
+    let fileUpload = await Axios({
+      method: 'post',
+      url: "/api/files/upload",
+      data: formData,
+      headers: { 'content-type': `multipart/form-data` }
+    });
+    console.log("AXIOS response: ", fileUpload, "AND the file name is: ", fileUpload.data.file.filename);
+    console.log("IDENTIFIER: ", identifier)
+
+
+    if (identifier === "course-image") {
+      console.log("course-image")
+      setCourseImage(fileUpload.data.file.filename);
+    } else {
+      console.log("Number!", identifier);
+      const d = { target: { name: "image", value: fileUpload.data.file.filename } }; handleCourseContentChange(d, identifier)
+    };
+  };
 
   const submitForm = async (e) => {
     e.preventDefault();
     const user = userData._id;
 
     // Validate required fields
-    if (!newCourseName || !courseDescription || !courseImage || !courseCategory) return alert("Missing required fields.");
+    if (!newCourseName) { return alert("Missing Course Name") }
+    else if (!courseDescription) { return alert("Missing Course Description") }
+    else if (!courseImage) { return alert("Missing Course Image") }
+    else if (!courseCategory) { return alert("Missing Course Category") }
 
 
 
@@ -172,7 +201,8 @@ function NewCourse() {
           </Grid>
           <Grid item xs={12}>
             <h5>Select main course image</h5>
-            <PictureUpload key="course-image" passThePicture={picture => { console.log("P UP COURSE IMAGE"); setCourseImage(picture) }} />
+            <PictureUpload key="course-image" name="course-image" onChange={e => { console.log("course-image"); PictureUploadHandling(e, "course-image") }} />
+
           </Grid>
 
           <Grid item xs={12}>
@@ -180,10 +210,8 @@ function NewCourse() {
             {/* <Grid container spacing={1}> */}
 
 
-
-
             {courseContent.map(pageContent => (
-              <div className={classes.root}>
+              <div key={pageContent.pageNumber} className={classes.root}>
                 {/* <Grid item xs={12} > */}
                 <Grid item xs={12}>
                   <h4>Page {pageContent.pageNumber}</h4>
@@ -203,16 +231,17 @@ function NewCourse() {
                 </Grid>
                 <Grid item xs={12}>
                   <h5 style={{}}>Add an Image to this page</h5>
-                  <PictureUpload Key={pageContent.pageNumber} passThePicture={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} />
-                  {/* <br /> */}
+                  {/* <PictureUpload Key={pageContent.pageNumber} passPictureData={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} /> */}
+                  <PictureUpload key={String(pageContent.pageNumber)} name={String(pageContent.pageNumber)} onChange={e => { PictureUploadHandling(e, pageContent.pageNumber) }} />
+
+
                   <h5>show list of uploaded files </h5>
                 </Grid>
                 {/* </Grid> */}
+                <br />
+                <br />
               </div>
             ))}
-
-
-
 
 
             {/* <Grid container spacing={1}> */}
