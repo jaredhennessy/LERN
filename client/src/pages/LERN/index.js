@@ -95,8 +95,9 @@ export default function LERN() {
               <Card>
                 <CardHeader title={courseData.title} />
                 <CardActionArea>
-                  <CardMedia image={courseData.image} title={courseData.title} />
+                  {/* <CardMedia image={courseData.image} title={courseData.title} /> */}
                   <CardContent>
+                    <img src={"/api/files/" + courseData.image} alt={courseData.title} height="300" />
                     <Typography
                       gutterBottom
                       variant="h5"
