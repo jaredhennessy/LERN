@@ -217,34 +217,6 @@ export default function Home() {
         </div>
       </div>
 
-      <Collapse in={checked} collapsedHeight={420}></Collapse>
-      <div className={classes.brain}>
-        <Grid container spacing={3}>
-          <Grid item md={1}></Grid>
-          <Grid item md={6}>
-            <Typography
-              className={classes.boldFont}
-              variant="h2"
-              color="secondary"
-              align="left"
-            >
-              Welcome to LERN!
-            </Typography>
-          </Grid>
-          <Grid item md={5}></Grid>
-        </Grid>
-
-        <Grid container spacing={3}>
-          <Grid item md={1}></Grid>
-          <Grid item md={6}>
-            <Typography variant="h4" color="secondary" align="left">
-              Expand your mind
-            </Typography>
-          </Grid>
-          <Grid item md={5}></Grid>
-        </Grid>
-      </div>
-
       <Grid container spacing={3}>
         <Grid item md={2}></Grid>
         <Grid item md={2} className={classes.topMarg}>
