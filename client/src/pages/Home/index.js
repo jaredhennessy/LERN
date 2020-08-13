@@ -7,22 +7,42 @@ import AllInclusiveIcon from "@material-ui/icons/AllInclusive";
 import ColorLensTwoToneIcon from "@material-ui/icons/ColorLensTwoTone";
 import PublicTwoToneIcon from "@material-ui/icons/PublicTwoTone";
 import { makeStyles } from "@material-ui/core/styles";
-import HeroBrain from "../../images/brain2.png";
-import HeroBooks from "../../images/Books.jpg";
+import HeroBrainFull from "../../images/brain_1280.png";
+import HeroBrain1000 from "../../images/brain_1000.png";
+import HeroBrain600 from "../../images/brain_600.png";
+import HeroBrain400 from "../../images/brain_400.png";
+import HeroBrain200 from "../../images/brain_200.png";
+import HeroBrain100 from "../../images/brain_100.png";
 import Collapse from "@material-ui/core/Collapse";
-
 
 const useStyles = makeStyles(theme => ({
   topMarg: {
     marginTop: "1rem",
   },
 
-  topMargTen: {
+  topMargTentoFive: {
     marginTop: "10rem",
+    [theme.breakpoints.down(500)]: {
+      marginTop: "5rem",
+    },
   },
 
-  topMargFive: {
+  topMargFivetoThree: {
     marginTop: "5rem",
+    [theme.breakpoints.down(500)]: {
+      marginTop: "3rem",
+    },
+  },
+
+  topMargFivetoOne: {
+    marginTop: "5rem",
+    [theme.breakpoints.down(500)]: {
+      marginTop: "1rem",
+    },
+  },
+
+  topMargThree: {
+    marginTop: "3rem",
   },
 
   brainHolder: {
@@ -36,26 +56,52 @@ const useStyles = makeStyles(theme => ({
   brain: {
     width: "100%",
     height: 1000,
-    backgroundImage: "url(" + HeroBrain + ")",
-    backgroundPosition: "right",
+    backgroundImage: "url(" + HeroBrainFull + ")",
+    backgroundPosition: "right top",
     backgroundRepeat: "no-repeat",
+    marginTop: "3rem",
     backgroundSize: "auto",
+    [theme.breakpoints.down(200)]: {
+      backgroundImage: "url(" + HeroBrain100 + ")",
+    },
+    [theme.breakpoints.between(200, 400)]: {
+      backgroundImage: "url(" + HeroBrain200 + ")",
+    },
+    [theme.breakpoints.between(400, "sm")]: {
+      backgroundImage: "url(" + HeroBrain400 + ")",
+    },
+    [theme.breakpoints.between("sm", "md")]: {
+      backgroundImage: "url(" + HeroBrain600 + ")",
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+      backgroundImage: "url(" + HeroBrain1000 + ")",
+    },
+    [theme.breakpoints.up("lg")]: {
+      backgroundImage: "url(" + HeroBrainFull + ")",
+    },
   },
 
-  // heroImageBooks: {
-  //   backgroundImage: "url(" + HeroBooks + ")",
-  //   backgroundColor: "#FFFFFF",
-  //   height: "300px",
-  //   backgroundPosition: "right",
-  //   backgroundRepeat: "no-repeat",
-  //   backgroundSize: "cover",
-  //   position: "relative",
-  //   backgroundOpacity: 0.7,
-  // },
+  education: {
 
-  // heroTextBooks: {
-  //   opacity: 1,
-  // },
+    [theme.breakpoints.down(200)]: {
+      width: 100,
+    },
+    [theme.breakpoints.between(200, 400)]: {
+      width: 200,
+    },
+    [theme.breakpoints.between(400, "sm")]: {
+      width: 400,
+    },
+    [theme.breakpoints.between("sm", "md")]: {
+      width: 600,
+    },
+    [theme.breakpoints.between("md", "lg")]: {
+      width: 1000,
+    },
+    [theme.breakpoints.up("lg")]: {
+      width: "100%",
+    },
+  },
 
   largeButton: {
     height: "60px",
@@ -68,8 +114,14 @@ const useStyles = makeStyles(theme => ({
 
   boldFont: {
     fontWeight: "bold",
-  },
+    [theme.breakpoints.down(320)]: {
+      fontSize: 28,
+    },
+    [theme.breakpoints.between(320, 510)]: {
+      fontSize: 36,
+    },
 
+  },
 }));
 
 export default function Home() {
@@ -99,12 +151,10 @@ export default function Home() {
                     Welcome to LERN!
                   </Typography>
                 </Grid>
-                {/* <Grid item lg={5}></Grid> */}
               </Grid>
               <Grid container spacing={3}>
                 <Grid item xs={1}></Grid>
-                <Grid item md={2} className={classes.topMargFive}>
-
+                <Grid item md={2} className={classes.topMargFivetoOne}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -116,12 +166,11 @@ export default function Home() {
                     Expand your Mind
                   </Button>
                 </Grid>
-                {/* <Grid item lg={3}></Grid> */}
               </Grid>
 
               <Grid container spacing={3}>
                 <Grid item xs={1}></Grid>
-                <Grid item md={5} className={classes.topMargTen}>
+                <Grid item md={5} className={classes.topMargTentoFive}>
                   <Typography
                     className={classes.boldFont}
                     variant="h2"
@@ -131,12 +180,11 @@ export default function Home() {
                     Our highest priority is simple, open-source education
                   </Typography>
                 </Grid>
-                {/* <Grid item lg={6}></Grid> */}
               </Grid>
 
               <Grid container spacing={3}>
                 <Grid item xs={1}></Grid>
-                <Grid item md={2} className={classes.topMargFive}>
+                <Grid item md={2} className={classes.topMargFivetoThree}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -147,12 +195,10 @@ export default function Home() {
                     Browse Courses
                   </Button>
                 </Grid>
-                <Grid item lg={9} className={classes.topMargFive}></Grid>
+                <Grid item lg={9} className={classes.topMargFivetoThree}></Grid>
 
-                {/* </Grid>
-          <Grid container spacing={3}> */}
                 <Grid item xs={1}></Grid>
-                <Grid item md={2} className={classes.topMargFive}>
+                <Grid item md={2} className={classes.topMargFivetoThree}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -164,35 +210,12 @@ export default function Home() {
                     Start LERNing
                   </Button>
                 </Grid>
-                <Grid item lg={9} className={classes.topMargFive}></Grid>
+                <Grid item lg={9} className={classes.topMargFivetoThree}></Grid>
               </Grid>
             </div>
           </Collapse>
         </div>
       </div>
-      {/* <h1>Welcome to LERN!</h1>
-      <h2>Our highest priority is simple, open-source, education.</h2> */}
-
-      {/* 
-      <Grid container spacing={3}>
-        <Grid item md={6} className={classes.topMarg}>
-          <Button color="primary" href="/courses">
-            Browse Courses
-          </Button>
-        </Grid>
-        <Grid item md={6} className={classes.topMarg}>
-          <Button color="primary" href="/register">
-            Start LERNing for Free
-          </Button>
-        </Grid>
-      </Grid> */}
-
-      {/* <FormControlLabel
-          control={<Switch checked={checked} onChange={handleChange} />}
-          label="Show"
-        />
-<div className={classes.brainHolder}>
-
 
       <Collapse in={checked} collapsedHeight={420}></Collapse>
       <div className={classes.brain}>
@@ -221,249 +244,49 @@ export default function Home() {
           <Grid item md={5}></Grid>
         </Grid>
       </div>
-      
-
-      {/* <polygon points="0,100 50,00, 100,100" className={classes.polygon} /> */}
-      {/* <div>
-        <Grid container spacing={3}>
-          <Grid item md={2}></Grid>
-          <Grid item md={2} className={classes.topMarg}>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth={true}
-              href="/courses"
-              // size="large"
-              className={classes.largeButtons}
-            >
-              Browse Courses
-            </Button>
-          </Grid>
-          <Grid item md={2}></Grid>
-          <Grid item md={6}></Grid>
-        </Grid>
-        <Grid container spacing={3}>
-          <Grid item md={2}></Grid>
-          <Grid item md={2} className={classes.topMarg}>
-            <Button
-              color="primary"
-              variant="contained"
-              fullWidth={true}
-              href="/register"
-              // size="large"
-              className={classes.largeButtons}
-            >
-              Start LERNing
-            </Button>
-          </Grid>
-          <Grid item md={2}></Grid>
-          <Grid item md={6} className={classes.topMarg}></Grid>
-        </Grid>
-      </div>
-      </div> */}
-
-      {/* <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon color="primary"/>}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-          className={classes.brainTop}
-        >
-             <div className={classes.heroText}>
-          <Grid container spacing={3}>
-            <Grid item md={1}></Grid>
-            <Grid item md={6}>
-              <Typography
-                className={classes.boldFont}
-                variant="h2"
-                color="secondary"
-                align="left"
-              >
-                Welcome to LERN!
-              </Typography>
-            </Grid>
-            <Grid item md={5}></Grid>
-          </Grid>
-
-          <Grid container spacing={3}>
-            <Grid item md={1}></Grid>
-            <Grid item md={6}>
-              <Typography variant="h4" color="secondary" align="left">
-                Expand your mind
-                </Typography>
-            </Grid>
-            <Grid item md={5}></Grid>
-          </Grid>
-          </div>
-         
-        </AccordionSummary>
-        <AccordionDetails className={classes.brainLower}>
-
-        <Grid container spacing={3}>
-            <Grid item md={2}></Grid>
-            <Grid item md={2} className={classes.topMarg}>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth={true}
-                href="/courses"
-                // size="large"
-                className={classes.largeButtons}
-              >
-                Browse Courses
-              </Button>
-            </Grid>
-            <Grid item md={2}></Grid>
-            <Grid item md={6}>
-     
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item md={2}></Grid>
-            <Grid item md={2} className={classes.topMarg}>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth={true}
-                href="/register"
-                // size="large"
-                className={classes.largeButtons}
-              >
-                Start LERNing
-              </Button>
-            </Grid>
-            <Grid item md={2}></Grid>
-            <Grid item md={6} className={classes.topMarg}></Grid>
-          </Grid>
-
-
-        </AccordionDetails>
-      </Accordion> */}
-
-      {/* <div className={ ? "show" : ""}>
-        <div className={classes.heroText}>
-          
-            <Grid container spacing={3}>
-              <Grid item md={1}></Grid>
-              <Grid item md={6}>
-                <Typography
-                  className={classes.boldFont}
-                  variant="h2"
-                  color="secondary"
-                  align="left"
-                >
-                  Welcome to LERN!
-                </Typography>
-              </Grid>
-              <Grid item md={5}></Grid>
-            </Grid>
-
-            <Grid container spacing={3}>
-              <Grid item md={1}></Grid>
-              <Grid item md={6}>
-                <Typography variant="h4" color="secondary" align="left">
-                  Expand your mind
-                  {/* Our highest priority is simple, open-source, education. */}
-
-      {/* // </div> */}
-
-      {/* <div className={classes.heroImageBooks}>
-        <div className={classes.heroTextBooks}>
-          <div>
-            <Grid container spacing={3}>
-              <Grid item md={1}></Grid>
-              <Grid item md={6}>
-                <Typography
-                  className={classes.boldFont}
-                  variant="h2"
-                  color="primary"
-                  align="left"
-                >
-                  Welcome to LERN!
-                </Typography>
-              </Grid>
-              <Grid item md={5}></Grid>
-            </Grid>
-
-            <Grid container spacing={3}>
-              <Grid item md={1}></Grid>
-              <Grid item md={6}>
-                <Typography variant="h4" color="primary" align="left">
-                  Expand your mind
-                  Our highest priority is simple, open-source, education.
-                </Typography>
-              </Grid>
-              <Grid item md={5}></Grid>
-            </Grid>
-          </div>
-          <Grid container spacing={3}>
-            <Grid item md={2}></Grid>
-            <Grid item md={2} className={classes.topMarg}>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth={true}
-                href="/courses"
-                // size="large"
-                className={classes.largeButtons}
-              >
-                Browse Courses
-              </Button>
-            </Grid>
-            <Grid item md={2}></Grid>
-            <Grid item md={6}>
-              <Button color="primary" href="/register">
-                Start LERNing for Free
-              </Button>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item md={2}></Grid>
-            <Grid item md={2} className={classes.topMarg}>
-              <Button
-                color="primary"
-                variant="contained"
-                fullWidth={true}
-                href="/register"
-                // size="large"
-                className={classes.largeButtons}
-              >
-                Start LERNing
-              </Button>
-            </Grid>
-            <Grid item md={2}></Grid>
-            <Grid item md={6} className={classes.topMarg}></Grid>
-          </Grid>
-        </div>
-      </div> */}
 
       <Grid container spacing={3}>
         <Grid item md={2}></Grid>
         <Grid item md={2} className={classes.topMarg}>
           <ColorLensTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">LERN a new skill</Typography>
+          <Typography variant="p">
+              Start a course and learn one page at a time.
+            </Typography>
         </Grid>
         <Grid item md={2} className={classes.topMarg}>
           <PublicTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">Share Your Knowledge</Typography>
+          <Typography variant="p">
+              Teach what you know to others.
+            </Typography>
         </Grid>
         <Grid item md={2} className={classes.topMarg}>
           <FitnessCenterTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">Flex Your Brain</Typography>
+          <Typography variant="p">
+              LERN a little more each day.
+            </Typography>
         </Grid>
         <Grid item md={2} className={classes.topMarg}>
           <AllInclusiveIcon fontSize="large" color="primary" />
           <Typography variant="h5">Unlimited Learning Potential</Typography>
+          <Typography variant="p">
+              Our course list is constantly growing.
+            </Typography>
         </Grid>
         <Grid item md={2}></Grid>
       </Grid>
 
-     <br />
-      <img
-        alt="Education is the most powerful weapon we can use to change the world. -Nelson Mandela"
-        src={require("../../images/home.jpg")}
-        width="full width"
-      />
+      <Grid container spacing={2} className={classes.topMarg}>
+        <Grid item xs={12}>
+          <img
+            alt="Education is the most powerful weapon we can use to change the world. -Nelson Mandela"
+            src={require("../../images/home.jpg")}
+            className={classes.education}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
 }
