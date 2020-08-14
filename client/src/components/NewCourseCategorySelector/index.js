@@ -7,21 +7,15 @@ import InputLabel from "@material-ui/core/InputLabel";
 import { makeStyles } from "@material-ui/core/styles";
 import API from "../../utils/API";
 
-
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120,
+    minWidth: 120
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
+    marginTop: theme.spacing(2)
+  }
 }));
-
-
-
-
-
 
 export default function CategorySelector({ handleChange }) {
   const classes = useStyles();
@@ -38,23 +32,30 @@ export default function CategorySelector({ handleChange }) {
       .catch(err => console.log(err));
   }
 
-
   return (
     <FormControl variant="filled" className={classes.formControl}>
       <InputLabel id="category-selector-label">{selectedCategory}</InputLabel>
 
       <Select
-
         labelId="category-selector-label"
         id="category-selector"
         value=""
         onChange={handleChange}
       >
         {categories.map(category => (
-          <MenuItem onClick={e => { setSelectedCategory(category.category) }} key={category._id} id={category._id} value={category._id} name={category.category}>{category.category}</MenuItem>
+          <MenuItem
+            onClick={e => {
+              setSelectedCategory(category.category);
+            }}
+            key={category._id}
+            id={category._id}
+            value={category._id}
+            name={category.category}
+          >
+            {category.category}
+          </MenuItem>
         ))}
       </Select>
-
     </FormControl>
   );
 }

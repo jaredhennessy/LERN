@@ -7,24 +7,14 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Moment from 'react-moment';
+import Moment from "react-moment";
 
 const useStyles = makeStyles({
-  root: {
-    // minWidth: 600,
-    // maxHeight: 345,
-    // width: "fit-content",
-  },
+  root: {},
   media: {
     height: 300,
-    width: 600,
-  },
-  //   description: {
-  //     maxHeight: 75,
-  //     textOverflow: "ellipsis",
-  //     overflow: "hidden",
-  //     whiteSpace: "no-wrap",
-  //   },
+    width: 600
+  }
 });
 
 export default function CourseCardModal({
@@ -34,14 +24,18 @@ export default function CourseCardModal({
   category,
   instructor,
   dateCreated,
-  startCourse,
+  startCourse
 }) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        <CardMedia className={classes.media} image={"/api/files/" + image} title={title} />
+        <CardMedia
+          className={classes.media}
+          image={"/api/files/" + image}
+          title={title}
+        />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             Title: {title}
@@ -56,7 +50,10 @@ export default function CourseCardModal({
             Instructor: {instructor}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            Created: <Moment format="DD/MMM/YYYY" local>{dateCreated}</Moment>
+            Created:{" "}
+            <Moment format="DD/MMM/YYYY" local>
+              {dateCreated}
+            </Moment>
           </Typography>
         </CardContent>
       </CardActionArea>
