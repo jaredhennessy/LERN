@@ -67,7 +67,7 @@ function NewCourse() {
         break;
       case "remove":
         if (courseContent.length > 1) {
-          const newCourseContent = courseContent.pop();
+          // const newCourseContent = courseContent.pop();
           setCourseContent([...courseContent]);
         }
         break;
@@ -87,6 +87,7 @@ function NewCourse() {
   const PictureUploadHandling = async (e, identifier) => {
     const file = e.target.files[0];
     console.log("file", file);
+
     // Post form to database, response returns the filename
     let formData = new FormData();
     formData.append("file", file);
@@ -229,7 +230,6 @@ function NewCourse() {
                 PictureUploadHandling(e, "course-image");
               }}
             />
-            {/* <h5>show list of uploaded file: {pictureFileDisplay} </h5> */}
           </Grid>
 
           <Grid item xs={12}>
