@@ -9,7 +9,6 @@ import Container from "@material-ui/core/Container";
 export default function EditProfile() {
   const { userData } = useContext(UserContext);
 
-
   return (
     <Container>
       <h1>Edit Profile</h1>
@@ -26,7 +25,6 @@ export default function EditProfile() {
               label="First"
               type="first"
               id="first"
-              // autoComplete=""
             />
             <TextField
               variant="outlined"
@@ -37,7 +35,6 @@ export default function EditProfile() {
               label="Last"
               type="last"
               id="last"
-              // autoComplete=""
             />
             <TextField
               variant="outlined"
@@ -48,7 +45,6 @@ export default function EditProfile() {
               label="Email Address"
               name="email"
               autoComplete="email"
-              // autoFocus
             />
           </form>
         </Grid>
@@ -80,12 +76,9 @@ export default function EditProfile() {
         </Grid>
         <Grid item md={4} justify-content="center">
           <UserAvatar />
-          {/* <FileUpload /> */}
           <Button>Edit Profile Picture</Button>
         </Grid>
       </Grid>
     </Container>
-  )
+  );
 }
-
-

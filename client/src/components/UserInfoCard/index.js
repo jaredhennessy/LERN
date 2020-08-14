@@ -4,15 +4,13 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import UserContext from "../../UserContext/UserContext";
-import Moment from 'react-moment';
-// import theme from "../../theme"
+import Moment from "react-moment";
 
 const useStyles = makeStyles({
   card: {
     borderRadius: 0,
     boxShadow: "none",
-    alignItems: "left",
-    // backgroundColor: theme.palette.primary.main,
+    alignItems: "left"
   },
   leftText: {
     textAlign: "left"
@@ -33,9 +31,10 @@ export default function UserInfoCard() {
           {userData.email}
         </Typography>
         <Typography className={classes.leftText} variant="h5">
-          LERNer since <Moment format="DD/MMM/YYYY"
-            local
-          >{userData.dateCreated}</Moment>
+          LERNer since{" "}
+          <Moment format="DD/MMM/YYYY" local>
+            {userData.dateCreated}
+          </Moment>
         </Typography>
       </CardContent>
     </Card>
