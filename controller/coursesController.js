@@ -4,24 +4,28 @@ const { Course } = require("../models");
 module.exports = {
   findAll: function (req, res) {
     Course.find(req.query)
-      .populate([{
-        path: "category",
-        model: "Category",
-        select: "category"
-      }, {
-        path: "instructor",
-        model: "Instructor",
-        select: "username"
-      }, {
-        path: "pages",
-        model: "Page",
-        select: "pageNumber title text link image"
-      }, {
-        path: "users",
-        model: "User",
-        select: "username"
-        // select: "-password -courses._id -courses.dateStarted -courses.dateCompleted -courses.currentPage"
-      }])
+      .populate([
+        {
+          path: "category",
+          model: "Category",
+          select: "category"
+        },
+        {
+          path: "instructor",
+          model: "Instructor",
+          select: "username"
+        },
+        {
+          path: "pages",
+          model: "Page",
+          select: "pageNumber title text link image"
+        },
+        {
+          path: "users",
+          model: "User",
+          select: "username"
+        }
+      ])
       .sort({ title: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -29,7 +33,8 @@ module.exports = {
 
   new: function (req, res) {
     const newCourse = new Course(req.body);
-    Course.collection.insertOne(newCourse)
+    Course.collection
+      .insertOne(newCourse)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
@@ -43,43 +48,51 @@ module.exports = {
 
   findById: function (req, res) {
     Course.findById(req.params.id)
-      .populate([{
-        path: "category",
-        model: "Category",
-        select: "category"
-      }, {
-        path: "instructor",
-        model: "Instructor",
-        select: "username"
-      }, {
-        path: "pages",
-        model: "Page",
-        select: "pageNumber title text link image"
-      }, {
-        path: "users",
-        model: "User",
-        select: "username"
-        // select: "-password -courses._id -courses.dateStarted -courses.dateCompleted -courses.currentPage"
-      }])
+      .populate([
+        {
+          path: "category",
+          model: "Category",
+          select: "category"
+        },
+        {
+          path: "instructor",
+          model: "Instructor",
+          select: "username"
+        },
+        {
+          path: "pages",
+          model: "Page",
+          select: "pageNumber title text link image"
+        },
+        {
+          path: "users",
+          model: "User",
+          select: "username"
+        }
+      ])
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
 
   findByCategory: function (req, res) {
     Course.find({ category: req.params.id })
-      .populate([{
-        path: "category",
-        model: "Category",
-        select: "category"
-      }, {
-        path: "instructor",
-        model: "Instructor",
-        select: "username"
-      }, {
-        path: "pages",
-        model: "Page",
-        select: "pageNumber"
-      }])
+      .populate([
+        {
+          path: "category",
+          model: "Category",
+          select: "category"
+        },
+        {
+          path: "instructor",
+          model: "Instructor",
+          select: "username"
+        },
+        {
+          path: "pages",
+          model: "Page",
+          select: "pageNumber"
+        }
+      ])
       .sort({ title: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
@@ -87,19 +100,23 @@ module.exports = {
 
   findByInstructor: function (req, res) {
     Course.find({ instructor: req.params.id })
-      .populate([{
-        path: "category",
-        model: "Category",
-        select: "category"
-      }, {
-        path: "instructor",
-        model: "Instructor",
-        select: "username"
-      }, {
-        path: "users",
-        model: "User",
-        select: "username"
-      }])
+      .populate([
+        {
+          path: "category",
+          model: "Category",
+          select: "category"
+        },
+        {
+          path: "instructor",
+          model: "Instructor",
+          select: "username"
+        },
+        {
+          path: "users",
+          model: "User",
+          select: "username"
+        }
+      ])
       .sort({ title: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));

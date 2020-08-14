@@ -8,11 +8,11 @@ const crypto = require("crypto");
 const mongoConfig = require("../../utils/mongoConfig");
 // const filesController = require("../../controller/filesController");
 
-// Init gfs
+// Init grid file system (GridFS)
 let gfs;
 
 mongoose.connection.once("open", () => {
-  // Init stream
+  // Init filestream
   gfs = Grid(mongoose.connection.db, mongoose.mongo, {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -47,13 +47,12 @@ router.post("/upload", upload.single("file"), (req, res) => {
   console.log("POST");
   console.log(req.file);
   res.json({ file: req.file });
-  // res.redirect('/');
 });
 
 // Matches with "/api/files", returns all files in database
 router.get("/", (req, res) => {
   gfs.files.find().toArray((err, files) => {
-    // Check if files
+    // Check if what's returned is a file
     if (!files || files.length === 0) {
       return res.status(404).json({
         err: "No files exist"
@@ -66,23 +65,23 @@ router.get("/", (req, res) => {
 });
 
 // Matches with "/api/files/<filename>", returns a specific image
-router.get('/:filename', (req, res) => {
+router.get("/:filename", (req, res) => {
   gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
     // Check if file
     if (!file || file.length === 0) {
       return res.status(404).json({
-        err: 'No file exists'
+        err: "No file exists"
       });
     }
 
-    // Check if image
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
+    // Check if the file is an image
+    if (file.contentType === "image/jpeg" || file.contentType === "image/png") {
       // Read output to browser
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
       res.status(404).json({
-        err: 'Not an image'
+        err: "Not an image"
       });
     }
   });
