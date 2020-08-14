@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { makeStyles } from '@material-ui/core/styles';
-// import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
@@ -38,39 +37,14 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     display: 'flex',
-//     '& > *': {
-//       margin: theme.spacing(1),
-//     },
-//   },
-//   title: {
-
-//   },
-//   text: {
-//     width: "60%",
-//     textAlign: "center",
-//     position: "relative",
-//     top: "0.8rem",
-//     left: "20%",
-//     right: "20%",
-//     // bottom: "4rem",
-//   },
-
-// }));
-
-
 function NewCourse() {
 
   const classes = useStyles();
-  // const [courses, setCourses] = useState([]);
   const { userData } = useContext(UserContext);
   const [newCourseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseImage, setCourseImage] = useState("image");
   const [courseCategory, setCourseCategory] = useState("");
-  // const [pictureFileDisplay, setPictureFileDisplay] = useState({});
   const [courseContent, setCourseContent] = useState([{ pageNumber: 1, title: "pageTitle", image: "image", text: "text", link: "link.com", course: "" }])
   const history = useHistory();
 
@@ -106,6 +80,7 @@ function NewCourse() {
 
     const file = e.target.files[0];
     console.log("file", file);
+
     // Post form to database, response returns the filename
     let formData = new FormData();
     formData.append("file", file);
@@ -197,7 +172,6 @@ function NewCourse() {
           <Grid item xs={12}>
             <h5>Select main course image</h5>
             <PictureUpload key="course-image" name="course-image" onChange={e => { console.log("course-image", e.target.files[0].name); PictureUploadHandling(e, "course-image") }} />
-            {/* <h5>show list of uploaded file: {pictureFileDisplay} </h5> */}
           </Grid>
 
           <Grid item xs={12}>
@@ -228,9 +202,7 @@ function NewCourse() {
 
                 <Grid item xs={12}>
                   <h5 style={{}}>Add an Image to this page</h5>
-                  {/* <PictureUpload Key={pageContent.pageNumber} passPictureData={picture => { console.log("PICTURE UPLOAD FROM NEWCOURSE"); const e = { target: { name: "image", value: picture } }; handleCourseContentChange(e, pageContent.pageNumber) }} /> */}
                   <PictureUpload key={String(pageContent.pageNumber)} name={String(pageContent.pageNumber)} onChange={e => { PictureUploadHandling(e, pageContent.pageNumber) }} />
-                  {/* <h5>show list of uploaded file: {pageContent.image} </h5> */}
                 </Grid>
 
                 <br />
