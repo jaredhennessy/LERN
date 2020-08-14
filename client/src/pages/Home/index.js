@@ -114,6 +114,7 @@ const useStyles = makeStyles(theme => ({
 
   boldFont: {
     fontWeight: "bold",
+    color: "white",
     [theme.breakpoints.down(320)]: {
       fontSize: 28,
     },
@@ -145,7 +146,6 @@ export default function Home() {
                   <Typography
                     className={classes.boldFont}
                     variant="h2"
-                    color="black"
                     align="left"
                   >
                     Welcome to LERN!
@@ -160,7 +160,6 @@ export default function Home() {
                     variant="contained"
                     fullWidth={true}
                     onClick={handleChange}
-                    // size="large"
                     className={classes.expandButton}
                   >
                     Expand your Mind
