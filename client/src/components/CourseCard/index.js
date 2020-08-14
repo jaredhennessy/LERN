@@ -16,29 +16,34 @@ import { useHistory } from "react-router-dom";
 import API from "../../utils/API";
 import UserContext from "../../UserContext/UserContext";
 
-
-// const Transition = React.forwardRef(function Transition(props, ref) {
-//   return <Slide direction="up" ref={ref} {...props} />;
-// });
-
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Zoom ref={ref} {...props} />;
 });
 
 const useStyles = makeStyles({
   root: {
-    // maxWidth: 345,
-    // maxHeight: 345,
+    maxWidth: 345,
+    maxHeight: 375,
   },
+  
   media: {
     height: 140,
   },
+
   description: {
-    maxHeight: 75,
+    height: 75,
     textOverflow: "ellipsis",
     overflow: "hidden",
     whiteSpace: "no-wrap",
   },
+
+  title: {
+    height: 60,
+    textOverflow: "ellipsis",
+    overflow: "hidden",
+    whiteSpace: "no-wrap",
+  },
+
   modal: {
     minWidth: 600,
   },
@@ -81,7 +86,7 @@ export default function CourseCard({
         <CardActionArea onClick={handleClickOpen}>
           <CardMedia className={classes.media} image={"/api/files/" + image} component="img" title={title} />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
+            <Typography gutterBottom variant="h5" component="h2" className={classes.title}>
               {title}
             </Typography>
             <Typography
