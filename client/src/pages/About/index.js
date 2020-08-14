@@ -28,14 +28,15 @@ function About() {
       <h1>About LERN</h1>
 
       <p className={classes.text}>
-        A group of Web Development students re thinked accesible education...
+        A group of Web Development students rethought accesible education...
       </p>
       <p className={classes.text}>
-        4 students out of the interest in getting a good grade in their final
-        Web Development Bootcamp project, and of course, creating a web
-        application that helps others gain access to free learning material,
-        LERN was created. Here you can find free material to different areas of
-        interest, from DIY to Economics.
+        LERN was created by four students intersetd in a good grade on their
+        final Web Development Bootcamp project and, of course, creating a web
+        application that helps others gain access to free learning material.
+        Here you can not only find find free material to educate you in
+        different subjects, from DIY to Nature to Finance, you can create your
+        own course without any web development experience.
       </p>
       <br />
       <br />

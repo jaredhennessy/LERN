@@ -35,10 +35,10 @@ function Teach() {
       </p>
       <p className={classes.text}>
         Go beyond your existing knowledge, push towards a brighter, empowered
-        future, regardless of current finantial situation, this is where whe
-        create a space for a safe and accessible learning opportunityby sharing
-        what we know to others and getting the same in return, this community
-        makes that a reality.
+        future, regardless of your current finantial situation. This is where we
+        create a space for a safe and accessible learning opportunities by
+        sharing what we know and getting the same in return. This community
+        makes open-source education a reality.
       </p>
       <br />
       <Button
