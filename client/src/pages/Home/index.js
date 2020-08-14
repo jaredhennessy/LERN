@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.down(320)]: {
       fontSize: 28,
     },
-    [theme.breakpoints.between(320, 510)]: {
+    [theme.breakpoints.between(320, 600)]: {
       fontSize: 36,
     },
 
@@ -141,8 +141,8 @@ export default function Home() {
           <Collapse in={checked} collapsedHeight={300}>
             <div className={classes.brain}>
               <Grid container spacing={3}>
-                <Grid item md={1}></Grid>
-                <Grid item md={6} className={classes.topMarg}>
+                <Grid item xs={1}></Grid>
+                <Grid item  className={classes.topMarg}>
                   <Typography
                     className={classes.boldFont}
                     variant="h2"
@@ -169,7 +169,7 @@ export default function Home() {
 
               <Grid container spacing={3}>
                 <Grid item xs={1}></Grid>
-                <Grid item md={5} className={classes.topMargTentoFive}>
+                <Grid item xs={10} sm={7} md={6} lg={5} className={classes.topMargFivetoThree}>
                   <Typography
                     className={classes.boldFont}
                     variant="h2"
@@ -178,12 +178,13 @@ export default function Home() {
                   >
                     Our highest priority is simple, open-source education
                   </Typography>
+                  <Grid item xs={1} sm={4} md={5} lg={6}></Grid>
                 </Grid>
               </Grid>
 
               <Grid container spacing={3}>
                 <Grid item xs={1}></Grid>
-                <Grid item md={2} className={classes.topMargFivetoThree}>
+                <Grid item xs={6} sm={4} md={3} lg={2} className={classes.topMargFivetoThree}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -194,10 +195,10 @@ export default function Home() {
                     Browse Courses
                   </Button>
                 </Grid>
-                <Grid item lg={9} className={classes.topMargFivetoThree}></Grid>
-
+                <Grid item md={8} lg={9} className={classes.topMargFivetoThree}></Grid>
+               
                 <Grid item xs={1}></Grid>
-                <Grid item md={2} className={classes.topMargFivetoThree}>
+                <Grid item xs={6} sm={4} md={3} lg={2} className={classes.topMargFivetoThree}>
                   <Button
                     color="primary"
                     variant="contained"
@@ -209,44 +210,48 @@ export default function Home() {
                     Start LERNing
                   </Button>
                 </Grid>
-                <Grid item lg={9} className={classes.topMargFivetoThree}></Grid>
+                <Grid item md={8} lg={9} className={classes.topMargFivetoThree}></Grid>
               </Grid>
+              
             </div>
           </Collapse>
         </div>
       </div>
 
       <Grid container spacing={3}>
-        <Grid item md={2}></Grid>
-        <Grid item md={2} className={classes.topMarg}>
+        <Grid item sm={1} md={2}></Grid>
+        <Grid item xs={12} sm={6} md={2} className={classes.topMarg}>
           <ColorLensTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">LERN a new skill</Typography>
           <Typography variant="p">
               Start a course and learn one page at a time.
             </Typography>
         </Grid>
-        <Grid item md={2} className={classes.topMarg}>
+        <Grid item ></Grid>
+        <Grid item xs={12} sm={4} md={2}  className={classes.topMarg}>
           <PublicTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">Share Your Knowledge</Typography>
           <Typography variant="p">
               Teach what you know to others.
             </Typography>
         </Grid>
-        <Grid item md={2} className={classes.topMarg}>
+        <Grid item sm={1}></Grid>
+        <Grid item xs={12} sm={4} md={2}  className={classes.topMarg}>
           <FitnessCenterTwoToneIcon fontSize="large" color="primary" />
           <Typography variant="h5">Flex Your Brain</Typography>
           <Typography variant="p">
               LERN a little more each day.
             </Typography>
         </Grid>
-        <Grid item md={2} className={classes.topMarg}>
+        <Grid item></Grid>
+        <Grid item xs={12} sm={6} md={2}  className={classes.topMarg}>
           <AllInclusiveIcon fontSize="large" color="primary" />
           <Typography variant="h5">Unlimited Learning Potential</Typography>
           <Typography variant="p">
               Our course list is constantly growing.
             </Typography>
         </Grid>
-        <Grid item md={2}></Grid>
+        <Grid sm={0} md={2}></Grid>
       </Grid>
 
       <Grid container spacing={2} className={classes.topMarg}>
