@@ -1,8 +1,6 @@
 import React from "react";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-// import CreateCourseDisclaimer from "../CreateCourseDisclaimer";
-// import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import { Link as RouterLink } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +40,7 @@ function Teach() {
       </p>
       {/* <br /> */}
       <p className={classes.text}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        Go beyond your existing knowledge, push towards a brighter, empowered future, regardless of current finantial situation, this is where whe create a space for a safe and accessible learning opportunityby sharing what we know to others and getting the same in return, this community makes that a reality.
       </p>
       <br />
       <Button variant="contained" color="primary" component={RouterLink} to="/createCourseDisclaimer">Ready to create a course?</Button>
