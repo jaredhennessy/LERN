@@ -30,17 +30,17 @@ export default function Courses() {
   const classes = useStyles();
   const [slideIn, setSlideIn] = useState(true);
   const [slideDirection, setSlideDirection] = useState("left");
-  // const [chosen, setChosen] = useState(false)
-  const [variant, setVariant] =useState(false);
-  const indexOfLastCourse = currentPage * coursesPerPage;
-  const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+  let indexOfLastCourse = currentPage * coursesPerPage;
+  let indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
   const currentCourses = filteredCourses.slice(
     indexOfFirstCourse,
     indexOfLastCourse
   );
 
   //loads all courses on page load
-  useEffect(() => loadCourses(), []);
+  useEffect(() => {
+    loadCourses()
+  }, []);
 
   //loads all courses
   function loadCourses() {
@@ -51,17 +51,13 @@ export default function Courses() {
 
   //loads courses by category when category button clicked
   const handleChange = catId => {
-   const categoryId = catId === "all" ? loadCourses() : loadCoursesByCategory(catId);
-  //  setChosen(catId);
-  //  onClick={() => setChosen(catId)}
-    arrowClick("right");
+    if (catId === "all") {
+      loadCourses()
+    } else {
+      setCurrentPage(1);
+      loadCoursesByCategory(catId);
+    }
   };
-
-  //changes button variant if selected
-  const btnChange = () => {
-    setVariant(true);
-    const btnChecked = variant === true ? "contained" : "text";
-  }
 
   //loads courses of selected category
   function loadCoursesByCategory(categoryId) {
@@ -72,10 +68,8 @@ export default function Courses() {
 
   //searches course names by search bar
   const handleInputChange = e => {
-    //loads all courses (resets category selection)
-    // loadCourses();
     setSearch(e.target.value);
-    arrowClick("right");
+    setCurrentPage(1);
   };
 
   //loads courses containing search
@@ -90,12 +84,7 @@ export default function Courses() {
   // Sets the currentPage and slide direction depending on which arrow is clicked
   const arrowClick = direction => {
     const oppDirection = direction === "left" ? "right" : "left";
-    //if on last page, go back to page 1 if right arrow clicked
-    indexOfLastCourse >= courses.length
-      ? setCurrentPage(1)
-      : setCurrentPage(
-          direction === "left" ? currentPage - 1 : currentPage + 1
-        );
+    setCurrentPage(direction === "left" ? currentPage - 1 : currentPage + 1);
 
     setSlideDirection(direction);
     setSlideIn(false);
@@ -105,11 +94,6 @@ export default function Courses() {
       setSlideIn(true);
     }, 500);
   };
-
-  //change category button color when selected
-  // const changeButtonColor = e => {
-  //   const buttonColor = btnColor === e.target ? setBtnColor === true : setBtnColor === false;
-  // }
 
   return (
     <Container>
@@ -122,7 +106,7 @@ export default function Courses() {
         </Grid>
       </Grid>
 
-      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} selectedCategories={courses}/>
+      <CategorySelector handleChange={handleChange} loadCourses={loadCourses} selectedCategories={courses} />
 
       <div>
         {currentCourses.length ? (
@@ -148,27 +132,29 @@ export default function Courses() {
               <Grid item md={4}></Grid>
               <Grid item md={4}>
                 <ArrowButtons
+                  currentPage={currentPage}
+                  currentCourses={currentCourses}
                   coursesPerPage={coursesPerPage}
                   totalCourses={courses.length}
                   arrowClick={arrowClick}
                 />
-                </Grid>
-                <Grid item md={4}></Grid>
               </Grid>
+              <Grid item md={4}></Grid>
             </Grid>
+          </Grid>
         ) : (
-          <div >
-            <Typography gutterBottom variant="h5" component="h3">
-              No Results
+            <div >
+              <Typography gutterBottom variant="h5" component="h3">
+                No Results
             </Typography>
-            <Typography gutterBottom variant="h6" component="h4">
-              Would you like to add a new course?
+              <Typography gutterBottom variant="h6" component="h4">
+                Would you like to add a new course?
             </Typography>
-            <Button color="primary" href="/teach">
-              Teach a Course
+              <Button color="primary" href="/teach">
+                Teach a Course
             </Button>
-          </div>
-        )}
+            </div>
+          )}
       </div>
     </Container>
   );

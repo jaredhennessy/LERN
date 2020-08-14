@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import Button from "@material-ui/core/Button";
-// import MonetizationOnIcon from "@material-ui/icons/MonetizationOn";
 import HomeIcon from "@material-ui/icons/Home";
 import CategoryIcon from "@material-ui/icons/Category";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
@@ -19,39 +18,34 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import InfoIcon from "@material-ui/icons/Info";
 import CreateIcon from "@material-ui/icons/Create";
 import UserContext from "../../UserContext/UserContext";
-// import { useTheme } from '@material-ui/core/styles';
-
-
 
 const useStyles = makeStyles(theme => ({
-
   grow: {
     flexGrow: 1,
     marginTop: 0,
-    paddingTop: 0,
+    paddingTop: 0
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(2)
   },
   title: {
     display: "none",
     [theme.breakpoints.up("sm")]: {
-      display: "block",
-    },
+      display: "block"
+    }
   },
 
   inputRoot: {
-    color: "inherit",
+    color: "inherit"
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
     width: "100%",
     [theme.breakpoints.up("md")]: {
-      width: "20ch",
-    },
+      width: "20ch"
+    }
   },
   sectionDesktop: {
     display: "none",
@@ -64,14 +58,12 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     [theme.breakpoints.up("sm")]: {
       display: "none",
-      justify: "space-between",
-    },
-  },
+      justify: "space-between"
+    }
+  }
 }));
 
 export default function Navbar() {
-
-  // const theme = useTheme();
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -113,36 +105,30 @@ export default function Navbar() {
 
   // Array to store mobile menu items, will be rendered by .map
   const menuItems = [
-    // {
-    //   ariaLabel: "donate",
-    //   icon: <MonetizationOnIcon />,
-    //   pLabel: "Donate",
-    //   link: "/donate",
-    // },
     {
       ariaLabel: "home",
       icon: <HomeIcon />,
       pLabel: "Home",
-      link: "/",
+      link: "/"
     },
     {
       ariaLabel: "courses",
       icon: <CategoryIcon href="/courses" />,
       pLabel: "Courses",
-      link: "/courses",
+      link: "/courses"
     },
     {
       ariaLabel: "teach",
       icon: <CreateIcon href="/teach" />,
       pLabel: "Teach!",
-      link: "/teach",
+      link: "/teach"
     },
     {
       ariaLabel: "about",
       icon: <InfoIcon href="/about" />,
       pLabel: "About LERN",
-      link: "/about",
-    },
+      link: "/about"
+    }
   ];
 
   // Mobile menu additions if logged IN
@@ -151,14 +137,14 @@ export default function Navbar() {
       ariaLabel: "profile",
       icon: <AccountCircleIcon />,
       pLabel: "Profile",
-      link: "/users/" + userData.user,
+      link: "/users/" + userData.user
     },
     {
       ariaLabel: "logout",
       icon: <ExitToAppIcon />,
       pLabel: "Logout",
-      link: "/logout",
-    },
+      link: "/logout"
+    }
   ];
 
   // Mobile menu additions if logged OUT
@@ -167,14 +153,14 @@ export default function Navbar() {
       ariaLabel: "register",
       icon: <PersonAddIcon />,
       pLabel: "Register",
-      link: "/register",
+      link: "/register"
     },
     {
       ariaLabel: "login",
       icon: <LockOpenIcon />,
       pLabel: "Login",
-      link: "/login",
-    },
+      link: "/login"
+    }
   ];
 
   return (
@@ -200,21 +186,20 @@ export default function Navbar() {
             </Button>
             {userData.user ? (
               <>
-                {/* <Button color="inherit" href={"/users/" + userData.user}>Profile</Button> */}
                 <Button color="inherit" href="/logout">
                   Logout
                 </Button>
               </>
             ) : (
-                <>
-                  <Button color="inherit" href="/register">
-                    Register
+              <>
+                <Button color="inherit" href="/register">
+                  Register
                 </Button>
-                  <Button color="inherit" href="/login">
-                    Login
+                <Button color="inherit" href="/login">
+                  Login
                 </Button>
-                </>
-              )}
+              </>
+            )}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -249,21 +234,21 @@ export default function Navbar() {
         ))}
         {userData.user
           ? loggedInMenu.map(item => (
-            <MenuItem key={item.pLabel} component={Link} to={item.link}>
-              <IconButton aria-label={item.ariaLabel} color="inherit">
-                <Badge color="secondary">{item.icon}</Badge>
-              </IconButton>
-              <p>{item.pLabel}</p>
-            </MenuItem>
-          ))
+              <MenuItem key={item.pLabel} component={Link} to={item.link}>
+                <IconButton aria-label={item.ariaLabel} color="inherit">
+                  <Badge color="secondary">{item.icon}</Badge>
+                </IconButton>
+                <p>{item.pLabel}</p>
+              </MenuItem>
+            ))
           : loggedOutMenu.map(item => (
-            <MenuItem key={item.pLabel} component={Link} to={item.link}>
-              <IconButton aria-label={item.ariaLabel} color="inherit">
-                <Badge color="secondary">{item.icon}</Badge>
-              </IconButton>
-              <p>{item.pLabel}</p>
-            </MenuItem>
-          ))}
+              <MenuItem key={item.pLabel} component={Link} to={item.link}>
+                <IconButton aria-label={item.ariaLabel} color="inherit">
+                  <Badge color="secondary">{item.icon}</Badge>
+                </IconButton>
+                <p>{item.pLabel}</p>
+              </MenuItem>
+            ))}
       </Menu>
       {renderMenu}
     </div>

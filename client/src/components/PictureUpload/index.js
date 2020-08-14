@@ -3,13 +3,13 @@ import axios from "axios";
 import UserContext from "../../UserContext/UserContext";
 import Button from "@material-ui/core/Button";
 import InputLabel from "@material-ui/core/InputLabel";
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
   autoMargin: {
     margin: "auto"
-  },
-}))
+  }
+}));
 
 function PictureUpload() {
   const { userData } = useContext(UserContext);
@@ -26,7 +26,7 @@ function PictureUpload() {
       method: "post",
       url: "/api/files/upload",
       data: formData,
-      headers: { "content-type": `multipart/form-data` },
+      headers: { "content-type": `multipart/form-data` }
     });
 
     // Update user profile with filename, then refresh page
@@ -34,7 +34,7 @@ function PictureUpload() {
     axios
       .put("/api/users/uploadPicture", {
         _id: userData._id,
-        imageURL: fileName,
+        imageURL: fileName
       })
       .then(() => {
         window.location.reload();
@@ -51,12 +51,11 @@ function PictureUpload() {
               className={classes.autoMargin}
               accept="image/*"
               type="file"
-              accept="image/*"
               name="file"
               id="file"
               onChange={e => setFile(e.target.files[0])}
             />
-          </InputLabel >
+          </InputLabel>
         </div>
         <br />
         <Button

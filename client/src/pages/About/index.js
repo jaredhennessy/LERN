@@ -1,33 +1,26 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1)
+    }
   },
-  title: {
-
-  },
+  title: {},
   text: {
     width: "60%",
     textAlign: "center",
     position: "relative",
     top: "0.8rem",
     left: "20%",
-    right: "20%",
-    // bottom: "4rem",
-  },
-
+    right: "20%"
+  }
 }));
 
 function About() {
-
   const classes = useStyles();
-
 
   return (
     <div>
@@ -37,15 +30,18 @@ function About() {
       <p className={classes.text}>
         A group of Web Development students re thinked accesible education...
       </p>
-      {/* <br /> */}
       <p className={classes.text}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        4 students out of the interest in getting a good grade in their final
+        Web Development Bootcamp project, and of course, creating a web
+        application that helps others gain access to free learning material,
+        LERN was created. Here you can find free material to different areas of
+        interest, from DIY to Economics.
       </p>
       <br />
       <br />
       <br />
     </div>
-  )
+  );
 }
 
 export default About;
