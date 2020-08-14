@@ -16,11 +16,9 @@ import Slide from "@material-ui/core/Slide";
 import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
-
   topMarg: {
-    marginTop: "1rem",
-  },
-
+    marginTop: "1rem"
+  }
 }));
 
 export default function UserDashboard() {
@@ -32,13 +30,13 @@ export default function UserDashboard() {
     completed: "",
     enrolled: "",
     inProgress: "",
-    percentComplete: "",
+    percentComplete: ""
   });
   const classes = useStyles();
   const [slide, setSlide] = useState(false);
 
   const slider = () => {
-    setSlide((prev) => !prev);
+    setSlide(prev => !prev);
   };
 
   useEffect(() => {
@@ -53,9 +51,9 @@ export default function UserDashboard() {
         completed: userCourseData.data.coursesCompleted,
         enrolled: userCourseData.data.coursesEnrolled,
         inProgress: userCourseData.data.coursesInProgress,
-        percentComplete: userCourseData.data.percentComplete,
-      })
-    }
+        percentComplete: userCourseData.data.percentComplete
+      });
+    };
     getCourses();
     slider();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -89,7 +87,9 @@ export default function UserDashboard() {
       <Container>
         <h2>LERNING</h2>
         <span>
-          <Button variant="contained" color="primary" href="/courses">Browse</Button>
+          <Button variant="contained" color="primary" href="/courses">
+            Browse
+          </Button>
         </span>
         {userCourses.learning.length ? (
           <Grid className={classes.topMarg} container spacing={3}>
@@ -116,15 +116,15 @@ export default function UserDashboard() {
             ))}
           </Grid>
         ) : (
-            <div >
-              <Typography gutterBottom variant="h5" component="h3">
-                You are not enrolled in any courses.
-          </Typography>
-              <Typography gutterBottom variant="h6" component="h4">
-                Click Browse to view Courses
-          </Typography>
-            </div>
-          )}
+          <div>
+            <Typography gutterBottom variant="h5" component="h3">
+              You are not enrolled in any courses.
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h4">
+              Click Browse to view Courses
+            </Typography>
+          </div>
+        )}
       </Container>
 
       <Grid item xs={12}>
@@ -134,7 +134,9 @@ export default function UserDashboard() {
       <Container>
         <h2>LERNED</h2>
         <span>
-          <Button variant="contained" color="primary" href="/courses">Browse</Button>
+          <Button variant="contained" color="primary" href="/courses">
+            Browse
+          </Button>
         </span>
         {userCourses.learned.length ? (
           <Grid className={classes.topMarg} container spacing={3}>
@@ -161,12 +163,12 @@ export default function UserDashboard() {
             ))}
           </Grid>
         ) : (
-            <div >
-              <Typography gutterBottom variant="h5" component="h3">
-                You have not completed in any courses.
-          </Typography>
-            </div>
-          )}
+          <div>
+            <Typography gutterBottom variant="h5" component="h3">
+              You have not completed any courses. Yet!
+            </Typography>
+          </div>
+        )}
       </Container>
 
       <Grid item xs={12}>
@@ -175,9 +177,13 @@ export default function UserDashboard() {
 
       <Container>
         <h2>TEACHING</h2>
-        <Button variant="contained" color="primary" href={"/teach/" + userData.user}>
+        <Button
+          variant="contained"
+          color="primary"
+          href={"/teach/" + userData.user}
+        >
           New Course
-            </Button>
+        </Button>
         {userCourses.teaching.length ? (
           <Grid className={classes.topMarg} container spacing={3}>
             {userCourses.teaching.map(course => (
@@ -203,18 +209,16 @@ export default function UserDashboard() {
             ))}
           </Grid>
         ) : (
-            <div >
-              <Typography gutterBottom variant="h5" component="h3">
-                You have not taught any courses.
-          </Typography>
-              <Typography gutterBottom variant="h6" component="h4">
-                Click New Course to teach a course.
-          </Typography>
-            </div>
-          )}
+          <div>
+            <Typography gutterBottom variant="h5" component="h3">
+              You have not taught any courses.
+            </Typography>
+            <Typography gutterBottom variant="h6" component="h4">
+              Click New Course to teach a course.
+            </Typography>
+          </div>
+        )}
       </Container>
     </Container>
   );
 }
-
-
