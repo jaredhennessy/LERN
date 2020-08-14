@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import { positions } from '@material-ui/system';
 import Avatar from "@material-ui/core/Avatar";
 import UserContext from "../../UserContext/UserContext";
 
