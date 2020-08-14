@@ -78,8 +78,8 @@ export default function CourseCard({
   return (
     <div>
       <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia className={classes.media} image={"/api/files/" + image} title={title} />
+        <CardActionArea onClick={handleClickOpen}>
+          <CardMedia className={classes.media} image={"/api/files/" + image} component="img" title={title} />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               {title}
