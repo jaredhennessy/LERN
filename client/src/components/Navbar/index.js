@@ -48,15 +48,15 @@ const useStyles = makeStyles(theme => ({
     }
   },
   sectionDesktop: {
-    display: "flex",
+    display: "none",
     justifyContent: "center",
-    [theme.breakpoints.up("md")]: {
-      display: "flex"
-    }
+    [theme.breakpoints.up("sm")]: {
+      display: "flex",
+    },
   },
   sectionMobile: {
     display: "flex",
-    [theme.breakpoints.up("md")]: {
+    [theme.breakpoints.up("sm")]: {
       display: "none",
       justify: "space-between"
     }
