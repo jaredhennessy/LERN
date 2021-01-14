@@ -8,15 +8,20 @@ const useStyles = makeStyles({
   card: {
     borderRadius: 0,
     boxShadow: "none",
-    alignItems: "left",
-    // backgroundColor: theme.palette.primary.main,
+    alignItems: "left"
   },
   leftText: {
     textAlign: "left"
   }
 });
 
-export default function UserStatsCard({ teachingCoursesLength, completed, enrolled, inProgress, percentComplete }) {
+export default function UserStatsCard({
+  teachingCoursesLength,
+  completed,
+  enrolled,
+  inProgress,
+  percentComplete
+}) {
   const classes = useStyles();
 
   return (
@@ -29,12 +34,11 @@ export default function UserStatsCard({ teachingCoursesLength, completed, enroll
           Courses In Progress <strong>{inProgress}</strong>
         </Typography>
         <Typography className={classes.leftText} variant="h5">
-          Courses Completed <strong>{completed} ({percentComplete}%)</strong>
+          Courses Completed{" "}
+          <strong>
+            {completed} ({percentComplete}%)
+          </strong>
         </Typography>
-        {/*  
-        <Typography className={classes.leftText} variant="h5">
-          Courses Completed <strong>{percentComplete}%</strong>
-        </Typography> */}
         <Typography className={classes.leftText} variant="h5">
           Courses Taught <strong>{teachingCoursesLength}</strong>
         </Typography>

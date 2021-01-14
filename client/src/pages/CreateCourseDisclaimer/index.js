@@ -1,34 +1,27 @@
 import React from "react";
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import { Link as RouterLink } from 'react-router-dom'
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import { Link as RouterLink } from "react-router-dom";
 
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
-    display: 'flex',
-    '& > *': {
-      margin: theme.spacing(1),
-    },
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1)
+    }
   },
-  title: {
-
-  },
+  title: {},
   text: {
     width: "60%",
     textAlign: "center",
     position: "relative",
     top: "0.8rem",
     left: "20%",
-    right: "20%",
-    // bottom: "4rem",
-  },
-
+    right: "20%"
+  }
 }));
 
-
 function CreateCourseDisclaimer() {
-
   const classes = useStyles();
 
   return (
@@ -37,9 +30,9 @@ function CreateCourseDisclaimer() {
       <h1>Terms and Conditions</h1>
 
       <p className={classes.text}>
-        In LERN, we believe in powerful education for all, no compromises, no fees…
+        In LERN, we believe in powerful education for all, no compromises, no
+        fees…
       </p>
-      {/* <br /> */}
       <p className={classes.text}>
         THE SERVICES AND ALL INCLUDED CONTENT ARE PROVIDED ON AN "AS IS" BASIS WITHOUT WARRANTY OF ANY KIND, WHETHER EXPRESS OR IMPLIED. THE LERN PARTIES SPECIFICALLY DISCLAIM ANY AND ALL WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT, AND ANY WARRANTIES ARISING OUT OF COURSE OF DEALING OR USAGE OF TRADE. THE LERN PARTIES FURTHER DISCLAIM ANY AND ALL LIABILITY RELATED TO YOUR ACCESS OR USE OF THE SERVICES OR ANY RELATED CONTENT. YOU ACKNOWLEDGE AND AGREE THAT ANY ACCESS TO OR USE OF THE SERVICES OR SUCH CONTENT IS AT YOUR OWN RISK.
         Limitation of Liability
@@ -69,15 +62,22 @@ function CreateCourseDisclaimer() {
         LERN's Content Providers, and integrated services providers are third party beneficiaries of the Terms and may enforce those provisions of the Terms that relate to them.
       </p>
       <br />
-      <Button variant="contained" color="primary" component={RouterLink} to="/newCourse">I agree to the terms</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        component={RouterLink}
+        to="/newCourse"
+      >
+        I agree to the terms
+      </Button>
       <br />
       <br />
-      <Button variant="contained" color="primary" component={RouterLink} to="/">I decline</Button>
+      <Button variant="contained" color="primary" component={RouterLink} to="/">
+        I decline
+      </Button>
       <br />
-
     </div>
-
-  )
+  );
 }
 
 export default CreateCourseDisclaimer;

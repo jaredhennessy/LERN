@@ -1,15 +1,8 @@
-
 import React from "react";
 
-
-
 function PictureUpload({ onChange, name }) {
-
-
-
   return (
-
-    <div >
+    <div>
       <div>
         <input
           accept="image/*"
